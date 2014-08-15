@@ -10,6 +10,7 @@ var htmlbuild = require('gulp-htmlbuild');
 var runSequence = require('run-sequence');
 var imagemin = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
+var closureCompiler = require('gulp-closure-compiler');
 
 var gulpSrc = function (opts) {
   var paths = es.through();
@@ -97,9 +98,22 @@ gulp.task('clean', function(cb) {
 
 });
 
+gulp.task('closureCompiler', function() {
+
+  return gulp.src('dist/min.js')
+    .pipe(closureCompiler({
+    compilerPath: 'bower_components/closure-compiler/compiler.jar',
+    fileName: 'min.js',
+    compilerFlags: {
+      compilation_level: 'ADVANCED_OPTIMIZATIONS',
+    }
+  }))
+    .pipe(gulp.dest('dist'));
+})
+
 gulp.task('default', function () {
 
-  runSequence('index', 'images', 'smoosher', 'clean');
+  runSequence('index', 'images', 'closureCompiler', 'smoosher', 'clean');
 
 });
 
