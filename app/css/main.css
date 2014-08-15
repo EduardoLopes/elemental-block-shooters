@@ -1,0 +1,19 @@
+body{
+  background: #e3e3e3;
+}
+
+img{
+  display: none;
+}
+
+/*container*/
+#c{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 640;
+  height: 384;
+}

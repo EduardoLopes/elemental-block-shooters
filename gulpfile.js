@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var del = require('del');
 var htmlmin = require('gulp-htmlmin');
 var smoosher = require('gulp-smoosher');
@@ -27,7 +26,6 @@ var gulpSrc = function (opts) {
 
 var jsBuild = es.pipeline(
   concat('min.js'),
-  uglify(),
   gulp.dest('./dist')
 );
 
@@ -106,6 +104,7 @@ gulp.task('closureCompiler', function() {
     fileName: 'min.js',
     compilerFlags: {
       compilation_level: 'ADVANCED_OPTIMIZATIONS',
+      warning_level: 'VERBOSE'
     }
   }))
     .pipe(gulp.dest('dist'));
