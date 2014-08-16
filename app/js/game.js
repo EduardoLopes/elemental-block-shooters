@@ -8,6 +8,7 @@ Game.init = function() {
   Game.currentState = 'play';
 
   Game.currentMap = new Game.Map();
+  Game.player = new Game.Player();
 
   Game.loop();
 };
@@ -18,6 +19,9 @@ Game.state['play'] = function() {
 
   Game.currentMap.draw();
   Game.currentMap.update();
+
+  Game.player.draw();
+  Game.player.update();
 
 };
 

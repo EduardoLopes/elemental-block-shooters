@@ -8,6 +8,7 @@ img{
 
 /*container*/
 #c{
+  border: #3a714a solid 1px;
   position: absolute;
   left: 0;
   top: 0;
@@ -16,4 +17,5 @@ img{
   margin: auto;
   width: 640;
   height: 384;
+  background: #CEF3B6;
 }

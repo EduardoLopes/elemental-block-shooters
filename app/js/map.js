@@ -1,13 +1,5 @@
 var w = 0, h = 0, i = 0;
 
-var keys = {
-  up: false,
-  right: false,
-  down: false,
-  left: false,
-  keydown: false
-};
-
  /**
  * Map render
  *
@@ -19,6 +11,7 @@ Game.Map = function() {
   this.map = [];
   this.spriteCoords = [];
   this.camera = {x: 0, y: 0};
+  this.cameraPosition = {x: 0, y: 0};
   this.viewport = {
     width: Game.width + 32,
     height: Game.height + 32
@@ -41,7 +34,7 @@ Game.Map.prototype.generate = function() {
 
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
-      this.map[this.cols * h + w] = randomChoice([0,1,2,3]);
+      this.map[this.cols * h + w] = randomChoice([0,0,0,1]);
     }
   }
 
@@ -49,7 +42,7 @@ Game.Map.prototype.generate = function() {
 
 Game.Map.prototype.drawTile = function(w, h, type) {
 
-  if(type > 0){
+  if(type > -1){
     Game.c1ctx.drawImage(
       Game.sprites,
       this.spriteCoords[type][0] * Game.tileSize,
@@ -85,69 +78,14 @@ Game.Map.prototype.draw = function() {
 
 Game.Map.prototype.update = function() {
 
-  if(keys.up){
-    if(this.camera.y > 0) this.camera.y += -16;
-  }
+  this.camera.x += (this.cameraPosition.x - this.camera.x) * 0.1;
+  this.camera.y += (this.cameraPosition.y - this.camera.y) * 0.1;
 
-  if(keys.down){
-    if( this.camera.y < (Game.tileSize * this.rows) - this.viewport.height ) this.camera.y += +16;
-  }
-
-  if(keys.right){
-    if( this.camera.x < (Game.tileSize * this.cols) ) this.camera.x += +16;
-  }
-
-  if(keys.left){
-    if( this.camera.x > 0) this.camera.x += -16;
-  }
+  this.camera.x = Math.max(0, this.camera.x);
+  this.camera.x = Math.min(this.camera.x, Game.tileSize * this.cols);
+  this.camera.y = Math.max(0, this.camera.y);
+  this.camera.y = Math.min(this.camera.y, (Game.tileSize * this.rows) - this.viewport.height );
 
 };
 
 
-document.addEventListener('keydown', function(e) {
-
-  //38 up
-  if(e.keyCode === 38){
-    keys.up = true;
-  }
-
-  //39 right
-  if(e.keyCode === 39){
-    keys.right = true;
-  }
-
-  //40 bottom
-  if(e.keyCode === 40){
-    keys.down = true;
-  }
-
-  //37 left
-  if(e.keyCode === 37){
-    keys.left = true;
-  }
-
-});
-
-document.addEventListener('keyup', function(e) {
-
-   //38 up
-  if(e.keyCode === 38){
-    keys.up = false;
-  }
-
-  //39 right
-  if(e.keyCode === 39){
-    keys.right = false;
-  }
-
-  //40 bottom
-  if(e.keyCode === 40){
-    keys.down = false;
-  }
-
-  //37 left
-  if(e.keyCode === 37){
-    keys.left = false;
-  }
-
-});
