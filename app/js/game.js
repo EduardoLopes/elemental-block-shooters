@@ -17,11 +17,11 @@ Game.state = [];
 
 Game.state['play'] = function() {
 
-  Game.currentMap.draw();
+  Game.player.update();
   Game.currentMap.update();
 
+  Game.currentMap.draw();
   Game.player.draw();
-  Game.player.update();
 
 };
 

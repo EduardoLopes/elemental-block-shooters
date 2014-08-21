@@ -103,8 +103,7 @@ gulp.task('closureCompiler', function() {
     compilerPath: 'bower_components/closure-compiler/compiler.jar',
     fileName: 'min.js',
     compilerFlags: {
-      compilation_level: 'ADVANCED_OPTIMIZATIONS',
-      warning_level: 'VERBOSE'
+      compilation_level: 'ADVANCED_OPTIMIZATIONS'
     }
   }))
     .pipe(gulp.dest('dist'));
