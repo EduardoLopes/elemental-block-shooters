@@ -48,6 +48,13 @@ Game.Map.prototype.generate = function() {
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
       this.map[this.cols * h + w] = new MapNode(w, h, this.cols * h + w);
+
+      //Walls
+      if(h === 0) this.map[this.cols * h + w].type = 1;
+      if(w === 0) this.map[this.cols * h + w].type = 1;
+      if(h === this.rows - 1) this.map[this.cols * h + w].type = 1;
+      if(w === this.cols - 1) this.map[this.cols * h + w].type = 1;
+
     }
   }
 
@@ -163,11 +170,8 @@ Game.Map.prototype.update = function() {
   this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.2);
   this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.2);
 
-  this.camera.x = Math.max(0, this.camera.x);
-  this.camera.x = Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width);
-
-  this.camera.y = Math.max(0, this.camera.y);
-  this.camera.y = Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height);
+  this.camera.x = Math.max(0, Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width));
+  this.camera.y = Math.max(0, Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height));
 
 };
 

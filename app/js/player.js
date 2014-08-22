@@ -207,7 +207,7 @@ Game.Player.prototype.draw = function() {
   Game.c1ctx.fillRect(this.x - Game.currentMap.camera.x, this.y - Game.currentMap.camera.y, this.size, this.size);
 
   //DEBUG: SHOW THE ID OF THE CURRENT TILE
-  Game.c1ctx.fillText(Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize), 10,10);
+  //Game.c1ctx.fillText(Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize), 10,10);
 
   //COLLSION DETECTION DEBUG
   // Game.c1ctx.fillStyle = 'rgba(24,24,24,0.5)';
