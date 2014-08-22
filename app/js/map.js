@@ -26,8 +26,8 @@ Game.Map = function() {
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
   this.viewport = {
-    width: Game.width + 32,
-    height: Game.height + 32
+    width: Game.width,
+    height: Game.height
   };
 
   for (h = 0; h < Game.sprites.height / Game.tileSize; h++) {
@@ -47,7 +47,7 @@ Game.Map.prototype.generate = function() {
 
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
-      this.map[this.cols * h + w] = new MapNode(w,h, this.cols * h + w);
+      this.map[this.cols * h + w] = new MapNode(w, h, this.cols * h + w);
     }
   }
 
@@ -124,10 +124,19 @@ Game.Map.prototype.draw = function() {
 
   h = (this.camera.y / Game.tileSize) >> 0;
 
-  for ( ; h < lastRightRow; h++) {
-    for ( w = ((this.camera.x / Game.tileSize) >> 0) ; w < lastRightCol; w++) {
+  if(this.camera.x % Game.tileSize){
+    lastRightCol+=1;
+  }
 
-        this.drawTile(w, h, this.map[this.cols * h + w].type);
+  if(this.camera.y % Game.tileSize){
+    lastRightRow+=1;
+  }
+
+  for ( ; h < lastRightRow; h++) {
+    w = ((this.camera.x / Game.tileSize) >> 0);
+    for ( ; w < lastRightCol && lastRightCol; w++) {
+
+      this.drawTile(w, h, this.map[this.cols * h + w].type);
 
         //crazy stuff to show all edged that can collide
         // Game.c1ctx.fillStyle = '#CF2B2B';
@@ -151,13 +160,14 @@ Game.Map.prototype.draw = function() {
 
 Game.Map.prototype.update = function() {
 
-  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
-  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
+  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.2);
+  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.2);
 
   this.camera.x = Math.max(0, this.camera.x);
-  this.camera.x = Math.min(this.camera.x, Game.tileSize * this.cols);
+  this.camera.x = Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width);
+
   this.camera.y = Math.max(0, this.camera.y);
-  this.camera.y = Math.min(this.camera.y, (Game.tileSize * this.rows) - this.viewport.height );
+  this.camera.y = Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height);
 
 };
 

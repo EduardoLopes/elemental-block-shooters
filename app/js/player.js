@@ -56,7 +56,7 @@ Game.Player.prototype.update = function() {
 
   this.overlaping.length = 0;
   this.colliding.length = 0;
-
+  //console.log();
   this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
   this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
   this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
@@ -65,7 +65,7 @@ Game.Player.prototype.update = function() {
   for (var i = 0; i < this.overlaping.length; i++) {
 
     if(this.intercects(this.overlaping[i])){
-
+      //COLLISION DETECTION DEBUG
       this.colliding.push(this.overlaping[i]);
 
        if(this.overlaping[i].edges.indexOf('r') > -1 && this.intercectsRight( this.overlaping[i] ) ){
@@ -206,10 +206,14 @@ Game.Player.prototype.draw = function() {
   Game.c1ctx.fillStyle = '#181818';
   Game.c1ctx.fillRect(this.x - Game.currentMap.camera.x, this.y - Game.currentMap.camera.y, this.size, this.size);
 
-  Game.c1ctx.fillStyle = 'rgba(24,24,24,0.5)';
-  for (var i = 0; i < this.colliding.length; i++) {
-    Game.c1ctx.fillRect((this.colliding[i].x * 32) - Game.currentMap.camera.x, (this.colliding[i].y * 32) - Game.currentMap.camera.y, 32, 32);
-  };
+  //DEBUG: SHOW THE ID OF THE CURRENT TILE
+  Game.c1ctx.fillText(Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize), 10,10);
+
+  //COLLSION DETECTION DEBUG
+  // Game.c1ctx.fillStyle = 'rgba(24,24,24,0.5)';
+  // for (var i = 0; i < this.overlaping.length; i++) {
+  //   Game.c1ctx.fillRect((this.overlaping[i].x * 32) - Game.currentMap.camera.x, (this.overlaping[i].y * 32) - Game.currentMap.camera.y, 32, 32);
+  // };
 };
 
 document.addEventListener('keydown', function(e) {
