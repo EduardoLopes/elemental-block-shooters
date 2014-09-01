@@ -1,4 +1,4 @@
-var w = 0, h = 0, i = 0;
+var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
 /**
  * @constructor
  */
@@ -22,7 +22,6 @@ Game.Map = function() {
   this.cols = 64;
   this.rows = 64;
   this.map = [];
-  this.spriteCoords = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
   this.viewport = {
@@ -30,17 +29,16 @@ Game.Map = function() {
     height: Game.height
   };
 
-  for (h = 0; h < Game.sprites.height / Game.tileSize; h++) {
-    for (w = 0; w < Game.sprites.width / Game.tileSize; w++) {
-
-      this.spriteCoords[i] = [w, h];
-      i++;
-
-    }
-  }
-
   this.generate();
 
+};
+
+Game.Map.prototype.room = function(x,y,width,height) {
+  for (h = x; h < width; h++) {
+    for (w = y; w < height; w++) {
+      this.map[this.cols * h + w].type = 0;
+    }
+  }
 };
 
 Game.Map.prototype.generate = function() {
@@ -57,6 +55,10 @@ Game.Map.prototype.generate = function() {
 
     }
   }
+
+  this.room(5,5,15,15);
+  this.room(14,14,25,25);
+
 
   this.findAdjacents();
 
@@ -106,12 +108,13 @@ Game.Map.prototype.addAdjacents = function(node, adjacent) {
 };
 
 Game.Map.prototype.drawTile = function(w, h, type) {
+  spriteCoords.y = Math.floor(type / 10);
+  spriteCoords.x = (type - spriteCoords.y * 10);
 
-  if(type > -1){
     Game.c1ctx.drawImage(
       Game.sprites,
-      this.spriteCoords[type][0] * Game.tileSize,
-      this.spriteCoords[type][1] * Game.tileSize,
+      spriteCoords.x * Game.tileSize,
+      spriteCoords.y * Game.tileSize,
       Game.tileSize,
       Game.tileSize,
       (w * Game.tileSize) - this.camera.x,
@@ -119,7 +122,6 @@ Game.Map.prototype.drawTile = function(w, h, type) {
       Game.tileSize,
       Game.tileSize
     );
-  }
 
 };
 
@@ -167,8 +169,8 @@ Game.Map.prototype.draw = function() {
 
 Game.Map.prototype.update = function() {
 
-  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.2);
-  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.2);
+  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
+  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
 
   this.camera.x = Math.max(0, Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width));
   this.camera.y = Math.max(0, Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height));
