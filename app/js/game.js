@@ -15,21 +15,34 @@ Game.init = function() {
 
 Game.state = [];
 
-Game.state['play'] = function() {
+Game.state['play'] = {
+  update: function() {
 
-  Game.player.update();
-  Game.currentMap.update();
+    Game.player.update();
+    Game.currentMap.update();
 
-  Game.currentMap.draw();
-  Game.player.draw();
+  },
+  draw: function() {
 
-};
+    Game.currentMap.draw();
+    Game.player.draw();
 
-Game.loop = function() {
+  }
+}
 
-  Game.c1.width = Game.width;
 
-  Game.state[Game.currentState]();
+Game.loop = function(timestamp) {
+  Game.delta = timestamp - Game.last;
+
+  Game.state[Game.currentState].update();
+
+  //if (Game.delta > 1000 / 30){
+
+    Game.state[Game.currentState].draw();
+
+    Game.last = timestamp - (Game.delta % 1000 / 30);
+
+  //}
 
   requestAnimationFrame(Game.loop);
 

@@ -169,8 +169,11 @@ Game.Map.prototype.draw = function() {
 
 Game.Map.prototype.update = function() {
 
-  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
-  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
+  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.05);
+  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.05);
+
+  // this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
+  // this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
 
   this.camera.x = Math.max(0, Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width));
   this.camera.y = Math.max(0, Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height));

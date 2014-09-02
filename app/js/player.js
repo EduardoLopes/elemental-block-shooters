@@ -10,12 +10,13 @@ var keys = {
  * @constructor
  */
 Game.Player = function() {
+
   this.size = 16;
   this.x = (Game.width / 2) - (this.size / 2);
   this.y = (Game.height / 2) - (this.size / 2);
   this.vx = 0;
   this.vy = 0;
-  this.speed = 2;
+  this.speed = 0.8;
   this.maxSpeed = 20;
   this.overlaping = [];
   this.nextX = this.x;
@@ -55,7 +56,7 @@ Game.Player.prototype.update = function() {
   this.nextY += this.vy;
 
   this.overlaping.length = 0;
-  this.colliding.length = 0;
+  //this.colliding.length = 0;
   //console.log();
   this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
   this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
@@ -66,7 +67,7 @@ Game.Player.prototype.update = function() {
 
     if(this.intercects(this.overlaping[i])){
       //COLLISION DETECTION DEBUG
-      this.colliding.push(this.overlaping[i]);
+      //this.colliding.push(this.overlaping[i]);
 
        if(this.overlaping[i].edges.indexOf('r') > -1 && this.intercectsRight( this.overlaping[i] ) ){
 

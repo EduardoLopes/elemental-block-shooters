@@ -1,7 +1,10 @@
 var Game = {
-  width: 640,
-  height: 384,
-  tileSize: 32
+  width: 32 * 20,
+  height: 32 * 12,
+  tileSize: 32,
+  now: 0,
+  last: 0,
+  delta: 0
 };
 
 function random( min, max ) {
