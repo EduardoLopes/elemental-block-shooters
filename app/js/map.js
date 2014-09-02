@@ -4,13 +4,22 @@ var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
  */
 function MapNode(x,y,i) {
 
-  this.type = randomChoice([0,0,0,1]);
+  this.solid = null;
+  this.setType( randomChoice( [11, 11, 11, 3] ) );
   this.entity = [];
   this.x = x;
   this.y = y;
   this.i = i;
   this.adjacents = [];
   this.edges = [];
+
+};
+
+MapNode.prototype.setType = function(type) {
+
+  this.type = type;
+  this.solid = Game.solidTiles.indexOf(type) > -1;
+
 };
 
  /**
@@ -36,7 +45,7 @@ Game.Map = function() {
 Game.Map.prototype.room = function(x,y,width,height) {
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
-      this.map[this.cols * h + w].type = 0;
+      this.map[this.cols * h + w].type = 11;
     }
   }
 };
@@ -48,10 +57,10 @@ Game.Map.prototype.generate = function() {
       this.map[this.cols * h + w] = new MapNode(w, h, this.cols * h + w);
 
       //Walls
-      if(h === 0) this.map[this.cols * h + w].type = 1;
-      if(w === 0) this.map[this.cols * h + w].type = 1;
-      if(h === this.rows - 1) this.map[this.cols * h + w].type = 1;
-      if(w === this.cols - 1) this.map[this.cols * h + w].type = 1;
+      if(h === 0) this.map[this.cols * h + w].setType(3);
+      if(w === 0) this.map[this.cols * h + w].setType(3);
+      if(h === this.rows - 1) this.map[this.cols * h + w].setType(3);
+      if(w === this.cols - 1) this.map[this.cols * h + w].setType(3);
 
     }
   }
@@ -73,21 +82,22 @@ Game.Map.prototype.findAdjacents = function() {
       this.addAdjacents(this.map[this.cols * h + w], this.map[this.cols * (h - 1) + w]);
       this.addAdjacents(this.map[this.cols * h + w], this.map[this.cols * (h) + (w + 1)]);
       this.addAdjacents(this.map[this.cols * h + w], this.map[this.cols * (h) + (w - 1)]);
-      if(this.map[this.cols * h + w].type === 1){
-        if(typeof this.map[this.cols * (h + 1) + w] !== 'undefined' && this.map[this.cols * (h + 1) + w].type !== 1){
+      if(this.map[this.cols * h + w].solid){
+        if(typeof this.map[this.cols * (h + 1) + w] !== 'undefined' && !this.map[this.cols * (h + 1) + w].solid){
           this.map[this.cols * h + w].edges.push('b');
         }
 
-        if(typeof this.map[this.cols * (h - 1) + w] !== 'undefined' && this.map[this.cols * (h - 1) + w].type !== 1){
+        if(typeof this.map[this.cols * (h - 1) + w] !== 'undefined' && !this.map[this.cols * (h - 1) + w].solid){
           this.map[this.cols * h + w].edges.push('t');
         }
 
-        if(typeof this.map[this.cols * (h) + (w + 1)] !== 'undefined' && this.map[this.cols * (h) + (w + 1)].type !== 1){
+        if(typeof this.map[this.cols * (h) + (w + 1)] !== 'undefined' && !this.map[this.cols * (h) + (w + 1)].solid){
           this.map[this.cols * h + w].edges.push('r');
         }
 
-        if(typeof this.map[this.cols * (h) + (w - 1)] !== 'undefined' && this.map[this.cols * (h) + (w - 1)].type !== 1){
+        if(typeof this.map[this.cols * (h) + (w - 1)] !== 'undefined' && !this.map[this.cols * (h) + (w - 1)].solid){
           this.map[this.cols * h + w].edges.push('l');
+
         }
       }
 
@@ -112,7 +122,7 @@ Game.Map.prototype.drawTile = function(w, h, type) {
   spriteCoords.x = (type - spriteCoords.y * 10);
 
     Game.c1ctx.drawImage(
-      Game.sprites,
+      Game.spriteCache,
       spriteCoords.x * Game.tileSize,
       spriteCoords.y * Game.tileSize,
       Game.tileSize,

@@ -150,7 +150,7 @@ Game.Player.prototype.addOverlaping = function(node) {
 
 
 Game.Player.prototype.intercects = function(obj){
-  if(obj && obj.type === 1){
+  if(obj && obj.solid){
 
     if((obj.x * Game.tileSize) < this.nextX + this.size && (obj.y * Game.tileSize) < this.nextY + this.size &&
        (obj.x * Game.tileSize) + Game.tileSize > this.nextX && (obj.y * Game.tileSize) + Game.tileSize > this.nextY ){
