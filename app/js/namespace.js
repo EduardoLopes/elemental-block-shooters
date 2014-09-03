@@ -5,7 +5,7 @@ var Game = {
   now: 0,
   last: 0,
   delta: 0,
-  solidTiles: [0,1,2,3,10,12,20,21,22]
+  solidTiles: [0,1,2,3,10,11,12,13,20,21,22,23,30,31,32,33]
 };
 
 function random( min, max ) {

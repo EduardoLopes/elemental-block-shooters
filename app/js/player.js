@@ -9,11 +9,11 @@ var keys = {
  /**
  * @constructor
  */
-Game.Player = function() {
+Game.Player = function(x,y) {
 
   this.size = 16;
-  this.x = (Game.width / 2) - (this.size / 2);
-  this.y = (Game.height / 2) - (this.size / 2);
+  this.x = x;
+  this.y = y;
   this.vx = 0;
   this.vy = 0;
   this.speed = 0.8;

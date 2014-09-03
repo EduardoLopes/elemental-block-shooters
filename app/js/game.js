@@ -5,17 +5,37 @@ function generateSprite (){
 
   Game.spriteCacheCtx.fillStyle = '#7ea862';
   Game.spriteCacheCtx.fillRect(Game.tileSize * 3,0, Game.tileSize, (Game.tileSize));
-  Game.spriteCacheCtx.fillStyle = '#c8eba7';
+  Game.spriteCacheCtx.fillStyle = '#aecc91';
   Game.spriteCacheCtx.fillRect((Game.tileSize * 3) + 2, 2, Game.tileSize - 4, (Game.tileSize) - 8);
   Game.spriteCacheCtx.fillStyle = '#90c170';
   Game.spriteCacheCtx.fillRect(Game.tileSize * 3, Game.tileSize - 4, Game.tileSize, 4);
 
+  Game.spriteCacheCtx.fillStyle = '#c8eba7';
+  Game.spriteCacheCtx.fillRect(Game.tileSize * 4,0, Game.tileSize, (Game.tileSize));
+
   Game.spriteCacheCtx.fillStyle = '#7ea862';
   Game.spriteCacheCtx.fillRect(0,0, Game.tileSize * 3, Game.tileSize * 3);
-  Game.spriteCacheCtx.fillStyle = '#c8eba7';
+  Game.spriteCacheCtx.fillStyle = '#aecc91';
   Game.spriteCacheCtx.fillRect(2,2, (Game.tileSize * 3) - 4, (Game.tileSize * 3) - 8);
   Game.spriteCacheCtx.fillStyle = '#90c170';
   Game.spriteCacheCtx.fillRect(0, (Game.tileSize * 3) - 4, (Game.tileSize * 3), 4);
+
+  Game.spriteCacheCtx.fillStyle = '#7ea862';
+  Game.spriteCacheCtx.fillRect(0,(Game.tileSize * 3) , Game.tileSize * 3, Game.tileSize);
+  Game.spriteCacheCtx.fillStyle = '#aecc91';
+  Game.spriteCacheCtx.fillRect(2, (Game.tileSize * 3) + 2, (Game.tileSize * 3) - 4, Game.tileSize - 8);
+  Game.spriteCacheCtx.fillStyle = '#90c170';
+  Game.spriteCacheCtx.fillRect(0, (Game.tileSize * 4) - 4, (Game.tileSize * 3), 4);
+
+  Game.spriteCacheCtx.fillStyle = '#7ea862';
+  Game.spriteCacheCtx.fillRect(Game.tileSize * 3, (Game.tileSize * 1), Game.tileSize, Game.tileSize * 3);
+  Game.spriteCacheCtx.fillStyle = '#aecc91';
+  Game.spriteCacheCtx.fillRect((Game.tileSize * 3) + 2,(Game.tileSize * 1) + 2, Game.tileSize - 4, (Game.tileSize * 3) - 8);
+  Game.spriteCacheCtx.fillStyle = '#90c170';
+  Game.spriteCacheCtx.fillRect(Game.tileSize * 3, (Game.tileSize * 4) - 4, Game.tileSize, 4);
+
+  // Game.spriteCacheCtx.fillStyle = '#c8eba7';
+  // Game.spriteCacheCtx.fillRect(0, 0, Game.tileSize * 4, Game.tileSize * 2);
 
   console.log(Game.spriteCache.toDataURL('image/png'));
 
@@ -35,7 +55,7 @@ Game.init = function() {
   Game.currentState = 'play';
 
   Game.currentMap = new Game.Map();
-  Game.player = new Game.Player();
+  Game.player = new Game.Player(250,250);
 
   Game.loop();
 };
