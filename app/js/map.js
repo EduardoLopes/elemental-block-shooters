@@ -4,22 +4,21 @@ var types = [];
 types[11] = 'w'; //walls
 types[4] = 'f'; //floor
 
-var type = {
-  w: {
-    typeString: 'w',
-    defaultIndex: 11,
-    rules: []
-  },
-  f: {
-    typeString: 'f',
-    defaultIndex: 4,
-    rules: []
-  }
+var type = [];
+type['w'] = {
+  typeString: 'w',
+  defaultIndex: 11,
+  rules: []
+};
+type['f'] =  {
+  typeString: 'f',
+  defaultIndex: 4,
+  rules: []
 };
 
 
 function pushRuler(i, r){
-  type.w.rules.push({tileIndex: i, map: r});
+  type['w'].rules.push({tileIndex: i, map: r});
 };
 //this is for save some bytes
 pushRuler(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
