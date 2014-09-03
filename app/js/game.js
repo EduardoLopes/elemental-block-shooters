@@ -43,6 +43,12 @@ function generateSprite (){
   rect((Game.tileSize * 9) - 2, (Game.tileSize * 1) - 14, 4, 16, '#7ea862');
   rect((Game.tileSize * 9) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
 
+  rect((Game.tileSize * 7), (Game.tileSize * 3), (Game.tileSize * 3),Game.tileSize, '#aecc91');
+  rect((Game.tileSize * 8) - 2, (Game.tileSize * 4) - 14, 4, 14, '#7ea862');
+  rect((Game.tileSize * 8) - 2, (Game.tileSize * 3), 4, 2, '#7ea862');
+  rect((Game.tileSize * 9) - 2, (Game.tileSize * 4) - 14, 4, 14, '#7ea862');
+  rect((Game.tileSize * 9) - 2, (Game.tileSize * 3), 4, 2, '#7ea862');
+
   // Game.spriteCacheCtx.fillStyle = '#c8eba7';
   // Game.spriteCacheCtx.fillRect(0, 0, Game.tileSize * 4, Game.tileSize * 2);
 
