@@ -2,7 +2,7 @@ var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
 
 var types = [];
 types[11] = 'w'; //walls
-types[4] = 'f'; //floor
+types[34] = 'f'; //floor
 
 var type = [];
 type['w'] = {
@@ -12,7 +12,7 @@ type['w'] = {
 };
 type['f'] =  {
   typeString: 'f',
-  defaultIndex: 4,
+  defaultIndex: 34,
   rules: []
 };
 
@@ -25,26 +25,37 @@ pushRuler(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
 pushRuler(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
 pushRuler(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
 pushRuler(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
-pushRuler(5, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
-pushRuler(6, {n: '!w', e: 'w', se: '!w', s: 'w', w: 'w', sw: '!w' });
-pushRuler(7, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
+pushRuler(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRuler(6, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
+pushRuler(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRuler(8, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRuler(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
 pushRuler(10, {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'});
-pushRuler(11, {n: 'w', e: 'w', s: 'w', w: 'w'});
+pushRuler(11,  {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRuler(12, {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'});
 pushRuler(13, {n: '!w', e: '!w',s: 'w', w: '!w' });
-pushRuler(15, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
-pushRuler(17, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
-pushRuler(20, {e: 'w', s: '!w', w: '!w', n: 'w', ne: 'w' });
+pushRuler(14, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
+pushRuler(16, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
+pushRuler(17, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRuler(18, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRuler(19, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRuler(20, {n: 'w', ne: 'w', e: 'w', s: '!w', w: '!w'});
 pushRuler(21, {e: 'w', s: '!w', w: 'w', n: 'w'});
 pushRuler(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
 pushRuler(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
+pushRuler(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
 pushRuler(25, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
-pushRuler(26, {n: 'w',  ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
-pushRuler(27, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
+//pushRuler(26, {n: 'w',  ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
+pushRuler(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
+pushRuler(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRuler(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRuler(29, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 pushRuler(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
 pushRuler(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
 pushRuler(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
 pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
+pushRuler(5, {n: '!w', e: 'w', se: '!w', s: 'w',sw: '!w', w: 'w'});
+
 
 /**
  * @constructor
@@ -52,7 +63,7 @@ pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
 function MapNode(x,y,i) {
 
   this.solid = null;
-  this.setModelType( randomChoice( [4, 4, 4, 11] ) );
+  this.setModelType( randomChoice( [34, 34, 34, 11] ) );
   this.entity = [];
   this.x = x;
   this.y = y;
@@ -100,9 +111,21 @@ Game.Map = function() {
 Game.Map.prototype.room = function(x,y,width,height) {
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
-      this.map[this.cols * h + w].setModelType(11);
+      this.map[this.cols * h + w].setModelType(34);
     }
   }
+
+  this.map[this.cols * 6 + 6].setModelType(34);
+  this.map[this.cols * 6 + 7].setModelType(11);
+  this.map[this.cols * 6 + 8].setModelType(11);
+  this.map[this.cols * 7 + 6].setModelType(11);
+  this.map[this.cols * 7 + 7].setModelType(11);
+  this.map[this.cols * 7 + 8].setModelType(11);
+  this.map[this.cols * 8 + 6].setModelType(11);
+  this.map[this.cols * 8 + 7].setModelType(11);
+  this.map[this.cols * 8 + 8].setModelType(11);
+
+
 };
 
 Game.Map.prototype.generate = function() {

@@ -8,11 +8,14 @@ function generateSprite (){
   Game.spriteCache = document.createElement('canvas');
   Game.spriteCacheCtx = Game.spriteCache.getContext('2d');
 
+  Game.spriteCache.width = 320;
+  Game.spriteCache.height = 384;
+
   rect(Game.tileSize * 3,0, Game.tileSize, (Game.tileSize),'#7ea862');
   rect((Game.tileSize * 3) + 2, 2, Game.tileSize - 4, (Game.tileSize) - 8,'#aecc91');
   rect(Game.tileSize * 3, Game.tileSize - 4, Game.tileSize, 4,'#90c170');
 
-  rect(Game.tileSize * 4, 0, Game.tileSize, (Game.tileSize), '#c8eba7');
+  rect(Game.tileSize * 4,  Game.tileSize * 3, Game.tileSize, (Game.tileSize), '#c8eba7');
 
   rect(0, 0, Game.tileSize * 3, Game.tileSize * 3, '#7ea862');
   rect(2,2, (Game.tileSize * 3) - 4, (Game.tileSize * 3) - 8, '#aecc91');
@@ -26,13 +29,19 @@ function generateSprite (){
   rect((Game.tileSize * 3) + 2,(Game.tileSize * 1) + 2, Game.tileSize - 4, (Game.tileSize * 3) - 8, '#aecc91');
   rect(Game.tileSize * 3, (Game.tileSize * 4) - 4, Game.tileSize, 4, '#90c170');
 
-  rect(Game.tileSize * 5, 0, Game.tileSize * 3, Game.tileSize * 3, '#7ea862');
-  rect((Game.tileSize * 5) + 2, 2, (Game.tileSize * 3) - 4, (Game.tileSize * 3) - 8, '#aecc91');
-  rect(Game.tileSize * 5, (Game.tileSize * 3) - 4, (Game.tileSize * 3), 4, '#90c170');
+  rect(Game.tileSize * 4, 0, Game.tileSize * 3, Game.tileSize * 3, '#7ea862');
+  rect((Game.tileSize * 4) + 2, 2, (Game.tileSize * 3) - 4, (Game.tileSize * 3) - 8, '#aecc91');
+  rect(Game.tileSize * 4, (Game.tileSize * 3) - 4, (Game.tileSize * 3), 4, '#90c170');
+  rect((Game.tileSize * 5) - 2, (Game.tileSize * 1) - 6, 4, 10, '#7ea862');
+  rect((Game.tileSize * 5) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
   rect((Game.tileSize * 6) - 2, (Game.tileSize * 1) - 6, 4, 10, '#7ea862');
   rect((Game.tileSize * 6) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
-  rect((Game.tileSize * 7) - 2, (Game.tileSize * 1) - 6, 4, 10, '#7ea862');
-  rect((Game.tileSize * 7) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
+
+  rect((Game.tileSize * 7), 0, (Game.tileSize * 3), (Game.tileSize * 3), '#aecc91');
+  rect((Game.tileSize * 8) - 2, (Game.tileSize * 1) - 6, 4, 10, '#7ea862');
+  rect((Game.tileSize * 8) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
+  rect((Game.tileSize * 9) - 2, (Game.tileSize * 1) - 6, 4, 10, '#7ea862');
+  rect((Game.tileSize * 9) - 2, (Game.tileSize * 2) - 2, 4, 4, '#7ea862');
 
   // Game.spriteCacheCtx.fillStyle = '#c8eba7';
   // Game.spriteCacheCtx.fillRect(0, 0, Game.tileSize * 4, Game.tileSize * 2);
