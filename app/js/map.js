@@ -1,34 +1,34 @@
 var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
 
 var types = [];
-types[11] = 'wall';
-types[4] = 'floor';
+types[11] = 'w'; //walls
+types[4] = 'f'; //floor
 
 var type = {
-  wall: {
-    typeString: 'wall',
+  w: {
+    typeString: 'w',
     defaultIndex: 11,
     rules: [
-      {tileIndex: 0, map: {e: 'wall', s: 'wall',w: 'floor', n: 'floor' }},
-      {tileIndex: 1, map: {e: 'wall', s: 'wall',w: 'wall', n: 'floor' }},
-      {tileIndex: 2, map: {n: 'floor', e: 'floor',s: 'wall', w: 'wall' }},
-      {tileIndex: 3, map: {e: 'floor', w: 'floor', s: 'floor', n: 'floor'}},
-      {tileIndex: 10, map: {n: 'wall', e: 'wall',s: 'wall', w: 'floor' }},
-      {tileIndex: 11, map: {e: 'wall', w: 'wall', s: 'wall', n: 'wall'}},
-      {tileIndex: 12, map: {w: 'wall', s: 'wall', n: 'wall', e: 'floor'}},
-      {tileIndex: 13, map: {n: 'floor', e: 'floor',s: 'wall', w: 'floor' }},
-      {tileIndex: 20, map: {e: 'wall', s: 'floor', w: 'floor', n: 'wall' }},
-      {tileIndex: 21, map: {e: 'wall', s: 'floor', w: 'wall', n: 'wall' }},
-      {tileIndex: 22, map: {n: 'wall', e: 'floor',s: 'floor', w: 'wall' }},
-      {tileIndex: 23, map: {n: 'wall', e: 'floor',s: 'wall', w: 'floor' }},
-      {tileIndex: 30, map: {n: 'floor', e: 'wall',s: 'floor', w: 'floor' }},
-      {tileIndex: 31, map: {n: 'floor', e: 'wall',s: 'floor', w: 'wall' }},
-      {tileIndex: 32, map: {n: 'floor', e: 'floor',s: 'floor', w: 'wall' }},
-      {tileIndex: 33, map: {n: 'wall', e: 'floor',s: 'floor', w: 'floor' }},
+      {tileIndex: 0, map: {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'}},
+      {tileIndex: 1, map: {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'}},
+      {tileIndex: 2, map: {n: '!w', e: '!w',s: 'w', w: 'w' }},
+      {tileIndex: 3, map: {e: '!w', w: '!w', s: '!w', n: '!w'}},
+      {tileIndex: 10, map: {n: 'w', e: 'w',s: 'w', w: '!w' }},
+      {tileIndex: 11, map: {n: 'w', e: 'w', s: 'w', w: 'w',}},
+      {tileIndex: 12, map: {w: 'w', s: 'w', n: 'w', e: '!w'}},
+      {tileIndex: 13, map: {n: '!w', e: '!w',s: 'w', w: '!w' }},
+      {tileIndex: 20, map: {e: 'w', s: '!w', w: '!w', n: 'w' }},
+      {tileIndex: 21, map: {e: 'w', s: '!w', w: 'w', n: 'w' }},
+      {tileIndex: 22, map: {n: 'w', e: '!w',s: '!w', w: 'w' }},
+      {tileIndex: 23, map: {n: 'w', e: '!w',s: 'w', w: '!w' }},
+      {tileIndex: 30, map: {n: '!w', e: 'w',s: '!w', w: '!w' }},
+      {tileIndex: 31, map: {n: '!w', e: 'w',s: '!w', w: 'w' }},
+      {tileIndex: 32, map: {n: '!w', e: '!w',s: '!w', w: 'w' }},
+      {tileIndex: 33, map: {n: 'w', e: '!w',s: '!w', w: '!w' }},
     ]
   },
-  floor: {
-    typeString: 'floor',
+  f: {
+    typeString: 'f',
     defaultIndex: 4,
     rules: []
   }
@@ -179,10 +179,14 @@ Game.Map.prototype.check = function(x, y) {
 
 Game.Map.prototype.checkAdjacents = function(x,y, rules) {
 
-  if( !this.checkTile(x - 1, y, rules.map.w) ) return false;
-  if( !this.checkTile(x + 1, y, rules.map.e) ) return false;
-  if( !this.checkTile(x, y - 1, rules.map.n) ) return false;
-  if( !this.checkTile(x, y + 1, rules.map.s) ) return false;
+  if( !this.checkTile(x, y - 1, rules.map.n) ) return false; //n
+  if( !this.checkTile(x + 1, y - 1, rules.map.ne) ) return false; //ne
+  if( !this.checkTile(x + 1, y, rules.map.e) ) return false; //e
+  if( !this.checkTile(x + 1, y + 1, rules.map.se) ) return false; //se
+  if( !this.checkTile(x, y + 1, rules.map.s) ) return false; //s
+  if( !this.checkTile(x - 1, y + 1, rules.map.sw) ) return false; //sw
+  if( !this.checkTile(x - 1, y, rules.map.w) ) return false; //w
+  if( !this.checkTile(x - 1, y - 1, rules.map.nw) ) return false; //w
 
   return true;
 
@@ -190,12 +194,11 @@ Game.Map.prototype.checkAdjacents = function(x,y, rules) {
 
 Game.Map.prototype.checkTile = function(x,y, rule) {
 
-  if(x < 0 || y < 0 || x >= this.cols || y >= this.rows ){
-    return true;
-  }
+  if(!rule || x < 0 || y < 0 || x >= this.cols || y >= this.rows ) return true;
+
+  if( /(!\w*)/.test(rule) ) return ~rule.indexOf(this.map[this.cols * y + x].type) > -1;
 
   return (rule === this.map[this.cols * y + x].type);
-
 };
 
 Game.Map.prototype.addAdjacents = function(node, adjacent) {
@@ -209,7 +212,7 @@ Game.Map.prototype.addAdjacents = function(node, adjacent) {
 };
 
 Game.Map.prototype.drawTile = function(w, h, type) {
-  spriteCoords.y = Math.floor(type / 10);
+  spriteCoords.y = type / 10 >> 0;
   spriteCoords.x = (type - spriteCoords.y * 10);
 
   Game.c1ctx.drawImage(
@@ -270,8 +273,8 @@ Game.Map.prototype.draw = function() {
 
 Game.Map.prototype.update = function() {
 
-  this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.05) >> 0;
-  this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.05) >> 0;
+  this.camera.x += (this.cameraPosition.x - this.camera.x) * 0.05 >> 0;
+  this.camera.y += (this.cameraPosition.y - this.camera.y) * 0.05 >> 0;
 
   // this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
   // this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
