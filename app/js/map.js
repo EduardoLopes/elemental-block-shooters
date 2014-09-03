@@ -20,7 +20,12 @@ type['f'] =  {
 function pushRuler(i, r){
   type['w'].rules.push({tileIndex: i, map: r});
 };
+function pushRulerF(i, r){
+  type['f'].rules.push({tileIndex: i, map: r});
+};
 //this is for save some bytes
+
+
 pushRuler(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
 pushRuler(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
 pushRuler(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
@@ -45,7 +50,6 @@ pushRuler(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
 pushRuler(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
 pushRuler(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
 pushRuler(25, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
-//pushRuler(26, {n: 'w',  ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
 pushRuler(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
 pushRuler(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRuler(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
@@ -55,6 +59,8 @@ pushRuler(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
 pushRuler(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
 pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
 pushRuler(5, {n: '!w', e: 'w', se: '!w', s: 'w',sw: '!w', w: 'w'});
+
+//pushRulerF(40, {n: 'w'});
 
 
 /**
@@ -77,13 +83,13 @@ MapNode.prototype.setType = function(type) {
 
   this.typeID = type;
   this.solid = Game.solidTiles.indexOf(type) > -1;
-
 };
 
 MapNode.prototype.setModelType = function(type) {
 
   this.typeID = type;
   this.type = types[type];
+
   this.solid = Game.solidTiles.indexOf(type) > -1;
 
 };
@@ -146,9 +152,9 @@ Game.Map.prototype.generate = function() {
   this.room(5,5,15,15);
   this.room(14,14,25,25);
 
+  this.autoTile();
 
   this.findAdjacents();
-  this.autoTile();
 
 };
 

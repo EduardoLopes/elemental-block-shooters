@@ -12,6 +12,8 @@ for (var i = 0; i < 34; i++) {
   Game.solidTiles.push(i);
 };
 
+Game.solidTiles.push(40);
+
 function random( min, max ) {
   return Math.round(min + ( Math.random() * ( max - min ) ));
 }
