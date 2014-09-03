@@ -8,32 +8,7 @@ var type = {
   w: {
     typeString: 'w',
     defaultIndex: 11,
-    rules: [
-      {tileIndex: 0, map: {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'}},
-      {tileIndex: 1, map: {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'}},
-      {tileIndex: 2, map: {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' }},
-      {tileIndex: 3, map: {e: '!w', w: '!w', s: '!w', n: '!w'}},
-      {tileIndex: 5, map: {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'}},
-      {tileIndex: 6, map: {n: '!w', e: 'w', se: '!w', s: 'w', w: 'w', sw: '!w' }},
-      {tileIndex: 7, map: {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'}},
-      {tileIndex: 10, map: {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'}},
-      {tileIndex: 11, map: {n: 'w', e: 'w', s: 'w', w: 'w'}},
-      {tileIndex: 12, map: {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'}},
-      {tileIndex: 13, map: {n: '!w', e: '!w',s: 'w', w: '!w' }},
-      {tileIndex: 15, map: {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' }},
-      {tileIndex: 17, map: {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' }},
-      {tileIndex: 20, map: {e: 'w', s: '!w', w: '!w', n: 'w', ne: 'w' }},
-      {tileIndex: 21, map: {e: 'w', s: '!w', w: 'w', n: 'w'}},
-      {tileIndex: 22, map: {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'}},
-      {tileIndex: 23, map: {n: 'w', e: '!w',s: 'w', w: '!w' }},
-      {tileIndex: 25, map: {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' }},
-      {tileIndex: 26, map: {n: 'w',  ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' }},
-      {tileIndex: 27, map: {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' }},
-      {tileIndex: 30, map: {n: '!w', e: 'w',s: '!w', w: '!w' }},
-      {tileIndex: 31, map: {n: '!w', e: 'w',s: '!w', w: 'w' }},
-      {tileIndex: 32, map: {n: '!w', e: '!w',s: '!w', w: 'w' }},
-      {tileIndex: 33, map: {n: 'w', e: '!w',s: '!w', w: '!w' }}
-    ]
+    rules: []
   },
   f: {
     typeString: 'f',
@@ -41,6 +16,36 @@ var type = {
     rules: []
   }
 };
+
+
+function pushRuler(i, r){
+  type.w.rules.push({tileIndex: i, map: r});
+};
+//this is for save some bytes
+pushRuler(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
+pushRuler(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
+pushRuler(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
+pushRuler(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRuler(5, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRuler(6, {n: '!w', e: 'w', se: '!w', s: 'w', w: 'w', sw: '!w' });
+pushRuler(7, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
+pushRuler(10, {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'});
+pushRuler(11, {n: 'w', e: 'w', s: 'w', w: 'w'});
+pushRuler(12, {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'});
+pushRuler(13, {n: '!w', e: '!w',s: 'w', w: '!w' });
+pushRuler(15, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
+pushRuler(17, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
+pushRuler(20, {e: 'w', s: '!w', w: '!w', n: 'w', ne: 'w' });
+pushRuler(21, {e: 'w', s: '!w', w: 'w', n: 'w'});
+pushRuler(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
+pushRuler(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
+pushRuler(25, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
+pushRuler(26, {n: 'w',  ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
+pushRuler(27, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
+pushRuler(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
+pushRuler(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
+pushRuler(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
+pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
 
 /**
  * @constructor
