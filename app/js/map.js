@@ -23,40 +23,40 @@ function pushRules(i, r){
 function pushRulesF(i, r){
   type['f'].rules.push({tileIndex: i, map: r});
 };
-//this is for save some bytes
 
-pushRules(38, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRules(39, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRules(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
-pushRules(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
-pushRules(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
+//this is for save some bytes
 pushRules(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(11,  {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
+pushRules(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
+pushRules(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(29, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(38, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(1, {n: '!w', e: 'w', se:'w', s:'w', sw: 'w', w: 'w'});
+pushRules(8, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
 pushRules(5, {n: '!w', e: 'w', se: '!w', s: 'w',sw: '!w', w: 'w'});
 pushRules(6, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
-pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRules(8, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
-pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(39, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
 pushRules(10, {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'});
-pushRules(11,  {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(12, {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'});
 pushRules(13, {n: '!w', e: '!w',s: 'w', w: '!w' });
+pushRules(37, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(14, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
 pushRules(16, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
 pushRules(17, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(18, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
 pushRules(19, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
 pushRules(20, {n: 'w', ne: 'w', e: 'w', s: '!w', w: '!w'});
-pushRules(37, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(21, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: 'w'});
 pushRules(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
 pushRules(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
 pushRules(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
 pushRules(25, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
 pushRules(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
-pushRules(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRules(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
-pushRules(29, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 pushRules(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
 pushRules(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
 pushRules(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
@@ -132,20 +132,9 @@ Game.Map = function() {
 Game.Map.prototype.room = function(x,y,width,height) {
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
-      this.map[this.cols * h + w].setModelType(34);
+      this.map[this.cols * h + w].setModelType(11);
     }
   }
-
-  this.map[this.cols * 6 + 6].setModelType(34);
-  this.map[this.cols * 6 + 7].setModelType(11);
-  this.map[this.cols * 6 + 8].setModelType(11);
-  this.map[this.cols * 7 + 6].setModelType(11);
-  this.map[this.cols * 7 + 7].setModelType(11);
-  this.map[this.cols * 7 + 8].setModelType(11);
-  this.map[this.cols * 8 + 6].setModelType(11);
-  this.map[this.cols * 8 + 7].setModelType(11);
-  this.map[this.cols * 8 + 8].setModelType(34);
-
 
 };
 
@@ -235,26 +224,35 @@ Game.Map.prototype.check = function(x, y) {
 
 Game.Map.prototype.checkAdjacents = function(x,y, rules) {
 
-  if( !this.checkTile(x, y - 1, rules.map.n) ) return false; //n
-  if( !this.checkTile(x + 1, y - 1, rules.map.ne) ) return false; //ne
-  if( !this.checkTile(x + 1, y, rules.map.e) ) return false; //e
-  if( !this.checkTile(x + 1, y + 1, rules.map.se) ) return false; //se
-  if( !this.checkTile(x, y + 1, rules.map.s) ) return false; //s
-  if( !this.checkTile(x - 1, y + 1, rules.map.sw) ) return false; //sw
-  if( !this.checkTile(x - 1, y, rules.map.w) ) return false; //w
-  if( !this.checkTile(x - 1, y - 1, rules.map.nw) ) return false; //w
+  if( !this.checkTile(x, y - 1, rules.map.n, x, y) ) return false; //n
+  if( !this.checkTile(x + 1, y - 1, rules.map.ne, x, y) ) return false; //ne
+  if( !this.checkTile(x + 1, y, rules.map.e, x, y) ) return false; //e
+  if( !this.checkTile(x + 1, y + 1, rules.map.se, x, y) ) return false; //se
+  if( !this.checkTile(x, y + 1, rules.map.s, x, y ) ) return false; //s
+  if( !this.checkTile(x - 1, y + 1, rules.map.sw, x, y ) ) return false; //sw
+  if( !this.checkTile(x - 1, y, rules.map.w, x, y ) ) return false; //w
+  if( !this.checkTile(x - 1, y - 1, rules.map.nw, x, y  ) ) return false; //w
 
   return true;
 
 };
 
-Game.Map.prototype.checkTile = function(x,y, rule) {
+Game.Map.prototype.checkTile = function(x,y, rule, w, h) {
+  var type = this.map[this.cols * y + x];
 
-  if(!rule || x < 0 || y < 0 || x >= this.cols || y >= this.rows ) return true;
+  if(!type || x < 0 || y < 0 || x >= this.cols || y >= this.rows ) {
 
-  if( /(!\w*)/.test(rule) ) return ~rule.indexOf(this.map[this.cols * y + x].type) > -1;
+    type = this.map[this.cols * h + w];
 
-  return (rule === this.map[this.cols * y + x].type);
+  }
+
+  if(!rule){
+    return true;
+  }
+
+  if( /(!\w*)/.test(rule) ) return ~rule.indexOf(type.type) > -1;
+
+  return (rule === type.type);
 };
 
 Game.Map.prototype.addAdjacents = function(node, adjacent) {

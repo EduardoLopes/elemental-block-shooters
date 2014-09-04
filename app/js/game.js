@@ -100,7 +100,7 @@ Game.init = function() {
   Game.currentState = 'play';
 
   Game.currentMap = new Game.Map();
-  Game.player = new Game.Player(250,250);
+  Game.player = new Game.Player(62*32,1*32);
 
   Game.loop();
 };
