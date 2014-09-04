@@ -48,10 +48,11 @@ pushRuler(18, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw:
 pushRuler(19, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
 pushRuler(20, {n: 'w', ne: 'w', e: 'w', s: '!w', w: '!w'});
 pushRuler(37, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(21, {e: 'w', s: '!w', w: 'w', n: 'w'});
+pushRuler(21, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: 'w'});
 pushRuler(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
 pushRuler(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
 pushRuler(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
+pushRuler(25, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
 pushRuler(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
 pushRuler(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRuler(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
@@ -60,9 +61,15 @@ pushRuler(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
 pushRuler(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
 pushRuler(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
 pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
-
-//pushRulerF(40, {n: 'w'});
-
+pushRuler(40, {n: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w'});
+pushRuler(41, {n: 'w', e: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+//pushRuler(41, {n: 'w', ne: 'w', e: '!w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRuler(42, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRuler(43, {n: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w'});
+pushRuler(50, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', w: '!w'});
+pushRuler(51, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: '!w' });
+pushRuler(52, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: 'w' });
+pushRuler(53, {n: 'w', e: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 
 /**
  * @constructor
@@ -123,9 +130,9 @@ Game.Map.prototype.room = function(x,y,width,height) {
   }
 
   this.map[this.cols * 6 + 6].setModelType(34);
-  this.map[this.cols * 6 + 7].setModelType(34);
+  this.map[this.cols * 6 + 7].setModelType(11);
   this.map[this.cols * 6 + 8].setModelType(34);
-  this.map[this.cols * 7 + 6].setModelType(11);
+  this.map[this.cols * 7 + 6].setModelType(34);
   this.map[this.cols * 7 + 7].setModelType(11);
   this.map[this.cols * 7 + 8].setModelType(11);
   this.map[this.cols * 8 + 6].setModelType(34);
