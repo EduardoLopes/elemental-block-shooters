@@ -49,7 +49,7 @@ function generateSprite (){
   rect((Game.tileSize * 9) - 2, (Game.tileSize * 4) - 14, 4, 14, '#7ea862');
   rect((Game.tileSize * 9) - 2, (Game.tileSize * 3), 4, 2, '#7ea862');
 
-  rect(0, (Game.tileSize * 4), (Game.tileSize * 4),Game.tileSize * 2, '#aecc91');
+  rect(0, (Game.tileSize * 4), (Game.tileSize * 6),Game.tileSize * 2, '#aecc91');
 
   rect(Game.tileSize - 2, (Game.tileSize * 5) - 14, 4, 16, '#7ea862');
   rect(0, (Game.tileSize * 4), Game.tileSize, 2, '#7ea862');
@@ -65,6 +65,12 @@ function generateSprite (){
   rect(Game.tileSize * 2, (Game.tileSize * 6) - 14, Game.tileSize, 2, '#7ea862');
   rect(Game.tileSize * 2, (Game.tileSize * 6) - 12, Game.tileSize, 12, '#90c170');
   rect((Game.tileSize * 4) - 2, (Game.tileSize * 5), 2, Game.tileSize, '#7ea862');
+
+  rect((Game.tileSize * 5) - 2, (Game.tileSize * 5) - 14, 4, 16, '#7ea862');
+  rect((Game.tileSize * 4), (Game.tileSize * 5) - 14, 2, 16, '#7ea862');
+  rect((Game.tileSize * 6)-2, (Game.tileSize * 5)- 14, 2, 16, '#7ea862');
+  rect((Game.tileSize * 5)-2, (Game.tileSize * 4), 4, 2, '#7ea862');
+  rect((Game.tileSize * 5)-2, (Game.tileSize * 6) - 14, 4, 14, '#7ea862');
 
   // Game.spriteCacheCtx.fillStyle = '#c8eba7';
   // Game.spriteCacheCtx.fillRect(0, 0, Game.tileSize * 4, Game.tileSize * 2);
