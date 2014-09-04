@@ -17,59 +17,59 @@ type['f'] =  {
 };
 
 
-function pushRuler(i, r){
+function pushRules(i, r){
   type['w'].rules.push({tileIndex: i, map: r});
 };
-function pushRulerF(i, r){
+function pushRulesF(i, r){
   type['f'].rules.push({tileIndex: i, map: r});
 };
 //this is for save some bytes
 
-pushRuler(38, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRuler(39, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRuler(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
-pushRuler(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
-pushRuler(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
-pushRuler(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
-pushRuler(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
-pushRuler(5, {n: '!w', e: 'w', se: '!w', s: 'w',sw: '!w', w: 'w'});
-pushRuler(6, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
-pushRuler(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(8, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
-pushRuler(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
-pushRuler(10, {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'});
-pushRuler(11,  {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(12, {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'});
-pushRuler(13, {n: '!w', e: '!w',s: 'w', w: '!w' });
-pushRuler(14, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
-pushRuler(16, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
-pushRuler(17, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(18, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRuler(19, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
-pushRuler(20, {n: 'w', ne: 'w', e: 'w', s: '!w', w: '!w'});
-pushRuler(37, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(21, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: 'w'});
-pushRuler(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
-pushRuler(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
-pushRuler(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
-pushRuler(25, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
-pushRuler(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
-pushRuler(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
-pushRuler(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
-pushRuler(29, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
-pushRuler(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
-pushRuler(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
-pushRuler(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
-pushRuler(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
-pushRuler(40, {n: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w'});
-pushRuler(41, {n: 'w', e: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
-//pushRuler(41, {n: 'w', ne: 'w', e: '!w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
-pushRuler(42, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', w: '!w'});
-pushRuler(43, {n: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w'});
-pushRuler(50, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', w: '!w'});
-pushRuler(51, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: '!w' });
-pushRuler(52, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: 'w' });
-pushRuler(53, {n: 'w', e: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(38, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRules(39, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRules(0, {w: '!w', n: '!w', e: 'w', s: 'w', se: 'w'});
+pushRules(1, {e: 'w', w: 'w', sw: 'w', n: '!w', s:'w', se:'w'});
+pushRules(2, {n: '!w', e: '!w',s: 'w', w: 'w', sw: 'w' });
+pushRules(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRules(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRules(5, {n: '!w', e: 'w', se: '!w', s: 'w',sw: '!w', w: 'w'});
+pushRules(6, {n: '!w', e: '!w', s: 'w', sw: '!w', w: 'w'});
+pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(8, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(10, {n: 'w', ne: 'w', e: 'w',s: 'w', se: 'w', w: '!w'});
+pushRules(11,  {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(12, {w: 'w', s: 'w', sw: 'w', n: 'w', nw: 'w', e: '!w'});
+pushRules(13, {n: '!w', e: '!w',s: 'w', w: '!w' });
+pushRules(14, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', w: '!w' });
+pushRules(16, {n: 'w', e: '!w',s: 'w', sw:'!w', w: 'w', nw: '!w' });
+pushRules(17, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(18, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRules(19, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRules(20, {n: 'w', ne: 'w', e: 'w', s: '!w', w: '!w'});
+pushRules(37, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(21, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: 'w'});
+pushRules(22, {n: 'w', e: '!w',s: '!w', w: 'w', nw: 'w'});
+pushRules(23, {n: 'w', e: '!w',s: 'w', w: '!w' });
+pushRules(24, {n: 'w', ne:'!w', e: 'w', s: '!w', w: '!w' });
+pushRules(25, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: '!w' });
+pushRules(26, {n: 'w', e: '!w', s: '!w', w: 'w', nw: '!w' });
+pushRules(27, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
+pushRules(28, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(29, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
+pushRules(30, {n: '!w', e: 'w',s: '!w', w: '!w' });
+pushRules(31, {n: '!w', e: 'w',s: '!w', w: 'w' });
+pushRules(32, {n: '!w', e: '!w',s: '!w', w: 'w' });
+pushRules(33, {n: 'w', e: '!w',s: '!w', w: '!w' });
+pushRules(40, {n: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w'});
+pushRules(41, {n: 'w', e: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+//pushRules(41, {n: 'w', ne: 'w', e: '!w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(42, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', w: '!w'});
+pushRules(43, {n: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w'});
+pushRules(50, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', w: '!w'});
+pushRules(51, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: '!w' });
+pushRules(52, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: 'w' });
+pushRules(53, {n: 'w', e: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 
 /**
  * @constructor
