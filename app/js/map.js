@@ -68,6 +68,8 @@ pushRules(42, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', w: '!w'});
 pushRules(43, {n: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w'});
 pushRules(44, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
 pushRules(45, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
+pushRules(46, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
+pushRules(47, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 pushRules(50, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', w: '!w'});
 pushRules(51, {n: 'w', ne: 'w', e: 'w', s: '!w', w: 'w', nw: '!w' });
 pushRules(52, {n: 'w', ne: '!w', e: 'w', s: '!w', w: 'w', nw: 'w' });
@@ -136,13 +138,13 @@ Game.Map.prototype.room = function(x,y,width,height) {
 
   this.map[this.cols * 6 + 6].setModelType(34);
   this.map[this.cols * 6 + 7].setModelType(11);
-  this.map[this.cols * 6 + 8].setModelType(34);
+  this.map[this.cols * 6 + 8].setModelType(11);
   this.map[this.cols * 7 + 6].setModelType(11);
   this.map[this.cols * 7 + 7].setModelType(11);
   this.map[this.cols * 7 + 8].setModelType(11);
-  this.map[this.cols * 8 + 6].setModelType(34);
+  this.map[this.cols * 8 + 6].setModelType(11);
   this.map[this.cols * 8 + 7].setModelType(11);
-  this.map[this.cols * 8 + 8].setModelType(11);
+  this.map[this.cols * 8 + 8].setModelType(34);
 
 
 };

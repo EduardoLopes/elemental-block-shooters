@@ -72,6 +72,13 @@ function generateSprite (){
   rect((Game.tileSize * 5)-2, (Game.tileSize * 4), 4, 2, '#7ea862');
   rect((Game.tileSize * 5)-2, (Game.tileSize * 6) - 14, 4, 14, '#7ea862');
 
+  rect(Game.tileSize * 6, (Game.tileSize * 4), (Game.tileSize * 2),Game.tileSize, '#aecc91');
+  rect((Game.tileSize * 6), (Game.tileSize * 5) - 14, 2, 14, '#7ea862');
+  rect((Game.tileSize * 8) - 2, (Game.tileSize * 5) - 14, 2, 14, '#7ea862');
+  rect((Game.tileSize * 7)-2, (Game.tileSize * 4), 4, 2, '#7ea862');
+
+
+
   // Game.spriteCacheCtx.fillStyle = '#c8eba7';
   // Game.spriteCacheCtx.fillRect(0, 0, Game.tileSize * 4, Game.tileSize * 2);
 
