@@ -91,8 +91,6 @@ function generateSprite(){
 }
 
 Game.init = function() {
-  Game.c1 = document.getElementById('c1'),
-  Game.c1ctx = Game.c1.getContext('2d');
   Game.c1.width = Game.width;
   Game.c1.height = Game.height;
   Game.sprites = document.getElementById('s');
@@ -117,11 +115,18 @@ Game.state['play'] = {
     Game.player.update();
     Game.currentMap.update();
 
+    Game.mouse.angle = angleCalc( Game.player.x, Game.player.y, Game.mouse.x, Game.mouse.y );
+
   },
   draw: function() {
 
     Game.currentMap.draw();
     Game.player.draw();
+
+    //mouse debug
+    // Game.c1ctx.fillStyle = '#181818';
+    // Game.c1ctx.fillText(Game.mouse.angle, 10, 10);
+    // Game.c1ctx.fillText(Game.mouse.down, 10, 20);
 
   }
 }

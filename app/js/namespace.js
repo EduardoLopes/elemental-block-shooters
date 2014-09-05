@@ -5,7 +5,9 @@ var Game = {
   now: 0,
   last: 0,
   delta: 0,
-  solidTiles: []
+  solidTiles: [],
+  c1: document.getElementById('c1'),
+  c1ctx: this.c1.getContext('2d')
 };
 
 //air
@@ -23,6 +25,10 @@ for (i = 95; i < 154; i++) {
 //fire
 for (i = 155; i < 214; i++) {
   Game.solidTiles.push(i);
+};
+
+function angleCalc(sx, sy, tx, ty) {
+  return Math.atan2(ty - sy, tx - sx);
 };
 
 Game.solidTiles.push(40);
