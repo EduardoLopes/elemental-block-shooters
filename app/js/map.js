@@ -114,7 +114,7 @@ MapNode.prototype.setModelType = function(type) {
  *
  * @constructor
  */
-Game.Map = function() {
+Game.Map = function(type) {
   this.cols = 64;
   this.rows = 64;
   this.map = [];
@@ -124,12 +124,15 @@ Game.Map = function() {
     width: Game.width,
     height: Game.height
   };
+  this.types = ['air', 'water', 'earth', 'fire'];
+  this.type = this.types.indexOf( type );
 
   this.generate();
 
 };
 
 Game.Map.prototype.room = function(x,y,width,height) {
+
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
       this.map[this.cols * h + w].setModelType(11);
@@ -201,7 +204,7 @@ Game.Map.prototype.autoTile = function() {
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
 
-      this.map[this.cols * h + w].setType( this.check(w, h) );
+      this.map[this.cols * h + w].setType( this.check(w, h) + (60 * this.type) );
 
     }
   }

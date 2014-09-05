@@ -8,7 +8,20 @@ var Game = {
   solidTiles: []
 };
 
+//air
 for (var i = 0; i < 34; i++) {
+  Game.solidTiles.push(i);
+};
+//water
+for (i = 35; i < 94; i++) {
+  Game.solidTiles.push(i);
+};
+//earth
+for (i = 95; i < 154; i++) {
+  Game.solidTiles.push(i);
+};
+//fire
+for (i = 155; i < 214; i++) {
   Game.solidTiles.push(i);
 };
 

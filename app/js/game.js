@@ -103,8 +103,8 @@ Game.init = function() {
 
   Game.currentState = 'play';
 
-  Game.currentMap = new Game.Map();
-  Game.player = new Game.Player(62*32,1*32);
+  Game.currentMap = new Game.Map('air');
+  Game.player = new Game.Player(4*32,4*32);
 
   Game.loop();
 };
