@@ -144,9 +144,9 @@ Game.state['play'] = {
     };
 
     //mouse debug
-    Game.c1ctx.fillStyle = '#181818';
-    Game.c1ctx.fillText(Game.mouse.angle, 10, 10);
-    Game.c1ctx.fillText(Game.mouse.down, 10, 20);
+    // Game.c1ctx.fillStyle = '#181818';
+    // Game.c1ctx.fillText(Game.mouse.angle, 10, 10);
+    // Game.c1ctx.fillText(Game.mouse.down, 10, 20);
 
   }
 }
