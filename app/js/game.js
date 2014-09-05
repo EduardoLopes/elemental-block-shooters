@@ -94,6 +94,10 @@ Game.init = function() {
   Game.c1.width = Game.width;
   Game.c1.height = Game.height;
   Game.sprites = document.getElementById('s');
+  Game.particles = [];
+  Game.particlesMax = 50;
+  Game.particlesIndex = 0;
+  Game.tick = 10;
 
   //Game.spriteCacheCtx.drawImage(Game.sprites, 0, 0);
 
@@ -115,7 +119,19 @@ Game.state['play'] = {
     Game.player.update();
     Game.currentMap.update();
 
-    Game.mouse.angle = angleCalc( Game.player.x, Game.player.y, Game.mouse.x, Game.mouse.y );
+    Game.mouse.angle = angleCalc( Game.player.x - Game.currentMap.camera.x, Game.player.y - Game.currentMap.camera.y, Game.mouse.x - 8, Game.mouse.y - 8);
+
+    if(Game.mouse.down && Game.tick%10 == 0 ){
+
+       Game.particles[(Game.particlesIndex++)%Game.particlesMax] = new Game.Particles(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle);
+
+    }
+
+    for (i = 0; i < Game.particles.length; i++) {
+      Game.particles[i].update();
+    };
+
+    Game.tick++;
 
   },
   draw: function() {
@@ -123,10 +139,14 @@ Game.state['play'] = {
     Game.currentMap.draw();
     Game.player.draw();
 
+    for (i = 0; i < Game.particles.length; i++) {
+      Game.particles[i].draw();
+    };
+
     //mouse debug
-    // Game.c1ctx.fillStyle = '#181818';
-    // Game.c1ctx.fillText(Game.mouse.angle, 10, 10);
-    // Game.c1ctx.fillText(Game.mouse.down, 10, 20);
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.fillText(Game.mouse.angle, 10, 10);
+    Game.c1ctx.fillText(Game.mouse.down, 10, 20);
 
   }
 }

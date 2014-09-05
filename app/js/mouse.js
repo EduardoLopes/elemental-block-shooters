@@ -5,8 +5,6 @@ Game.mouse = {
   down: false
 };
 
-
-
 document.addEventListener('mousemove', function(e) {
   var rect = Game.c1.getBoundingClientRect();
 
