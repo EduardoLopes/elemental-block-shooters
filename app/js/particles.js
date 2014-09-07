@@ -1,20 +1,31 @@
 /**
 * @constructor
 */
-function Particles(x,y,angle, size) {
+function Particles(x,y,angle, size, i) {
+  this.x = this.y = this.size = this.angle = 0;
 
-  this.x = x;
-  this.y = y;
   this.next = {
     x: this.x,
     y: this.y
   };
+  this.speed = 10;
+  this.init(x, y, angle, size);
+  this.overlaping = [];
+  this.dead = false;
+  this.free = true;
+  this.ID = i;
+
+
+};
+
+Particles.prototype.init = function(x,y,angle, size) {
+
+  this.x = x;
+  this.y = y;
+  this.next.x = this.x;
+  this.next.y = this.y;
   this.size = size || 8;
   this.angle = angle;
-  this.overlaping = [];
-  this.speed = 10;
-  this.dead = false;
-
 };
 
 Particles.prototype.update = function() {
@@ -71,6 +82,10 @@ Particles.prototype.draw = function() {
 
   Game.c1ctx.fillRect((this.x - Game.currentMap.camera.x), (this.y - Game.currentMap.camera.y), this.size, this.size);
 
+};
+
+Particles.prototype.isDead = function() {
+  return this.dead;
 };
 
 Game.Particles = Particles;

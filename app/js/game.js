@@ -99,6 +99,8 @@ Game.init = function() {
   Game.particlesIndex = 0;
   Game.tick = 10;
 
+  Game.particlePool = new Game.Pool();
+
   //Game.spriteCacheCtx.drawImage(Game.sprites, 0, 0);
 
   generateSprite();
@@ -123,12 +125,26 @@ Game.state['play'] = {
 
     if(Game.mouse.down && Game.tick%10 == 0 ){
 
-       Game.particles[(Game.particlesIndex++)%Game.particlesMax] = new Game.Particles(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle);
+       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 8);
 
     }
 
-    for (i = 0; i < Game.particles.length; i++) {
-      Game.particles[i].update();
+    for (i = 0; i < Game.particlePool.elements.length; i++) {
+
+      if(Game.particlePool.elements[i].free === true){
+
+        if(!Game.particlePool.elements[i].isDead()){
+
+          Game.particlePool.elements[i].update();
+
+        } else {
+
+          Game.particlePool.free(Game.particlePool.elements[i]);
+
+        }
+
+      }
+
     };
 
     Game.tick++;
@@ -139,8 +155,15 @@ Game.state['play'] = {
     Game.currentMap.draw();
     Game.player.draw();
 
-    for (i = 0; i < Game.particles.length; i++) {
-      Game.particles[i].draw();
+
+    for (i = 0; i < Game.particlePool.elements.length; i++) {
+
+      if(Game.particlePool.elements[i].free === true){
+
+        Game.particlePool.elements[i].draw();
+
+      }
+
     };
 
     //mouse debug

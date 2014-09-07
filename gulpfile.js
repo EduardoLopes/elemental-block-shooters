@@ -121,7 +121,7 @@ gulp.task('dropbox', function(cb) {
 
 });
 
-gulp.task('default', function () {
+gulp.task('default', function (cb) {
 
     exec('sh gulp.sh', function(err) {
     if (err) return cb(err);
