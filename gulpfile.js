@@ -123,7 +123,10 @@ gulp.task('dropbox', function(cb) {
 
 gulp.task('default', function () {
 
-  runSequence('index', 'images', 'closureCompiler', 'smoosher', 'clean');
+    exec('sh gulp.sh', function(err) {
+    if (err) return cb(err);
+    cb();
+  });
 
 });
 
