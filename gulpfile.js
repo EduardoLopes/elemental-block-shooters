@@ -10,6 +10,7 @@ var runSequence = require('run-sequence');
 var imagemin = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
 var closureCompiler = require('gulp-closure-compiler');
+var exec = require('child_process').exec;
 
 var gulpSrc = function (opts) {
   var paths = es.through();
@@ -107,7 +108,18 @@ gulp.task('closureCompiler', function() {
     }
   }))
     .pipe(gulp.dest('dist'));
-})
+});
+
+
+/** Task to copy the game into my dropbox folder **/
+gulp.task('dropbox', function(cb) {
+
+  exec('sh cp-dropbox.sh', function(err) {
+    if (err) return cb(err);
+    cb();
+  });
+
+});
 
 gulp.task('default', function () {
 
