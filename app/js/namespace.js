@@ -1,14 +1,21 @@
-var Game = {
-  width: 32 * 20,
-  height: 32 * 12,
-  tileSize: 32,
-  now: 0,
-  last: 0,
-  delta: 0,
-  solidTiles: [],
-  c1: document.getElementById('c1'),
-  c1ctx: this.c1.getContext('2d')
-};
+var Game = (function() {
+
+  var canvas = document.getElementById('c1'),
+      ctx = canvas.getContext('2d');
+
+  return {
+    width: 32 * 20,
+    height: 32 * 12,
+    tileSize: 32,
+    now: 0,
+    last: 0,
+    delta: 0,
+    solidTiles: [],
+    c1: canvas,
+    c1ctx: ctx
+  }
+
+}());
 
 //air
 for (var i = 0; i < 34; i++) {
@@ -31,8 +38,6 @@ function angleCalc(sx, sy, tx, ty) {
   return Math.atan2(ty - sy, tx - sx);
 };
 
-Game.solidTiles.push(40);
-
 function random( min, max ) {
   return Math.round(min + ( Math.random() * ( max - min ) ));
 }
@@ -40,3 +45,32 @@ function random( min, max ) {
 function randomChoice(array){
   return array[ random( 0, array.length - 1 ) ];
 }
+
+/* MOUSE */
+
+Game.mouse = {
+  x: 0,
+  y: 0,
+  angle: 0,
+  down: false
+};
+
+document.addEventListener('mousemove', function(e) {
+  var rect = Game.c1.getBoundingClientRect();
+
+  Game.mouse.x = e.clientX - rect.left;
+  Game.mouse.y = e.clientY - rect.top;
+
+});
+
+document.addEventListener('mousedown', function(e) {
+
+  Game.mouse.down = true;
+
+});
+
+document.addEventListener('mouseup', function(e) {
+
+  Game.mouse.down = false;
+
+});

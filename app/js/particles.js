@@ -1,3 +1,6 @@
+ /**
+ * @constructor
+ */
 function Particles(x,y,angle, size) {
 
   this.x = x;
