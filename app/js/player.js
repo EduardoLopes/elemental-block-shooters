@@ -4,7 +4,7 @@ var keys = {
   down: false,
   left: false,
   keydown: false
-};
+}, x = y = minX = minY = maxX = maxY = 0, lastOverlapping, node;
 
  /**
  * @constructor
@@ -55,78 +55,95 @@ Game.Player.prototype.update = function() {
   this.nextX += this.vx;
   this.nextY += this.vy;
 
-  this.overlaping.length = 0;
-  //this.colliding.length = 0;
-  //console.log();
-  this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
-  this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
-  this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
-  this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
+  // while (this.overlaping.length > 0) {
+  //   this.overlaping.pop();
+  // }
 
-  for (var i = 0; i < this.overlaping.length; i++) {
+  // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
+  // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
+  // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX) / Game.tileSize)]);
+  // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.nextY) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize)]);
 
-    if(this.intercects(this.overlaping[i])){
-      //COLLISION DETECTION DEBUG
-      //this.colliding.push(this.overlaping[i]);
+  minX = Math.floor((this.nextX) / Game.tileSize);
+  maxX = Math.floor((this.nextX + this.size) / Game.tileSize);
+  minY = Math.floor((this.nextY) / Game.tileSize);
+  maxY = Math.floor((this.nextY + this.size) / Game.tileSize);
 
-       if(this.overlaping[i].edges.indexOf('r') > -1 && this.intercectsRight( this.overlaping[i] ) ){
+  for (h = minY; h <= maxY; h++) {
+    for (w = minX; w <= maxX; w++) {
+      node = Game.currentMap.map[Game.currentMap.cols * h + w];
 
-        var x = Math.floor(this.nextX);
+      if(lastOverlapping !== node.i){
 
-        while(!this.intercectsRight(this.overlaping[i], x)){
+        if(this.intercects(node)){
+        //COLLISION DETECTION DEBUG
+        //this.colliding.push(node);
 
-          x++;
+          if(node.edges.indexOf('r') > -1 && this.intercectsRight( node ) ){
+
+            x = Math.floor(this.nextX);
+
+            while(!this.intercectsRight(node, x)){
+
+              x++;
+
+            }
+
+            this.nextX = x;
+            this.vx = 0;
+
+          }
+
+          if(node.edges.indexOf('t') > -1 && this.intecectsTop(node)){
+
+            y = Math.floor(this.nextY);
+
+            while(!this.intecectsTop(node, y)){
+              y--;
+            }
+
+            this.nextY = y;
+            this.vy = 0;
+
+          }
+
+          if(node.edges.indexOf('b') > -1 && this.intercectsBottom(node)){
+
+            y = Math.floor(this.nextY);
+
+            while(!this.intercectsBottom(node, y)){
+              y++;
+            }
+
+            this.nextY = y;
+            this.vy = 0;
+
+          }
+
+          if ( node.edges.indexOf('l') > -1 && this.intercectsLeft( node ) ){
+
+            x = Math.floor(this.nextX);
+
+            while(!this.intercectsLeft(node, x)){
+
+              x--;
+
+            }
+
+            this.nextX = x;
+            this.vx = 0;
+
+          }
 
         }
 
-        this.nextX = x;
-        this.vx = 0;
+        lastOverlapping = Game.currentMap.cols * h + w;
 
       }
 
-      if(this.overlaping[i].edges.indexOf('t') > -1 && this.intecectsTop(this.overlaping[i])){
+    }
 
-        var y = Math.floor(this.nextY);
-
-        while(!this.intecectsTop(this.overlaping[i], y)){
-          y--;
-        }
-
-        this.nextY = y;
-        this.vy = 0;
-
-      }
-
-       if(this.overlaping[i].edges.indexOf('b') > -1 && this.intercectsBottom(this.overlaping[i])){
-
-        var y = Math.floor(this.nextY);
-
-        while(!this.intercectsBottom(this.overlaping[i], y)){
-          y++;
-        }
-
-        this.nextY = y;
-        this.vy = 0;
-
-      }
-
-       if ( this.overlaping[i].edges.indexOf('l') > -1 && this.intercectsLeft( this.overlaping[i] ) ){
-
-        var x = Math.floor(this.nextX);
-
-        while(!this.intercectsLeft(this.overlaping[i], x)){
-
-          x--;
-
-        }
-
-        this.nextX = x;
-        this.vx = 0;
-
-      }
-
-    };
-  };
+  }
 
   if(this.x - Game.currentMap.camera.x > Game.width / 2 ||
     this.x - Game.currentMap.camera.x < Game.width / 2){
@@ -140,16 +157,17 @@ Game.Player.prototype.update = function() {
 
 };
 
-Game.Player.prototype.addOverlaping = function(node) {
+// Game.Player.prototype.addOverlaping = function(node) {
 
-  if(this.overlaping.indexOf(node) === -1){
-    this.overlaping.push(node);
-  }
+//   if(this.overlaping.indexOf(node) === -1){
+//     this.overlaping.push(node);
+//   }
 
-};
+// };
 
 
 Game.Player.prototype.intercects = function(obj){
+
   if(obj && obj.solid){
 
     if((obj.x * Game.tileSize) < this.nextX + this.size && (obj.y * Game.tileSize) < this.nextY + this.size &&

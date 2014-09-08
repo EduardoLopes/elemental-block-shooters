@@ -118,8 +118,8 @@ Game.state = [];
 Game.state['play'] = {
   update: function() {
 
-    Game.player.update();
     Game.currentMap.update();
+    Game.player.update();
 
     Game.mouse.angle = angleCalc( Game.player.x - Game.currentMap.camera.x, Game.player.y - Game.currentMap.camera.y, Game.mouse.x - 8, Game.mouse.y - 8);
 
@@ -131,7 +131,7 @@ Game.state['play'] = {
 
     for (i = 0; i < Game.particlePool.elements.length; i++) {
 
-      if(Game.particlePool.elements[i].free === true){
+      if(!Game.particlePool.elements[i].free){
 
         if(!Game.particlePool.elements[i].isDead()){
 
@@ -158,7 +158,7 @@ Game.state['play'] = {
 
     for (i = 0; i < Game.particlePool.elements.length; i++) {
 
-      if(Game.particlePool.elements[i].free === true){
+      if(!Game.particlePool.elements[i].free){
 
         Game.particlePool.elements[i].draw();
 

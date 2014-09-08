@@ -28,7 +28,7 @@ Pool.prototype.get = function(x,y,angle, size) {
     this.grow();
   }
 
-  this.elements[ this.freeElements.head.data ].free = true;
+  this.elements[ this.freeElements.head.data ].free = false;
   this.elements[ this.freeElements.head.data ].init(x,y,angle, size);
 
   this.freeElements.shift();
@@ -38,7 +38,7 @@ Pool.prototype.get = function(x,y,angle, size) {
 Pool.prototype.free = function(obj) {
 
   if(obj.free){
-    obj.free = false;
+    obj.free = true;
     obj.dead = false;
     this.freeElements.push( obj.ID );
   }

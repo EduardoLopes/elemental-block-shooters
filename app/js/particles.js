@@ -1,3 +1,5 @@
+var minX = minY = maxX = maxY = 0, lastOverlapping, node;
+
 /**
 * @constructor
 */
@@ -15,7 +17,6 @@ function Particles(x,y,angle, size, i) {
   this.free = true;
   this.ID = i;
 
-
 };
 
 Particles.prototype.init = function(x,y,angle, size) {
@@ -32,24 +33,48 @@ Particles.prototype.update = function() {
 
   if(this.dead) return false;
 
-    this.overlaping.length = 0;
+    // while (this.overlaping.length > 0) {
+    //   this.overlaping.pop();
+    // }
 
     this.next.x += (Math.cos((Math.PI * 2) + this.angle) * this.speed);
     this.next.y += (Math.sin((Math.PI * 2) + this.angle) * this.speed);
 
-    this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
-    this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
-    this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
-    this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
+    minX = Math.floor((this.next.x) / Game.tileSize);
+    maxX = Math.floor((this.next.x + this.size) / Game.tileSize);
+    minY = Math.floor((this.next.y) / Game.tileSize);
+    maxY = Math.floor((this.next.y + this.size) / Game.tileSize);
 
+    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
+    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
+    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
+    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
 
-    for (var i = 0; i < this.overlaping.length; i++) {
+    for (h = minY; h <= maxY && h >= 0; h++) {
 
-      if(this.intercects(this.overlaping[i])){
-        this.dead = true;
+      for (w = minX; w <= maxX && w >= 0; w++) {
+
+        node = Game.currentMap.map[Game.currentMap.cols * h + w];
+
+        if(lastOverlapping !== node.i){
+
+          if(this.intercects(node)){
+            this.dead = true;
+          }
+
+          lastOverlapping = node.i;
+        }
+
       }
-
     }
+
+    // for (var i = 0; i < this.overlaping.length; i++) {
+
+    //   if(this.intercects(this.overlaping[i])){
+    //     this.dead = true;
+    //   }
+
+    // }
 
     this.x = this.next.x;
     this.y = this.next.y;
