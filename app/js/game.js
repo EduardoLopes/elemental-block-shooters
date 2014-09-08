@@ -123,9 +123,9 @@ Game.state['play'] = {
 
     Game.mouse.angle = angleCalc( Game.player.x - Game.currentMap.camera.x, Game.player.y - Game.currentMap.camera.y, Game.mouse.x - 8, Game.mouse.y - 8);
 
-    if(Game.mouse.down && Game.tick%10 == 0 ){
+    if(Game.mouse.down && Game.tick%4 == 0 ){
 
-       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 8);
+       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10);
 
     }
 

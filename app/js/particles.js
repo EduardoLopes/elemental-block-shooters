@@ -10,7 +10,7 @@ function Particles(x,y,angle, size, i) {
     x: this.x,
     y: this.y
   };
-  this.speed = 10;
+  this.speed = 8;
   this.init(x, y, angle, size);
   this.overlaping = [];
   this.dead = false;
@@ -27,6 +27,8 @@ Particles.prototype.init = function(x,y,angle, size) {
   this.next.y = this.y;
   this.size = size || 8;
   this.angle = angle;
+  this.free = false;
+
 };
 
 Particles.prototype.update = function() {
@@ -37,13 +39,13 @@ Particles.prototype.update = function() {
     //   this.overlaping.pop();
     // }
 
-    this.next.x += (Math.cos((Math.PI * 2) + this.angle) * this.speed);
-    this.next.y += (Math.sin((Math.PI * 2) + this.angle) * this.speed);
+    this.next.x += Math.cos((Math.PI * 2) + this.angle) * this.speed;
+    this.next.y += Math.sin((Math.PI * 2) + this.angle) * this.speed;
 
-    minX = Math.floor((this.next.x) / Game.tileSize);
-    maxX = Math.floor((this.next.x + this.size) / Game.tileSize);
-    minY = Math.floor((this.next.y) / Game.tileSize);
-    maxY = Math.floor((this.next.y + this.size) / Game.tileSize);
+    minX = (this.next.x / Game.tileSize) >> 0;
+    maxX = (this.next.x + this.size) / Game.tileSize >> 0;
+    minY = (this.next.y / Game.tileSize) >> 0;
+    maxY = (this.next.y + this.size) / Game.tileSize >> 0;
 
     // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
     // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);

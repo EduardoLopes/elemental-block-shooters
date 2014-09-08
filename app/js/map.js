@@ -115,8 +115,8 @@ MapNode.prototype.setModelType = function(type) {
  * @constructor
  */
 Game.Map = function(type) {
-  this.cols = 64;
-  this.rows = 64;
+  this.cols = 64 * 4;
+  this.rows = 64 * 4;
   this.map = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};

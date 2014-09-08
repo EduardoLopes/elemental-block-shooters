@@ -4,7 +4,7 @@ var Game = (function() {
       ctx = canvas.getContext('2d');
 
   return {
-    width: 32 * 20,
+    width: 32 * 12,
     height: 32 * 12,
     tileSize: 32,
     now: 0,
