@@ -97,20 +97,29 @@ function MapNode(x,y,i) {
 MapNode.prototype.setType = function(type) {
 
   this.typeID = type;
-
   if(type === 48 || type === 108 || type === 168 || type === 228){
     this.type = 'enemy';
+    this.health = 8;
   }
+
+
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
 };
 
 MapNode.prototype['enemy'] = function() {
 
-  this.typeID = 3 + (60 * Game.currentMap.type);
-  Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 'orb', false);
+  this.health--;
+  Game.currentMap.camera.x = random(Game.currentMap.camera.x - 8, Game.currentMap.camera.x + 8);
+      Game.currentMap.camera.y = random(Game.currentMap.camera.y - 8, Game.currentMap.camera.y + 8);
+  if(this.health <= 0){
+    Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 'orb', false);
+    this.typeID = 3 + (60 * Game.currentMap.type);
+    this.type = 'w';
 
-  this.type = 'w';
+    Game.currentMap.camera.x = random(Game.currentMap.camera.x - 20, Game.currentMap.camera.x + 20);
+    Game.currentMap.camera.y = random(Game.currentMap.camera.y - 20, Game.currentMap.camera.y + 20);
+  }
 
 };
 

@@ -64,7 +64,6 @@ Particles.prototype.checkCollision = function() {
             if(node.type === 'enemy'){
 
               node[node.type]();
-
             }
 
             this.dead = true;
@@ -110,6 +109,7 @@ Particles.prototype['orb'] = function() {
     if(this.x < 18 && this.y < 18){
       this.dead = true;
     }
+
 
 
 };

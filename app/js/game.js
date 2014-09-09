@@ -141,7 +141,9 @@ Game.state['play'] = {
 
     if(Game.mouse.down && Game.tick%4 == 0 ){
 
-       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 'bullet', true);
+      Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 'bullet', true);
+      Game.currentMap.camera.x = random(Game.currentMap.camera.x - 2, Game.currentMap.camera.x + 2);
+      Game.currentMap.camera.y = random(Game.currentMap.camera.y - 2, Game.currentMap.camera.y + 2);
 
     }
 
