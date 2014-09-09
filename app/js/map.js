@@ -25,7 +25,7 @@ function pushRulesF(i, r){
 };
 
 //this is for save some bytes
-pushRules([3,48], {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRules([3, 48], {e: '!w', w: '!w', s: '!w', n: '!w'});
 pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
 pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
@@ -102,23 +102,23 @@ MapNode.prototype.setType = function(type) {
     this.health = 8;
   }
 
-
-
   this.solid = Game.solidTiles.indexOf(type) > -1;
 };
 
 MapNode.prototype['enemy'] = function() {
 
   this.health--;
-  Game.currentMap.camera.x = random(Game.currentMap.camera.x - 8, Game.currentMap.camera.x + 8);
-      Game.currentMap.camera.y = random(Game.currentMap.camera.y - 8, Game.currentMap.camera.y + 8);
+
+    Game.currentMap.cameraShake.y += random(-4, 4);
+    Game.currentMap.cameraShake.x += random(-4, 4);
   if(this.health <= 0){
     Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 'orb', false);
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
 
-    Game.currentMap.camera.x = random(Game.currentMap.camera.x - 20, Game.currentMap.camera.x + 20);
-    Game.currentMap.camera.y = random(Game.currentMap.camera.y - 20, Game.currentMap.camera.y + 20);
+    Game.currentMap.cameraShake.y += random(-14, 14);
+    Game.currentMap.cameraShake.x += random(-14, 14);
+
   }
 
 };
@@ -141,11 +141,12 @@ MapNode.prototype.setModelType = function(type) {
  * @constructor
  */
 Game.Map = function(type) {
-  this.cols = 64 * 4;
-  this.rows = 64 * 4;
+  this.cols = 64;
+  this.rows = 64;
   this.map = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
+  this.cameraShake = {x: 0, y: 0};
   this.viewport = {
     width: Game.width,
     height: Game.height
@@ -311,8 +312,8 @@ Game.Map.prototype.drawTile = function(w, h, type) {
     spriteCoords.y * Game.tileSize,
     Game.tileSize,
     Game.tileSize,
-    (w * Game.tileSize) - this.camera.x,
-    (h * Game.tileSize) - this.camera.y,
+    (w * Game.tileSize) - (this.camera.x + this.cameraShake.x),
+    (h * Game.tileSize) - (this.camera.y + this.cameraShake.y),
     Game.tileSize,
     Game.tileSize
   );
@@ -322,12 +323,12 @@ Game.Map.prototype.drawTile = function(w, h, type) {
 
 Game.Map.prototype.draw = function() {
 
-  var lastRightCol = ((this.viewport.width + this.camera.x) / Game.tileSize) >> 0,
+  var lastRightCol = ((this.viewport.width + (this.camera.x)) / Game.tileSize) >> 0,
       lastRightRow = ((this.viewport.height + this.camera.y) / Game.tileSize) >> 0;
 
   h = (this.camera.y / Game.tileSize) >> 0;
 
-  if(this.camera.x % Game.tileSize){
+  if((this.camera.x) % Game.tileSize){
     lastRightCol+=1;
   }
 
@@ -336,8 +337,8 @@ Game.Map.prototype.draw = function() {
   }
 
   for ( ; h < lastRightRow; h++) {
-    w = ((this.camera.x / Game.tileSize) >> 0);
-    for ( ; w < lastRightCol && lastRightCol; w++) {
+    w = (((this.camera.x) / Game.tileSize) >> 0);
+    for ( ; w < lastRightCol; w++) {
 
       this.drawTile(w, h, this.map[this.cols * h + w].typeID);
 
@@ -359,19 +360,31 @@ Game.Map.prototype.draw = function() {
     };
   };
 
+
 };
 
 Game.Map.prototype.update = function() {
 
-  this.camera.x += (this.cameraPosition.x - this.camera.x) * 0.05 >> 0;
-  this.camera.y += (this.cameraPosition.y - this.camera.y) * 0.05 >> 0;
+  this.setCamera(
+    (this.cameraPosition.x - (this.camera.x)) * 0.05 >> 0,
+    (this.cameraPosition.y - (this.camera.y)) * 0.05 >> 0
+  );
 
-  // this.camera.x += Math.floor((this.cameraPosition.x - this.camera.x) * 0.1);
-  // this.camera.y += Math.floor((this.cameraPosition.y - this.camera.y) * 0.1);
+  if(Game.tick % 8 === 0){
+    this.cameraShake.x = this.cameraShake.y = 0;
+  }
+
+};
+
+Game.Map.prototype.setCamera = function(x, y) {
+
+  this.camera.x += x;
+  this.camera.y += y;
 
   this.camera.x = Math.max(0, Math.min(this.camera.x, (Game.tileSize * this.cols) - Game.width));
   this.camera.y = Math.max(0, Math.min(this.camera.y, (Game.tileSize * this.rows) - Game.height));
 
 };
+
 
 

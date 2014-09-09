@@ -135,17 +135,22 @@ Game.state['play'] = {
   update: function() {
 
     Game.currentMap.update();
-    Game.player.update();
 
-    Game.mouse.angle = angleCalc( Game.player.x - Game.currentMap.camera.x, Game.player.y - Game.currentMap.camera.y, Game.mouse.x - 8, Game.mouse.y - 8);
+    Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.y), Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y), Game.mouse.x - 8, Game.mouse.y - 8);
 
     if(Game.mouse.down && Game.tick%4 == 0 ){
 
       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 'bullet', true);
-      Game.currentMap.camera.x = random(Game.currentMap.camera.x - 2, Game.currentMap.camera.x + 2);
-      Game.currentMap.camera.y = random(Game.currentMap.camera.y - 2, Game.currentMap.camera.y + 2);
+
+    Game.currentMap.cameraShake.y += random(-1, 1);
+    Game.currentMap.cameraShake.x += random(-1, 1);
+
+      Game.player.gunForce.x -= Math.cos((Math.PI * 2) + Game.mouse.angle) * 4;
+      Game.player.gunForce.y -= Math.sin((Math.PI * 2) + Game.mouse.angle) * 4;
 
     }
+
+    Game.player.update();
 
     for (i = 0; i < Game.particlePool.elements.length; i++) {
 

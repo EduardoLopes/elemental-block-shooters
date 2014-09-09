@@ -22,6 +22,10 @@ Game.Player = function(x,y) {
   this.nextX = this.x;
   this.nextY = this.y;
   this.colliding = [];
+  this.gunForce = {
+    x: 0,
+    y: 0
+  }
 
 };
 
@@ -54,6 +58,9 @@ Game.Player.prototype.update = function() {
 
   this.nextX += this.vx;
   this.nextY += this.vy;
+
+  this.nextX += this.gunForce.x;
+  this.nextY += this.gunForce.y;
 
   // while (this.overlaping.length > 0) {
   //   this.overlaping.pop();
@@ -145,6 +152,9 @@ Game.Player.prototype.update = function() {
 
   }
 
+  this.gunForce.x = 0;
+  this.gunForce.y = 0;
+
   if(this.x - Game.currentMap.camera.x > Game.width / 2 ||
     this.x - Game.currentMap.camera.x < Game.width / 2){
     Game.currentMap.cameraPosition.x = this.x - (Game.width / 2) + (this.size / 2);
@@ -223,7 +233,7 @@ Game.Player.prototype.intercectsBottom = function(obj, y) {
 Game.Player.prototype.draw = function() {
 
   Game.c1ctx.fillStyle = '#181818';
-  Game.c1ctx.fillRect(this.x - Game.currentMap.camera.x, this.y - Game.currentMap.camera.y, this.size, this.size);
+  Game.c1ctx.fillRect(this.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x), this.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y), this.size, this.size);
 
   //DEBUG: SHOW THE ID OF THE CURRENT TILE
   //Game.c1ctx.fillText(Game.currentMap.cols * Math.floor((this.nextY + this.size) / Game.tileSize) + Math.floor((this.nextX + this.size) / Game.tileSize), 10,10);

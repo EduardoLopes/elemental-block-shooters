@@ -139,9 +139,9 @@ Particles.prototype.draw = function() {
   if(this.dead) return false;
 
   if(this.camera){
-    Game.c1ctx.fillRect((this.x - Game.currentMap.camera.x), (this.y - Game.currentMap.camera.y), this.size, this.size);
+    Game.c1ctx.fillRect(this.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x), this.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y), this.size, this.size);
   } else {
-    Game.c1ctx.fillRect((this.x), (this.y), this.size, this.size);
+    Game.c1ctx.fillRect((this.x) + Game.currentMap.cameraShake.x, (this.y) + Game.currentMap.cameraShake.y, this.size, this.size);
   }
 
 };
