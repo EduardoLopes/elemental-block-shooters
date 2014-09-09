@@ -141,7 +141,7 @@ Game.state['play'] = {
 
     if(Game.mouse.down && Game.tick%4 == 0 ){
 
-       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10);
+       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 'bullet', true);
 
     }
 
@@ -151,7 +151,7 @@ Game.state['play'] = {
 
         if(!Game.particlePool.elements[i].isDead()){
 
-          Game.particlePool.elements[i].update();
+          Game.particlePool.elements[i][Game.particlePool.elements[i].type]();
 
         } else {
 

@@ -108,6 +108,8 @@ MapNode.prototype.setType = function(type) {
 MapNode.prototype['enemy'] = function() {
 
   this.typeID = 3 + (60 * Game.currentMap.type);
+  Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 'orb', false);
+
   this.type = 'w';
 
 };

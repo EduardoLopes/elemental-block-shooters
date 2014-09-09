@@ -3,7 +3,7 @@ var minX = minY = maxX = maxY = 0, lastOverlapping, node;
 /**
 * @constructor
 */
-function Particles(x,y,angle, size, i) {
+function Particles(x,y,angle, size, i, type, camera) {
   this.x = this.y = this.size = this.angle = 0;
 
   this.next = {
@@ -16,10 +16,12 @@ function Particles(x,y,angle, size, i) {
   this.dead = false;
   this.free = true;
   this.ID = i;
+  this.type = type;
+  this.camera = camera || true;
 
 };
 
-Particles.prototype.init = function(x,y,angle, size) {
+Particles.prototype.init = function(x,y,angle, size, type, camera) {
 
   this.x = x;
   this.y = y;
@@ -28,19 +30,16 @@ Particles.prototype.init = function(x,y,angle, size) {
   this.size = size || 8;
   this.angle = angle;
   this.free = false;
+  this.type = type;
+  this.camera = camera;
 
 };
 
-Particles.prototype.update = function() {
+Particles.prototype.checkCollision = function() {
 
-  if(this.dead) return false;
-
-    // while (this.overlaping.length > 0) {
+     // while (this.overlaping.length > 0) {
     //   this.overlaping.pop();
     // }
-
-    this.next.x += Math.cos((Math.PI * 2) + this.angle) * this.speed;
-    this.next.y += Math.sin((Math.PI * 2) + this.angle) * this.speed;
 
     minX = (this.next.x / Game.tileSize) >> 0;
     maxX = (this.next.x + this.size) / Game.tileSize >> 0;
@@ -85,8 +84,33 @@ Particles.prototype.update = function() {
 
     // }
 
+};
+
+Particles.prototype['bullet'] = function() {
+
+  if(this.dead) return false;
+
+    this.next.x += Math.cos((Math.PI * 2) + this.angle) * this.speed;
+    this.next.y += Math.sin((Math.PI * 2) + this.angle) * this.speed;
+
+    this.checkCollision();
+
     this.x = this.next.x;
     this.y = this.next.y;
+
+};
+
+Particles.prototype['orb'] = function() {
+
+  if(this.dead) return false;
+
+    this.x += (16 - this.x) * 0.1;
+    this.y += (16 - this.y) * 0.1;
+
+    if(this.x < 18 && this.y < 18){
+      this.dead = true;
+    }
+
 
 };
 
@@ -102,19 +126,23 @@ Particles.prototype.intercects = function(obj){
   return false;
 };
 
-Particles.prototype.addOverlaping = function(node) {
+// Particles.prototype.addOverlaping = function(node) {
 
-  if(typeof node !== 'undefined' && this.overlaping.indexOf(node) === -1){
-    this.overlaping.push(node);
-  }
+//   if(typeof node !== 'undefined' && this.overlaping.indexOf(node) === -1){
+//     this.overlaping.push(node);
+//   }
 
-};
+// };
 
 Particles.prototype.draw = function() {
 
   if(this.dead) return false;
 
-  Game.c1ctx.fillRect((this.x - Game.currentMap.camera.x), (this.y - Game.currentMap.camera.y), this.size, this.size);
+  if(this.camera){
+    Game.c1ctx.fillRect((this.x - Game.currentMap.camera.x), (this.y - Game.currentMap.camera.y), this.size, this.size);
+  } else {
+    Game.c1ctx.fillRect((this.x), (this.y), this.size, this.size);
+  }
 
 };
 
