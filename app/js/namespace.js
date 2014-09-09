@@ -18,7 +18,7 @@ var Game = (function() {
 }());
 
 //air
-for (var i = 0; i < 34; i++) {
+for (i = 0; i < 34; i++) {
   Game.solidTiles.push(i);
 };
 //water
@@ -31,6 +31,10 @@ for (i = 97; i < 154; i++) {
 };
 //fire
 for (i = 157; i < 214; i++) {
+  Game.solidTiles.push(i);
+};
+
+for (i = 217; i < 250; i++) {
   Game.solidTiles.push(i);
 };
 

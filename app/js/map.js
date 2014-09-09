@@ -97,8 +97,23 @@ function MapNode(x,y,i) {
 MapNode.prototype.setType = function(type) {
 
   this.typeID = type;
+
+  if(type === 48 || type === 108 || type === 168 || type === 228){
+    this.type = 'enemy';
+  }
+
   this.solid = Game.solidTiles.indexOf(type) > -1;
 };
+
+MapNode.prototype['enemy'] = function() {
+
+  this.typeID = 3 + (60 * Game.currentMap.type);
+  this.type = 'w';
+
+};
+
+
+
 
 MapNode.prototype.setModelType = function(type) {
 

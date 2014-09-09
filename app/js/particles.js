@@ -61,6 +61,13 @@ Particles.prototype.update = function() {
         if(lastOverlapping !== node.i){
 
           if(this.intercects(node)){
+
+            if(node.type === 'enemy'){
+
+              node[node.type]();
+
+            }
+
             this.dead = true;
           }
 
