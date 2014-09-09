@@ -12,7 +12,7 @@ type['w'] = {
 };
 type['f'] =  {
   typeString: 'f',
-  defaultIndex: 34,
+  defaultIndex: [34, 34, 34, 35, 36],
   rules: []
 };
 
@@ -25,7 +25,7 @@ function pushRulesF(i, r){
 };
 
 //this is for save some bytes
-pushRules(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRules([3,48], {e: '!w', w: '!w', s: '!w', n: '!w'});
 pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
 pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
@@ -217,9 +217,16 @@ Game.Map.prototype.check = function(x, y) {
 
   for (i = 0; i < rules.length; i++) {
     if(this.checkAdjacents(x, y, rules[i])){
-      return rules[i].tileIndex;
+      if(rules[i].tileIndex instanceof Array){
+        return randomChoice(rules[i].tileIndex);
+      }
+        return rules[i].tileIndex;
     };
   };
+
+  if(type[this.map[this.cols * y + x].type].defaultIndex instanceof Array){
+    return randomChoice(type[this.map[this.cols * y + x].type].defaultIndex);
+  }
 
   return type[this.map[this.cols * y + x].type].defaultIndex;
 
