@@ -189,6 +189,9 @@ Game.state['play'] = {
 
     };
 
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.fillText(Game.currentMap.enemies, 18, 20);
+
     //mouse debug
     // Game.c1ctx.fillStyle = '#181818';
     // Game.c1ctx.fillText(Game.mouse.angle, 10, 10);

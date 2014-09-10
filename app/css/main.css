@@ -18,4 +18,6 @@ img{
   width: 384px;
   height: 384px;
   background: #CEF3B6;
+  cursor: crosshair;
+
 }

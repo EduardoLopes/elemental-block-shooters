@@ -2,6 +2,7 @@ var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
 
 var types = [];
 types[11] = 'w'; //walls
+types[48] = 'e'; //enemies
 types[34] = 'f'; //floor
 
 var type = [];
@@ -15,7 +16,11 @@ type['f'] =  {
   defaultIndex: [34, 34, 34, 35, 36],
   rules: []
 };
-
+type['e'] = {
+  typeString: 'e',
+  defaultIndex: 48,
+  rules: []
+};
 
 function pushRules(i, r){
   type['w'].rules.push({tileIndex: i, map: r});
@@ -25,7 +30,7 @@ function pushRulesF(i, r){
 };
 
 //this is for save some bytes
-pushRules([3, 48], {e: '!w', w: '!w', s: '!w', n: '!w'});
+pushRules(3, {e: '!w', w: '!w', s: '!w', n: '!w'});
 pushRules(7, {n: 'w', ne: 'w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: 'w' });
 pushRules(4, {n: '!w', e: 'w', se: '!w', s: 'w', w: '!w'});
 pushRules(9, {n: 'w', ne: 'w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 'w' });
@@ -117,6 +122,7 @@ MapNode.prototype['enemy'] = function() {
     Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 8, 'orb', false);
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
+    Game.currentMap.enemies--;
 
     Game.currentMap.cameraShake.y += random(-14, 14);
     Game.currentMap.cameraShake.x += random(-14, 14);
@@ -165,6 +171,7 @@ Game.Map = function(type) {
     width: Game.width,
     height: Game.height
   };
+  this.enemies = 0;
   this.types = ['air', 'water', 'earth', 'fire'];
   this.type = this.types.indexOf( type );
 
@@ -200,11 +207,55 @@ Game.Map.prototype.generate = function() {
   this.room(5,5,15,15);
   this.room(14,14,25,25);
 
+  this.addEnemies();
+
   this.autoTile();
 
   this.findAdjacents();
 
 };
+
+Game.Map.prototype.addEnemies = function() {
+  var tileType;
+
+  for (h = 0; h < this.rows; h++) {
+
+    for (w = 0; w < this.cols; w++) {
+
+      if(this.map[this.cols * h + w].type === 'w'){
+
+        tileType = this.checkEnemy(w, h);
+
+        if(tileType === 48 && randomChoice([true, false])){
+
+          this.map[this.cols * h + w].setModelType( tileType );
+          this.enemies++;
+
+        }
+
+      }
+
+    }
+
+  }
+
+};
+
+Game.Map.prototype.checkEnemy = function(x, y) {
+
+  var rule = type['w'].rules[0];
+
+  if(this.checkAdjacents(x, y, rule)){
+
+      return 48;
+
+  };
+
+  return 3;
+
+};
+
+
 
 Game.Map.prototype.findAdjacents = function() {
 
@@ -241,11 +292,14 @@ Game.Map.prototype.findAdjacents = function() {
 };
 
 Game.Map.prototype.autoTile = function() {
+  var tileType;
 
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
 
-      this.map[this.cols * h + w].setType( this.check(w, h) + (60 * this.type) );
+      tileType = this.check(w, h) + (60 * this.type);
+
+      this.map[this.cols * h + w].setType( tileType );
 
     }
   }
