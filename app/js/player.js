@@ -80,71 +80,65 @@ Game.Player.prototype.update = function() {
     for (w = minX; w <= maxX; w++) {
       node = Game.currentMap.map[Game.currentMap.cols * h + w];
 
-      if(lastOverlapping !== node.i){
-
-        if(this.intercects(node)){
+        if(this.intercects(node) && node.solid){
         //COLLISION DETECTION DEBUG
-        //this.colliding.push(node);
+        //this.collidaing.push(node);
 
-          if(node.edges.indexOf('r') > -1 && this.intercectsRight( node ) ){
+        if(node.edges.indexOf('r') > -1 && this.intercectsRight( node ) ){
 
-            x = Math.floor(this.nextX);
+          x = Math.floor(this.nextX);
 
-            while(!this.intercectsRight(node, x)){
+          while(!this.intercectsRight(node, x)){
 
-              x++;
-
-            }
-
-            this.nextX = x;
-            this.vx = 0;
+            x++;
 
           }
 
-          if(node.edges.indexOf('t') > -1 && this.intecectsTop(node)){
-
-            y = Math.floor(this.nextY);
-
-            while(!this.intecectsTop(node, y)){
-              y--;
-            }
-
-            this.nextY = y;
-            this.vy = 0;
-
-          }
-
-          if(node.edges.indexOf('b') > -1 && this.intercectsBottom(node)){
-
-            y = Math.floor(this.nextY);
-
-            while(!this.intercectsBottom(node, y)){
-              y++;
-            }
-
-            this.nextY = y;
-            this.vy = 0;
-
-          }
-
-          if ( node.edges.indexOf('l') > -1 && this.intercectsLeft( node ) ){
-
-            x = Math.floor(this.nextX);
-
-            while(!this.intercectsLeft(node, x)){
-
-              x--;
-
-            }
-
-            this.nextX = x;
-            this.vx = 0;
-
-          }
+          this.nextX = x;
+          this.vx = 0;
 
         }
 
-        lastOverlapping = Game.currentMap.cols * h + w;
+        if(node.edges.indexOf('t') > -1 && this.intecectsTop(node)){
+
+          y = Math.floor(this.nextY);
+
+          while(!this.intecectsTop(node, y)){
+            y--;
+          }
+
+          this.nextY = y;
+          this.vy = 0;
+
+        }
+
+        if(node.edges.indexOf('b') > -1 && this.intercectsBottom(node)){
+
+          y = Math.floor(this.nextY);
+
+          while(!this.intercectsBottom(node, y)){
+            y++;
+          }
+
+          this.nextY = y;
+          this.vy = 0;
+
+        }
+
+        if ( node.edges.indexOf('l') > -1 && this.intercectsLeft( node ) ){
+
+          x = Math.floor(this.nextX);
+
+          while(!this.intercectsLeft(node, x)){
+
+            x--;
+
+          }
+
+          this.nextX = x;
+          this.vx = 0;
+
+        }
 
       }
 
@@ -178,7 +172,7 @@ Game.Player.prototype.update = function() {
 
 Game.Player.prototype.intercects = function(obj){
 
-  if(obj && obj.solid){
+  if(obj){
 
     if((obj.x * Game.tileSize) < this.nextX + this.size && (obj.y * Game.tileSize) < this.nextY + this.size &&
        (obj.x * Game.tileSize) + Game.tileSize > this.nextX && (obj.y * Game.tileSize) + Game.tileSize > this.nextY ){
@@ -186,8 +180,21 @@ Game.Player.prototype.intercects = function(obj){
       return true;
     }
   }
+
   return false;
 };
+
+Game.Player.prototype.intercectsBullet = function(obj){
+
+    if(obj.x < this.nextX + this.size && obj.y < this.nextY + this.size &&
+       obj.x + obj.size > this.nextX && obj.y + obj.size > this.nextY ){
+
+      return true;
+    }
+
+  return false;
+};
+
 
 Game.Player.prototype.intecectsTop = function(obj, y) {
   y = y || this.y;

@@ -22,13 +22,13 @@ Pool.prototype.grow = function() {
 
 };
 
-Pool.prototype.get = function(x,y,angle, size, type, camera) {
+Pool.prototype.get = function(x,y,angle, size, speed, type, camera, nodeID) {
 
   if(this.freeElements.length === 0){
     this.grow();
   }
 
-  this.elements[ this.freeElements.head.data ].init(x,y,angle, size, type, camera);
+  this.elements[ this.freeElements.head.data ].init(x, y, angle, size, speed, type, camera, nodeID);
 
   this.freeElements.shift();
 

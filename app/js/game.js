@@ -115,16 +115,16 @@ Game.init = function() {
   Game.particlesIndex = 0;
   Game.tick = 10;
 
-  Game.particlePool = new Game.Pool();
 
   //Game.spriteCacheCtx.drawImage(Game.sprites, 0, 0);
 
   generateSprite();
 
   Game.currentState = 'play';
-
-  Game.currentMap = new Game.Map('air');
   Game.player = new Game.Player(4*32,4*32);
+  Game.currentMap = new Game.Map('air');
+  Game.particlePool = new Game.Pool();
+
 
   Game.loop();
 };
@@ -136,14 +136,14 @@ Game.state['play'] = {
 
     Game.currentMap.update();
 
-    Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.y), Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y), Game.mouse.x - 8, Game.mouse.y - 8);
+    Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
 
     if(Game.mouse.down && Game.tick%4 == 0 ){
 
-      Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 'bullet', true);
+      Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 8, 'bullet', true);
 
-    Game.currentMap.cameraShake.y += random(-1, 1);
-    Game.currentMap.cameraShake.x += random(-1, 1);
+      Game.currentMap.cameraShake.y += random(-1, 1);
+      Game.currentMap.cameraShake.x += random(-1, 1);
 
       Game.player.gunForce.x -= Math.cos((Math.PI * 2) + Game.mouse.angle) * 4;
       Game.player.gunForce.y -= Math.sin((Math.PI * 2) + Game.mouse.angle) * 4;

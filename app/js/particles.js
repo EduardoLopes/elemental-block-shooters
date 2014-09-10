@@ -21,7 +21,7 @@ function Particles(x,y,angle, size, i, type, camera) {
 
 };
 
-Particles.prototype.init = function(x,y,angle, size, type, camera) {
+Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID) {
 
   this.x = x;
   this.y = y;
@@ -32,24 +32,17 @@ Particles.prototype.init = function(x,y,angle, size, type, camera) {
   this.free = false;
   this.type = type;
   this.camera = camera;
+  this.nodeID = nodeID;
+  this.speed = speed;
 
 };
 
 Particles.prototype.checkCollision = function() {
 
-     // while (this.overlaping.length > 0) {
-    //   this.overlaping.pop();
-    // }
-
     minX = (this.next.x / Game.tileSize) >> 0;
     maxX = (this.next.x + this.size) / Game.tileSize >> 0;
     minY = (this.next.y / Game.tileSize) >> 0;
     maxY = (this.next.y + this.size) / Game.tileSize >> 0;
-
-    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
-    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
-    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y + this.size) / Game.tileSize) + Math.floor((this.next.x) / Game.tileSize)]);
-    // this.addOverlaping(Game.currentMap.map[Game.currentMap.cols * Math.floor((this.next.y) / Game.tileSize) + Math.floor((this.next.x + this.size) / Game.tileSize)]);
 
     for (h = minY; h <= maxY && h >= 0; h++) {
 
@@ -59,11 +52,12 @@ Particles.prototype.checkCollision = function() {
 
         if(lastOverlapping !== node.i){
 
-          if(this.intercects(node)){
+          if(this.intercects(node) && node.solid){
 
             if(node.type === 'enemy'){
 
               node[node.type]();
+
             }
 
             this.dead = true;
@@ -75,27 +69,65 @@ Particles.prototype.checkCollision = function() {
       }
     }
 
-    // for (var i = 0; i < this.overlaping.length; i++) {
-
-    //   if(this.intercects(this.overlaping[i])){
-    //     this.dead = true;
-    //   }
-
-    // }
-
 };
 
 Particles.prototype['bullet'] = function() {
 
   if(this.dead) return false;
 
-    this.next.x += Math.cos((Math.PI * 2) + this.angle) * this.speed;
-    this.next.y += Math.sin((Math.PI * 2) + this.angle) * this.speed;
+    this.next.x += Math.cos((Math.PI * 2) + (this.angle) ) * this.speed;
+    this.next.y += Math.sin((Math.PI * 2) + (this.angle) ) * this.speed;
 
     this.checkCollision();
 
     this.x = this.next.x;
     this.y = this.next.y;
+
+};
+
+Particles.prototype['enemyBullet'] = function() {
+
+  if(this.dead) return false;
+
+  this.next.x += Math.cos((Math.PI * 2) + (this.angle) ) * this.speed;
+  this.next.y += Math.sin((Math.PI * 2) + (this.angle) ) * this.speed;
+
+  minX = (this.next.x / Game.tileSize) >> 0;
+  maxX = (this.next.x + this.size) / Game.tileSize >> 0;
+  minY = (this.next.y / Game.tileSize) >> 0;
+  maxY = (this.next.y + this.size) / Game.tileSize >> 0;
+
+  for (h = minY; h <= maxY && h >= 0; h++) {
+    for (w = minX; w <= maxX && w >= 0; w++) {
+
+      node = Game.currentMap.map[Game.currentMap.cols * h + w];
+
+      if(this.intercects(node) && node.solid && node.i !== this.nodeID){
+
+        this.dead = true;
+
+        return false;
+      }
+
+    }
+  }
+
+  if(Game.player.intercectsBullet(this)){
+
+    Game.player.gunForce.x += Math.cos((Math.PI * 2) + this.angle) * 4;
+    Game.player.gunForce.y += Math.sin((Math.PI * 2) + this.angle) * 4;
+
+    Game.currentMap.cameraShake.y += random(-14, 14);
+    Game.currentMap.cameraShake.x += random(-14, 14);
+
+    this.dead = true;
+
+    return false;
+
+  }
+
+  this.x = this.next.x;
+  this.y = this.next.y;
 
 };
 
@@ -110,12 +142,10 @@ Particles.prototype['orb'] = function() {
       this.dead = true;
     }
 
-
-
 };
 
 Particles.prototype.intercects = function(obj){
-  if(obj && obj.solid){
+  if(obj){
 
     if((obj.x * Game.tileSize) < this.next.x + this.size && (obj.y * Game.tileSize) < this.next.y + this.size &&
        (obj.x * Game.tileSize) + Game.tileSize > this.next.x && (obj.y * Game.tileSize) + Game.tileSize > this.next.y ){
@@ -125,14 +155,6 @@ Particles.prototype.intercects = function(obj){
   }
   return false;
 };
-
-// Particles.prototype.addOverlaping = function(node) {
-
-//   if(typeof node !== 'undefined' && this.overlaping.indexOf(node) === -1){
-//     this.overlaping.push(node);
-//   }
-
-// };
 
 Particles.prototype.draw = function() {
 

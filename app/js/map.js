@@ -109,10 +109,12 @@ MapNode.prototype['enemy'] = function() {
 
   this.health--;
 
-    Game.currentMap.cameraShake.y += random(-4, 4);
-    Game.currentMap.cameraShake.x += random(-4, 4);
+  Game.currentMap.cameraShake.y += random(-4, 4);
+  Game.currentMap.cameraShake.x += random(-4, 4);
+
   if(this.health <= 0){
-    Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 'orb', false);
+
+    Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 8, 'orb', false);
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
 
@@ -123,8 +125,20 @@ MapNode.prototype['enemy'] = function() {
 
 };
 
+MapNode.prototype['enemyUpdate'] = function() {
 
+  var angle = angleCalc( (this.x * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.x), (this.y * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.y), Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.y), Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y));
 
+  if(Game.tick%20 == 0 && randomChoice([true, false])){
+
+    Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, 10, 6, 'enemyBullet', true,  this.i);
+
+    Game.currentMap.cameraShake.y += random(-1, 1);
+    Game.currentMap.cameraShake.x += random(-1, 1);
+
+  }
+
+};
 
 MapNode.prototype.setModelType = function(type) {
 
@@ -341,6 +355,10 @@ Game.Map.prototype.draw = function() {
     for ( ; w < lastRightCol; w++) {
 
       this.drawTile(w, h, this.map[this.cols * h + w].typeID);
+
+      if(this.map[this.cols * h + w].type === 'enemy'){
+        this.map[this.cols * h + w]['enemyUpdate']();
+      }
 
         //crazy stuff to show all edged that can collide
         // Game.c1ctx.fillStyle = '#CF2B2B';
