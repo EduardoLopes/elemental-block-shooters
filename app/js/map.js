@@ -88,13 +88,22 @@ pushRules(55, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 
  */
 function MapNode(x,y,i) {
 
+  this.adjacents = [];
+  this.edges = [];
+
+  this.init(x, y, i);
+
+};
+
+MapNode.prototype.init = function(x, y, i) {
+
   this.solid = null;
   this.setModelType( randomChoice( [34, 34, 11] ) );
   this.x = x;
   this.y = y;
   this.i = i;
-  this.adjacents = [];
-  this.edges = [];
+  this.adjacents.length = 0;
+  this.edges.length = 0;
   this.previous = null;
 
 };
@@ -109,19 +118,6 @@ MapNode.prototype.setType = function(type) {
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
 };
-
-MapNode.prototype.reset = function() {
-  this.solid = null;
-  this.type = null;
-  this.health = null;
-  this.x = null;
-  this.y = null;
-  this.i = null;
-  this.adjacents.length = 0;
-  this.edges.length = 0;
-  this.previous = null;
-};
-
 
 MapNode.prototype['enemy'] = function() {
 
@@ -210,23 +206,25 @@ Game.Map.prototype.room = function(x,y,width,height) {
 };
 
 Game.Map.prototype.reset = function() {
-  for (h = 0; h < this.rows; h++) {
-    for (w = 0; w < this.cols; w++) {
 
-      this.map[this.cols * h + w].reset();
-
-    }
-  }
   this.type = this.types.indexOf( randomChoice(this.types) );
 
   this.generate();
+
 }
 
 Game.Map.prototype.generate = function() {
+  this.rows = random(20, 64) >>0;
+  this.cols = random(20, 64) >>0;
 
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
-      this.map[this.cols * h + w] = new MapNode(w, h, this.cols * h + w);
+
+      if(typeof this.map[this.cols * h + w] == 'undefined'){
+        this.map[this.cols * h + w] = new MapNode(w, h, this.cols * h + w);
+      } else {
+        this.map[this.cols * h + w].init(w, h, this.cols * h + w);
+      }
 
       //Walls
       if(h === 0) this.map[this.cols * h + w].setModelType(11);
