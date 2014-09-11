@@ -217,6 +217,16 @@ Game.Map.prototype.generate = function() {
   this.rows = random(20, 64) >>0;
   this.cols = random(20, 64) >>0;
 
+  for (i = 0; i < Game.particlePool.elements.length; i++) {
+
+    if(!Game.particlePool.elements[i].free){
+
+      Game.particlePool.free(Game.particlePool.elements[i]);
+
+    }
+
+  };
+
   for (h = 0; h < this.rows; h++) {
     for (w = 0; w < this.cols; w++) {
 

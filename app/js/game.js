@@ -115,15 +115,12 @@ Game.init = function() {
   Game.particlesIndex = 0;
   Game.tick = 10;
 
-
-  //Game.spriteCacheCtx.drawImage(Game.sprites, 0, 0);
-
   generateSprite();
 
   Game.currentState = 'play';
   Game.player = new Game.Player(4*32,4*32);
-  Game.currentMap = new Game.Map('air');
   Game.particlePool = new Game.Pool();
+  Game.currentMap = new Game.Map('air');
 
 
   Game.loop();
