@@ -89,7 +89,7 @@ pushRules(55, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 
 function MapNode(x,y,i) {
 
   this.solid = null;
-  this.setModelType( randomChoice( [34, 34, 34, 11] ) );
+  this.setModelType( randomChoice( [34, 11] ) );
   this.entity = [];
   this.x = x;
   this.y = y;
@@ -162,8 +162,8 @@ MapNode.prototype.setModelType = function(type) {
  * @constructor
  */
 Game.Map = function(type) {
-  this.cols = 64;
-  this.rows = 64;
+  this.cols = 25;
+  this.rows = 25;
   this.map = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
@@ -178,6 +178,11 @@ Game.Map = function(type) {
 
   this.reachable = [];
   this.explored = [];
+
+  Game.player.nextX = (this.cols * Game.tileSize) / 2;
+  Game.player.nextY = (this.rows * Game.tileSize) / 2;
+  Game.player.x = (this.cols * Game.tileSize) / 2;
+  Game.player.y = (this.rows * Game.tileSize) / 2;
 
   this.generate();
 
@@ -208,14 +213,14 @@ Game.Map.prototype.generate = function() {
     }
   }
 
-  this.room(5,5,15,15);
-  this.room(14,14,25,25);
+  // this.room(2,2,15,15);
+  // this.room(14,14,25,25);
 
   this.findAdjacents();
 
-  this.findPath(3,8);
-
   this.addEnemies();
+
+  this.enemiesPath();
 
   this.autoTile();
 
@@ -226,18 +231,31 @@ Game.Map.prototype.findPath = function(x, y) {
   var node;
 
   this.reachable.length = 0;
+  this.explored.length = 0;
 
-  this.reachable.push(this.map[this.cols * y + x]);
+  this.reachable.push(this.map[this.cols * Math.floor(Game.player.y / Game.tileSize) +  Math.floor(Game.player.x / Game.tileSize)]);
 
   while(this.reachable.length > 0){
 
     node = randomChoice(this.reachable);
 
-    if(node.x === Game.player.x / Game.tileSize >> 0 && node.y === Game.player.y / Game.tileSize >> 0){
+    if(node.x === x && node.y === y){
 
       while(node) {
 
-        node.setModelType( 11 );
+        if(node.typeID !== 48){
+          node.setModelType( 34 );
+        }
+
+        for (i = node.adjacents.length - 1; i >= 0; i--) {
+          if(node.adjacents[i].typeID !== 48 && node.adjacents[i].x > 0 && node.adjacents[i].x < this.cols - 1 &&
+            node.adjacents[i].y > 0 && node.adjacents[i].y < this.rows - 1 && randomChoice([true, false, false])){
+
+            node.adjacents[i].setModelType(34);
+
+          }
+        }
+
         node = node.previous;
       }
 
@@ -249,12 +267,40 @@ Game.Map.prototype.findPath = function(x, y) {
 
     for (i = node.adjacents.length - 1; i >= 0; i--) {
 
-      if(this.reachable.indexOf(node.adjacents[i]) == -1 && this.explored.indexOf(node.adjacents[i]) == -1 && !node.adjacents[i].solid){
-        node.adjacents[i].previous = node;
-        this.reachable.push(node.adjacents[i]);
+      if(
+        this.reachable.indexOf(node.adjacents[i]) == -1 &&
+        this.explored.indexOf(node.adjacents[i]) == -1 &&
+        node.x > 0 && node.x < this.cols - 1 &&
+        node.y > 0 && node.y < this.rows - 1){
+
+        //if(!node.adjacents[i].solid){
+
+          node.adjacents[i].previous = node;
+          this.reachable.push(node.adjacents[i]);
+
+        //}
+
       }
 
     };
+
+  }
+
+};
+
+Game.Map.prototype.enemiesPath = function() {
+
+  for (h = 0; h < this.rows; h++) {
+
+    for (w = 0; w < this.cols; w++) {
+
+      if(this.map[this.cols * h + w].typeID === 48){
+
+          this.findPath(w,h);
+
+      }
+
+    }
 
   }
 
@@ -490,7 +536,6 @@ Game.Map.prototype.update = function() {
   if(Game.tick % 8 === 0){
     this.cameraShake.x = this.cameraShake.y = 0;
   }
-
 };
 
 Game.Map.prototype.setCamera = function(x, y) {
