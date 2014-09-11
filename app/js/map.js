@@ -137,6 +137,10 @@ MapNode.prototype['enemy'] = function() {
     this.type = 'w';
     Game.currentMap.enemies--;
 
+    Game.minimapCtx.fillStyle = 'rgba(18,18,18, 0.6)';
+    Game.minimapCtx.clearRect(this.x * 3, this.y  * 3, 3, 3);
+    Game.minimapCtx.fillRect(this.x * 3, this.y  * 3, 3, 3);
+
     Game.currentMap.cameraShake.y += random(-14, 14);
     Game.currentMap.cameraShake.x += random(-14, 14);
 
