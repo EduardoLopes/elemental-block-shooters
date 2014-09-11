@@ -1,7 +1,10 @@
 var Game = (function() {
 
   var canvas = document.getElementById('c1'),
-      ctx = canvas.getContext('2d');
+      ctx = canvas.getContext('2d'),
+      minimap = document.createElement('canvas'),
+      minimapCtx = minimap.getContext('2d');
+
 
   return {
     width: 32 * 12,
@@ -12,7 +15,9 @@ var Game = (function() {
     delta: 0,
     solidTiles: [],
     c1: canvas,
-    c1ctx: ctx
+    c1ctx: ctx,
+    minimap: minimap,
+    minimapCtx: minimapCtx
   }
 
 }());

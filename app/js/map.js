@@ -249,6 +249,38 @@ Game.Map.prototype.generate = function() {
 
   this.autoTile();
 
+  this.drawMinimap();
+
+};
+
+Game.Map.prototype.drawMinimap = function() {
+
+  Game.minimap.width = this.cols * 3;
+  Game.minimap.height = this.rows * 3;
+
+  Game.minimapCtx.fillStyle = 'rgba(18,18,18, 0.3)';
+  Game.minimapCtx.fillRect(0,0, Game.minimap.width, Game.minimap.height);
+
+  for (h = 0; h < this.rows; h++) {
+    for (w = 0; w < this.cols; w++) {
+
+      if(this.map[this.cols * h + w].solid){
+
+        if(this.map[this.cols * h + w].type === 'enemy'){
+
+          Game.minimapCtx.fillStyle = 'rgba(255,35,35, 0.8)';
+
+        } else {
+
+          Game.minimapCtx.fillStyle = 'rgba(18,18,18, 0.6)';
+
+        }
+
+        Game.minimapCtx.fillRect(this.map[this.cols * h + w].x * 3, this.map[this.cols * h + w].y  * 3, 3, 3);
+      }
+    }
+  }
+
 };
 
 Game.Map.prototype.findPath = function(x, y) {
@@ -548,6 +580,9 @@ Game.Map.prototype.draw = function() {
     };
   };
 
+  Game.c1ctx.drawImage(Game.minimap, (Game.width - Game.minimap.width) - 16, (Game.height - Game.minimap.height) - 16);
+  Game.c1ctx.fillStyle = '#e3e3e3';
+  Game.c1ctx.fillRect( ((Game.width - Game.minimap.width) - 16) + (Game.player.x / 32 >> 0) * 3, ((Game.height - Game.minimap.height) - 16) + (Game.player.y / 32 >> 0) * 3, 3, 3);
 
 };
 
