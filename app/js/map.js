@@ -304,9 +304,14 @@ Game.Map.prototype.findPath = function(x, y) {
 
       while(node) {
 
-        if(node.typeID !== 48){
+
+        if(node.typeID === 48 && node.x !== x && node.y !== y){
+          node.setModelType( 34 );
+          this.enemies--;
+        } else if(node.typeID !== 48) {
           node.setModelType( 34 );
         }
+
 
         for (i = node.adjacents.length - 1; i >= 0; i--) {
           if(node.adjacents[i].typeID !== 48 && node.adjacents[i].x > 0 && node.adjacents[i].x < this.cols - 1 &&
