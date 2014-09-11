@@ -89,8 +89,7 @@ pushRules(55, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: 
 function MapNode(x,y,i) {
 
   this.solid = null;
-  this.setModelType( randomChoice( [34, 11] ) );
-  this.entity = [];
+  this.setModelType( randomChoice( [34, 34, 11] ) );
   this.x = x;
   this.y = y;
   this.i = i;
@@ -110,6 +109,19 @@ MapNode.prototype.setType = function(type) {
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
 };
+
+MapNode.prototype.reset = function() {
+  this.solid = null;
+  this.type = null;
+  this.health = null;
+  this.x = null;
+  this.y = null;
+  this.i = null;
+  this.adjacents.length = 0;
+  this.edges.length = 0;
+  this.previous = null;
+};
+
 
 MapNode.prototype['enemy'] = function() {
 
@@ -162,8 +174,8 @@ MapNode.prototype.setModelType = function(type) {
  * @constructor
  */
 Game.Map = function(type) {
-  this.cols = 25;
-  this.rows = 25;
+  this.cols = 30;
+  this.rows = 30;
   this.map = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
@@ -179,11 +191,6 @@ Game.Map = function(type) {
   this.reachable = [];
   this.explored = [];
 
-  Game.player.nextX = (this.cols * Game.tileSize) / 2;
-  Game.player.nextY = (this.rows * Game.tileSize) / 2;
-  Game.player.x = (this.cols * Game.tileSize) / 2;
-  Game.player.y = (this.rows * Game.tileSize) / 2;
-
   this.generate();
 
 };
@@ -197,6 +204,19 @@ Game.Map.prototype.room = function(x,y,width,height) {
   }
 
 };
+
+Game.Map.prototype.reset = function() {
+  for (h = 0; h < this.rows; h++) {
+    for (w = 0; w < this.cols; w++) {
+
+      this.map[this.cols * h + w].reset();
+
+    }
+  }
+  this.type = this.types.indexOf( randomChoice(this.types) );
+
+  this.generate();
+}
 
 Game.Map.prototype.generate = function() {
 
@@ -215,6 +235,11 @@ Game.Map.prototype.generate = function() {
 
   // this.room(2,2,15,15);
   // this.room(14,14,25,25);
+
+  Game.player.nextX = (this.cols * Game.tileSize) / 2;
+  Game.player.nextY = (this.rows * Game.tileSize) / 2;
+  Game.player.x = (this.cols * Game.tileSize) / 2;
+  Game.player.y = (this.rows * Game.tileSize) / 2;
 
   this.findAdjacents();
 
@@ -495,9 +520,9 @@ Game.Map.prototype.draw = function() {
     lastRightRow+=1;
   }
 
-  for ( ; h < lastRightRow; h++) {
+  for ( ; h < lastRightRow && h < this.rows; h++) {
     w = (((this.camera.x) / Game.tileSize) >> 0);
-    for ( ; w < lastRightCol; w++) {
+    for ( ; w < lastRightCol && w < this.cols; w++) {
 
       this.drawTile(w, h, this.map[this.cols * h + w].typeID);
 
@@ -536,6 +561,7 @@ Game.Map.prototype.update = function() {
   if(Game.tick % 8 === 0){
     this.cameraShake.x = this.cameraShake.y = 0;
   }
+
 };
 
 Game.Map.prototype.setCamera = function(x, y) {

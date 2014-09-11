@@ -134,6 +134,10 @@ Game.state = [];
 Game.state['play'] = {
   update: function() {
 
+    if(Game.currentMap.enemies === 0){
+      Game.currentMap.reset();
+    }
+
     Game.currentMap.update();
 
     Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
