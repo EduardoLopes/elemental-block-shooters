@@ -214,8 +214,8 @@ Game.Map.prototype.reset = function() {
 }
 
 Game.Map.prototype.generate = function() {
-  this.rows = random(20, 64) >>0;
-  this.cols = random(20, 64) >>0;
+  this.rows = random(20, 20) >>0;
+  this.cols = random(20, 20) >>0;
 
   for (i = 0; i < Game.particlePool.elements.length; i++) {
 

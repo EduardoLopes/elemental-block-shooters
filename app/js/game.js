@@ -117,10 +117,15 @@ Game.init = function() {
 
   generateSprite();
 
-  Game.currentState = 'play';
+  Game.currentState = 'menu';
   Game.player = new Game.Player(4*32,4*32);
   Game.particlePool = new Game.Pool();
   Game.currentMap = new Game.Map('air');
+  Game.menuFontSize1 = 20;
+  Game.menuColor1 = '#FFFAB9';
+  Game.menuFontSize2 = 20;
+  Game.menuColor2 = '#FFFAB9';
+  Game.mode = null;
 
 
   Game.loop();
@@ -199,7 +204,57 @@ Game.state['play'] = {
     // Game.c1ctx.fillText(Game.mouse.down, 10, 20);
 
   }
-}
+};
+
+Game.state['menu'] = {
+  update: function() {
+
+    if(Game.mouse.x < Game.width / 2){
+      Game.menuFontSize2 += (20 - Game.menuFontSize2) * 0.3;
+      Game.menuFontSize1 += (30 - Game.menuFontSize1) * 0.3;
+      Game.menuColor2 = '#e3e3e3';
+      Game.menuColor1 = '#ECE894';
+
+      if(Game.mouse.down){
+        Game.mode = 'arcade';
+        Game.currentState = 'play';
+      }
+
+    }
+
+    if(Game.mouse.x > Game.width / 2){
+      Game.menuFontSize1 += (20 - Game.menuFontSize1) * 0.3;
+      Game.menuFontSize2 += (30 - Game.menuFontSize2) * 0.3;
+      Game.menuColor2 = '#ECE894';
+      Game.menuColor1 = '#e3e3e3';
+
+      if(Game.mouse.down){
+        Game.mode = 'survivor';
+      }
+
+    }
+
+  },
+  draw: function() {
+
+    Game.c1ctx.fillStyle = Game.menuColor1;
+    Game.c1ctx.fillRect(0, 0, Game.width / 2, Game.height);
+    Game.c1ctx.font = 'normal '+Game.menuFontSize1+'px arial';
+    Game.c1ctx.textAlign = 'center';
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.fillText('ARCADE', (Game.width / 2) / 2, Game.height / 2);
+
+    Game.c1ctx.fillStyle = Game.menuColor2;
+    Game.c1ctx.fillRect(Game.width / 2, 0, Game.width / 2, Game.height);
+    Game.c1ctx.font = 'normal '+Game.menuFontSize2+'px arial';
+    Game.c1ctx.textAlign = 'center';
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.fillText('SURVIVOR', (Game.width / 2) + Game.width / 4, Game.height / 2);
+
+    Game.c1ctx.fillRect((Game.width / 2) - 1, 0, 2, Game.height);
+
+  }
+};
 
 
 Game.loop = function(timestamp) {
