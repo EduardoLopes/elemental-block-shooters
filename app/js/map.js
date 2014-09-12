@@ -174,8 +174,8 @@ MapNode.prototype.setModelType = function(type) {
  * @constructor
  */
 Game.Map = function(type) {
-  this.cols = 30;
-  this.rows = 30;
+  this.cols = 64;
+  this.rows = 64;
   this.map = [];
   this.camera = {x: 0, y: 0};
   this.cameraPosition = {x: 500, y: 500};
@@ -187,11 +187,10 @@ Game.Map = function(type) {
   this.enemies = 0;
   this.types = ['air', 'water', 'earth', 'fire'];
   this.type = this.types.indexOf( type );
+  this.generated = false;
 
   this.reachable = [];
   this.explored = [];
-
-  this.generate();
 
 };
 
@@ -214,6 +213,7 @@ Game.Map.prototype.reset = function() {
 }
 
 Game.Map.prototype.generate = function() {
+  this.generated = false;
   this.rows = random(20, 20) >>0;
   this.cols = random(20, 20) >>0;
 
@@ -263,6 +263,7 @@ Game.Map.prototype.generate = function() {
 
   this.drawMinimap();
 
+  this.generated = true;
 };
 
 Game.Map.prototype.drawMinimap = function() {
