@@ -164,13 +164,12 @@ Game.state['play'] = {
 
     if(Game.mouse.down && Game.tick%4 == 0 ){
 
-      Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, 10, 8, 'bullet', true);
-
+      Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true);
       Game.currentMap.cameraShake.y += random(-1, 1);
       Game.currentMap.cameraShake.x += random(-1, 1);
 
-      Game.player.gunForce.x -= Math.cos((Math.PI * 2) + Game.mouse.angle) * 4;
-      Game.player.gunForce.y -= Math.sin((Math.PI * 2) + Game.mouse.angle) * 4;
+      Game.player.gunForce.x -= Math.cos((Math.PI * 2) + Game.mouse.angle) * Game.weapons[Game.player.currentWeapon].force;
+      Game.player.gunForce.y -= Math.sin((Math.PI * 2) + Game.mouse.angle) * Game.weapons[Game.player.currentWeapon].force;
 
     }
 
