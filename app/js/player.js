@@ -52,11 +52,17 @@ Game.Player.prototype.update = function() {
     this.vx -= this.speed;
   }
 
+  if(Game.weapons[Game.player.currentWeapon].smoothForce){
+    this.vx += this.gunForce.x;
+    this.vy += this.gunForce.y;
+  } else {
+    this.nextX += this.gunForce.x;
+    this.nextY += this.gunForce.y;
+  }
+
   this.nextX += this.vx;
   this.nextY += this.vy;
 
-  this.nextX += this.gunForce.x;
-  this.nextY += this.gunForce.y;
 
   // while (this.overlaping.length > 0) {
   //   this.overlaping.pop();
