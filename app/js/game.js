@@ -168,6 +168,7 @@ Game.state['play'] = {
     if(Game.mouse.down && Game.weaponTick%Game.weapons[Game.player.currentWeapon].timeBetween == 0 ){
 
       for (i = 0; i < Game.weapons[Game.player.currentWeapon].quantity; i++) {
+
         Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true);
       };
 

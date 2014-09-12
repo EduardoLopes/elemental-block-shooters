@@ -114,6 +114,7 @@ MapNode.prototype.setType = function(type) {
   if(type === 48 || type === 108 || type === 168 || type === 228){
     this.type = 'enemy';
     this.health = 8;
+    this.weapon = randomChoice(['machineGun', 'shotGun']);
   }
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
@@ -123,8 +124,8 @@ MapNode.prototype['enemy'] = function() {
 
   this.health-=Game.weapons[Game.player.currentWeapon].damage;
 
-  Game.currentMap.cameraShake.y += random(-4, 4);
-  Game.currentMap.cameraShake.x += random(-4, 4);
+  Game.currentMap.cameraShake.y += random(-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force);
+  Game.currentMap.cameraShake.x += random(-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force);
 
   if(this.health <= 0){
 
@@ -146,11 +147,18 @@ MapNode.prototype['enemy'] = function() {
 
 MapNode.prototype['enemyUpdate'] = function() {
 
-  var angle = angleCalc( (this.x * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.x), (this.y * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.y), Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.y), Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y));
+  var angle;
 
-  if(Game.tick%20 == 0 && randomChoice([true, false])){
-
-    Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, 10, 6, 'enemyBullet', true,  this.i);
+  if(Game.tick%Game.weapons[this.weapon].timeBetween == 0 && randomChoice([true, false])){
+    for (i = 0; i < Game.weapons[this.weapon].quantity; i++) {
+      angle = angleCalc(
+        (this.x * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.x),
+        (this.y * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.y),
+        random((Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x)) + Game.weapons[this.weapon].angleVariationMin, (Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x)) + Game.weapons[this.weapon].angleVariationMax ),
+        random((Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMin, (Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMax )
+      );
+      Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, Game.weapons[this.weapon].size, randomChoice(Game.weapons[this.weapon].speedVariation), 'enemyBullet', true,  this.i);
+    };
 
     Game.currentMap.cameraShake.y += random(-1, 1);
     Game.currentMap.cameraShake.x += random(-1, 1);
