@@ -123,6 +123,11 @@ Game.init = function() {
   Game.currentMap = new Game.Map('air');
   Game.mode = null;
 
+  Game.menuFontSize1 = 20;
+  Game.menuColor1 = '#FFFAB9';
+  Game.menuFontSize2 = 20;
+  Game.menuColor2 = '#FFFAB9';
+  Game.dots = '.';
 
   Game.loop();
 };
@@ -215,17 +220,13 @@ Game.state['play'] = {
 };
 
 Game.state['menu'] = {
-  fontSize1: 20,
-  color1: '#FFFAB9',
-  fontSize2: 20,
-  color2: '#FFFAB9',
   update: function() {
 
     if(Game.mouse.x < Game.width / 2){
-      this.fontSize2 += (20 - this.fontSize2) * 0.3;
-      this.fontSize1 += (30 - this.fontSize1) * 0.3;
-      this.color2 = '#e3e3e3';
-      this.color1 = '#ECE894';
+      Game.menuFontSize2 += (20 - Game.menuFontSize2) * 0.3;
+      Game.menuFontSize1 += (30 - Game.menuFontSize1) * 0.3;
+      Game.menuColor2 = '#e3e3e3';
+      Game.menuColor1 = '#ECE894';
 
       if(Game.mouse.down){
         Game.mode = 'arcade';
@@ -235,10 +236,10 @@ Game.state['menu'] = {
     }
 
     if(Game.mouse.x > Game.width / 2){
-     this.fontSize1 += (20 -this.fontSize1) * 0.3;
-     this.fontSize2 += (30 -this.fontSize2) * 0.3;
-     this.color2 = '#ECE894';
-     this.color1 = '#e3e3e3';
+     Game.menuFontSize1 += (20 -Game.menuFontSize1) * 0.3;
+     Game.menuFontSize2 += (30 -Game.menuFontSize2) * 0.3;
+     Game.menuColor2 = '#ECE894';
+     Game.menuColor1 = '#e3e3e3';
 
       if(Game.mouse.down){
         Game.mode = 'survivor';
@@ -250,16 +251,16 @@ Game.state['menu'] = {
   },
   draw: function() {
 
-    Game.c1ctx.fillStyle = this.color1;
+    Game.c1ctx.fillStyle = Game.menuColor1;
     Game.c1ctx.fillRect(0, 0, Game.width / 2, Game.height);
-    Game.c1ctx.font = 'normal '+this.fontSize1+'px arial';
+    Game.c1ctx.font = 'normal '+Game.menuFontSize1+'px arial';
     Game.c1ctx.textAlign = 'center';
     Game.c1ctx.fillStyle = '#181818';
     Game.c1ctx.fillText('ARCADE', (Game.width / 2) / 2, Game.height / 2);
 
-    Game.c1ctx.fillStyle = this.color2;
+    Game.c1ctx.fillStyle = Game.menuColor2;
     Game.c1ctx.fillRect(Game.width / 2, 0, Game.width / 2, Game.height);
-    Game.c1ctx.font = 'normal '+this.fontSize2+'px arial';
+    Game.c1ctx.font = 'normal '+Game.menuFontSize2+'px arial';
     Game.c1ctx.textAlign = 'center';
     Game.c1ctx.fillStyle = '#181818';
     Game.c1ctx.fillText('SURVIVOR', (Game.width / 2) + Game.width / 4, Game.height / 2);
@@ -290,7 +291,6 @@ Game.state['pause'] = {
 }
 
 Game.state['map'] = {
-  dots: '.',
   update: function() {
 
     if(Game.currentMap.generated === true && Game.keydown && !Game.keydownPressed){
@@ -301,11 +301,11 @@ Game.state['map'] = {
     if(Game.currentMap.generated === false){
 
       if(Game.tick % 30 === 0){
-        this.dots += '.';
+        Game.dots += '.';
       }
 
-      if(this.dots.length > 25){
-        this.dots = '.';
+      if(Game.dots.length > 25){
+        Game.dots = '.';
       }
 
     }
@@ -332,7 +332,7 @@ Game.state['map'] = {
 
     if(Game.currentMap.generated === false){
       Game.c1ctx.fillText('LOADING MAP', (Game.width / 2), Game.height / 2);
-      Game.c1ctx.fillText(this.dots, (Game.width / 2), (Game.height / 2) + 8);
+      Game.c1ctx.fillText(Game.dots, (Game.width / 2), (Game.height / 2) + 8);
     }
 
     if(Game.currentMap.generated === true){
@@ -341,7 +341,6 @@ Game.state['map'] = {
 
   }
 }
-
 
 Game.loop = function(timestamp) {
   Game.delta = timestamp - Game.last;
