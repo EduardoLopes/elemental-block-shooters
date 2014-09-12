@@ -142,6 +142,14 @@ Game.Player.prototype.update = function() {
 
         }
 
+      } else if(node.type !== 'pz' && Game.peacefulZone){
+
+        if(distance(this.x + (this.size / 2), this.y + (this.size / 2), (node.x * Game.tileSize) + (Game.tileSize / 2 ), (node.y * Game.tileSize) + (Game.tileSize / 2))<=10){
+
+          Game.peacefulZone = false;
+
+        }
+
       }
 
     }

@@ -3,7 +3,7 @@ function rect(x,y,w,h,color){
   Game.spriteCacheCtx.fillRect(x,y,w,h);
 }
 
-function generateTerrainSprite(y, color1, color2, color3, color4, color5){
+function generateTerrainSprite(y, color1, color2, color3, color4, color5, color6){
 
   rect(Game.tileSize * 3, Game.tileSize * y, Game.tileSize, (Game.tileSize), color1);
   rect((Game.tileSize * 3) + 2, (Game.tileSize * y) + 2, Game.tileSize - 4, (Game.tileSize) / 2,color2);
@@ -86,6 +86,8 @@ function generateTerrainSprite(y, color1, color2, color3, color4, color5){
   rect((Game.tileSize * 8) - 2, (Game.tileSize * (5 + y)) - 14, 2, 14, color1);
   rect((Game.tileSize * 7)-2, (Game.tileSize * (4 + y)), 4, 2, color1);
 
+  rect(Game.tileSize * 6, (Game.tileSize * (5 + y)), (Game.tileSize),Game.tileSize, color6);
+
 };
 
 function generateSprite(){
@@ -96,10 +98,10 @@ function generateSprite(){
   Game.spriteCache.width = 320;
   Game.spriteCache.height = 768;
 
-  generateTerrainSprite(0, 'hsl(91, 29%, 52%)', 'hsl(91, 37%, 68%)', 'hsl(91, 40%, 60%)', 'hsl(91, 63%, 79%)', 'hsl(91, 23%, 49%)' );
-  generateTerrainSprite(6, 'hsl(205, 29%, 52%)', 'hsl(205, 37%, 68%)', 'hsl(205, 40%, 60%)', 'hsl(205, 63%, 79%)', 'hsl(205, 23%, 49%)' );
-  generateTerrainSprite(12, 'hsl(40, 27%, 48%)', 'hsl(40, 37%, 68%)', 'hsl(40, 40%, 60%)', 'hsl(40, 63%, 79%)', 'hsl(40, 23%, 49%)' );
-  generateTerrainSprite(18, 'hsl(0, 29%, 52%)', 'hsl(0, 37%, 68%)', 'hsl(0, 40%, 60%)', 'hsl(0, 63%, 79%)', 'hsl(0, 23%, 49%)' );
+  generateTerrainSprite(0, 'hsl(91, 29%, 52%)', 'hsl(91, 37%, 68%)', 'hsl(91, 40%, 60%)', 'hsl(91, 63%, 79%)', 'hsl(91, 23%, 49%)', 'hsl(91, 53%, 60%)' );
+  generateTerrainSprite(6, 'hsl(205, 29%, 52%)', 'hsl(205, 37%, 68%)', 'hsl(205, 40%, 60%)', 'hsl(205, 63%, 79%)', 'hsl(205, 23%, 49%)', 'hsl(205, 53%, 60%)' );
+  generateTerrainSprite(12, 'hsl(40, 27%, 48%)', 'hsl(40, 37%, 68%)', 'hsl(40, 40%, 60%)', 'hsl(40, 63%, 79%)', 'hsl(40, 23%, 49%)', 'hsl(40, 53%, 60%)' );
+  generateTerrainSprite(18, 'hsl(0, 29%, 52%)', 'hsl(0, 37%, 68%)', 'hsl(0, 40%, 60%)', 'hsl(0, 63%, 79%)', 'hsl(0, 23%, 49%)', 'hsl(0, 53%, 60%)' );
 
   //debug
   //console.log(Game.spriteCache.toDataURL('image/png'));
@@ -114,7 +116,7 @@ Game.init = function() {
   Game.particlesMax = 50;
   Game.particlesIndex = 0;
   Game.tick = 10;
-
+  Game.peacefulZone = true;
 
   generateSprite();
 
@@ -165,7 +167,7 @@ Game.state['play'] = {
 
     Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
 
-    if(Game.mouse.down && Game.weaponTick%Game.weapons[Game.player.currentWeapon].timeBetween == 0 ){
+    if(Game.mouse.down && Game.weaponTick%Game.weapons[Game.player.currentWeapon].timeBetween == 0 && !Game.peacefulZone ){
 
       for (i = 0; i < Game.weapons[Game.player.currentWeapon].quantity; i++) {
 

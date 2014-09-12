@@ -3,6 +3,7 @@ var w = 0, h = 0, i = 0, spriteCoords = {x: 0, y: 0};
 var types = [];
 types[11] = 'w'; //walls
 types[48] = 'e'; //enemies
+types[56] = 'pz'; //peace zone
 types[34] = 'f'; //floor
 
 var type = [];
@@ -19,6 +20,11 @@ type['f'] =  {
 type['e'] = {
   typeString: 'e',
   defaultIndex: 48,
+  rules: []
+};
+type['pz'] = {
+  typeString: 'pz',
+  defaultIndex: 56,
   rules: []
 };
 
@@ -132,6 +138,7 @@ MapNode.prototype['enemy'] = function() {
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
     Game.currentMap.enemies--;
+
     if(randomChoice([true, false])){
 
       Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true);
@@ -153,7 +160,7 @@ MapNode.prototype['enemyUpdate'] = function() {
 
   var angle;
 
-  if(Game.tick%Game.weapons[this.weapon].timeBetween == 0 && randomChoice([true, false])){
+  if(Game.tick%Game.weapons[this.weapon].timeBetween == 0 && randomChoice([true, false]) && !Game.peacefulZone){
     for (i = 0; i < Game.weapons[this.weapon].quantity; i++) {
       angle = angleCalc(
         (this.x * Game.tileSize) + (Game.tileSize / 4) - (Game.currentMap.camera.x),
@@ -206,11 +213,11 @@ Game.Map = function(type) {
 
 };
 
-Game.Map.prototype.room = function(x,y,width,height) {
+Game.Map.prototype.room = function(x,y,width,height, type) {
 
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
-      this.map[this.cols * h + w].setModelType(11);
+      this.map[this.cols * h + w].setModelType(type);
     }
   }
 
@@ -226,6 +233,7 @@ Game.Map.prototype.reset = function() {
 
 Game.Map.prototype.generate = function() {
   this.generated = false;
+  Game.peacefulZone = true;
   this.rows = random(20, 20) >>0;
   this.cols = random(20, 20) >>0;
   this.enemies = 0;
@@ -258,13 +266,15 @@ Game.Map.prototype.generate = function() {
     }
   }
 
-  // this.room(2,2,15,15);
-  // this.room(14,14,25,25);
+  // this.room(2,2,15,15, 11);
+  // this.room(14,14,25,25, 11);
 
   Game.player.nextX = (this.cols * Game.tileSize) / 2;
   Game.player.nextY = (this.rows * Game.tileSize) / 2;
   Game.player.x = (this.cols * Game.tileSize) / 2;
   Game.player.y = (this.rows * Game.tileSize) / 2;
+
+  this.room((Game.player.x / Game.tileSize >> 0) - 2, (Game.player.y / Game.tileSize >> 0) - 2, (Game.player.x / Game.tileSize >> 0) + 2, (Game.player.y / Game.tileSize >> 0) + 2, 56);
 
   this.findAdjacents();
 
@@ -330,13 +340,12 @@ Game.Map.prototype.findPath = function(x, y) {
         if(node.typeID === 48 && node.x !== x && node.y !== y){
           node.setModelType( 34 );
           this.enemies--;
-        } else if(node.typeID !== 48) {
+        } else if(node.typeID !== 48 && node.typeID !== 56) {
           node.setModelType( 34 );
         }
 
-
         for (i = node.adjacents.length - 1; i >= 0; i--) {
-          if(node.adjacents[i].typeID !== 48 && node.adjacents[i].x > 0 && node.adjacents[i].x < this.cols - 1 &&
+          if(node.adjacents[i].typeID !== 48 && node.adjacents[i].typeID !== 56 && node.adjacents[i].x > 0 && node.adjacents[i].x < this.cols - 1 &&
             node.adjacents[i].y > 0 && node.adjacents[i].y < this.rows - 1 && randomChoice([true, false, false])){
 
             node.adjacents[i].setModelType(34);
