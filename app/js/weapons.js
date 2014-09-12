@@ -8,6 +8,7 @@ Game.weapons['machineGun'] = {
   timeBetween: 20,
   angleVariationMin: -20,
   angleVariationMax: 20,
-  quantity: 5,
-  speedVariation: [8, 10]
+  quantity: 2,
+  speedVariation: [8, 10],
+  damage: 1
 }

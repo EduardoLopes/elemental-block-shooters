@@ -121,7 +121,7 @@ MapNode.prototype.setType = function(type) {
 
 MapNode.prototype['enemy'] = function() {
 
-  this.health--;
+  this.health-=Game.weapons[Game.player.currentWeapon].damage;
 
   Game.currentMap.cameraShake.y += random(-4, 4);
   Game.currentMap.cameraShake.x += random(-4, 4);
