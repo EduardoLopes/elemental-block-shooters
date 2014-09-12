@@ -29,11 +29,17 @@ Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID
   this.next.y = this.y;
   this.size = size || 8;
   this.angle = angle;
+
+  if(Game.weapons[Game.player.currentWeapon].angleVariationMin && Game.weapons[Game.player.currentWeapon].angleVariationMax && type === 'bullet'){
+    this.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), random((Game.mouse.x - 8) - Game.weapons[Game.player.currentWeapon].angleVariationMin, (Game.mouse.x - 8) - Game.weapons[Game.player.currentWeapon].angleVariationMax), random((Game.mouse.y - 8) - Game.weapons[Game.player.currentWeapon].angleVariationMin, (Game.mouse.y - 8) - Game.weapons[Game.player.currentWeapon].angleVariationMax))
+  }
+
   this.free = false;
   this.type = type;
   this.camera = camera;
   this.nodeID = nodeID;
   this.speed = speed;
+
 
 };
 
