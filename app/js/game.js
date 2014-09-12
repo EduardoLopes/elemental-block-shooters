@@ -143,6 +143,11 @@ Game.state['play'] = {
       Game.currentState = 'menu';
     }
 
+    if(Game.key.enter && !Game.key.enterPressed){
+      Game.currentState = 'pause';
+      Game.key.enterPressed = true;
+    }
+
     Game.currentMap.update();
 
     Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
@@ -264,10 +269,29 @@ Game.state['menu'] = {
   }
 };
 
+Game.state['pause'] = {
+  update: function() {
+
+    if(Game.key.enter && !Game.key.enterPressed){
+      Game.currentState = 'play';
+      Game.key.enterPressed = true;
+    }
+
+  },
+  draw: function() {
+
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.font = 'normal 25px arial';
+    Game.c1ctx.clearRect(0,0,Game.width, Game.height);
+    Game.c1ctx.fillText('PAUSE', (Game.width / 2), Game.height / 2);
+
+
+  }
+}
+
 Game.state['map'] = {
   dots: '.',
   update: function() {
-
 
     if(Game.currentMap.generated === true && Game.keydown && !Game.keydownPressed){
       Game.currentState = 'play';
