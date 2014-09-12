@@ -40,6 +40,9 @@ Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID
   this.nodeID = nodeID;
   this.speed = speed;
 
+  if(Game.weapons[Game.player.currentWeapon].angleVariationMin && type === 'bullet'){
+    this.speed = randomChoice(Game.weapons[Game.player.currentWeapon].speedVariation);
+  }
 
 };
 
