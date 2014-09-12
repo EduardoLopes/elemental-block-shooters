@@ -144,6 +144,7 @@ MapNode.prototype['enemy'] = function() {
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
     Game.currentMap.enemies--;
+    Game.enemiesKilled++;
 
     if(randomChoice([true, false])){
 
@@ -316,6 +317,8 @@ Game.Map.prototype.nextMap = function() {
     // Game.currentState = 'map';
   }
 
+  Game.mapsCount++;
+
 };
 
 Game.Map.prototype.drawMinimap = function() {
@@ -364,7 +367,6 @@ Game.Map.prototype.findPath = function(x, y) {
     if(node.x === x && node.y === y){
 
       while(node) {
-
 
         if(node.typeID === 48 && node.x !== x && node.y !== y){
           node.setModelType( 34 );

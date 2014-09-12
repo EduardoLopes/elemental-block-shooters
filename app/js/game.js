@@ -138,6 +138,10 @@ Game.init = function() {
   Game.menuColor2 = '#FFFAB9';
   Game.dots = '.';
 
+
+  Game.enemiesKilled = 0;
+  Game.mapsCount = 0;
+
   Game.loop();
 };
 
@@ -318,6 +322,8 @@ Game.state['death'] = {
 
       Game.currentMap.generated = false;
       Game.currentState = 'menu';
+      Game.enemiesKilled = 0;
+      Game.mapsCount = 0;
       Game.key.enterPressed = true;
 
     }
@@ -326,10 +332,18 @@ Game.state['death'] = {
   draw: function() {
 
     Game.c1ctx.fillStyle = '#181818';
-    Game.c1ctx.font = 'normal 25px arial';
+    Game.c1ctx.font = 'normal 20px arial';
     Game.c1ctx.clearRect(0,0,Game.width, Game.height);
+    Game.c1ctx.fillText('ENEMIES KILLED: ' + Game.enemiesKilled, (Game.width / 2), Game.height / 2 - 128);
+    if(Game.mapsCount > 0){
+      Game.c1ctx.fillText('SURVIVED IN '+ Game.mapsCount +' MAPS', (Game.width / 2), Game.height / 2 - 96);
+    }
+    Game.c1ctx.fillText('MODE: '+ Game.mode.toUpperCase(), (Game.width / 2), Game.height / 2 - 64);
+    Game.c1ctx.font = 'normal 25px arial';
+
     Game.c1ctx.fillText('YOU DIED!', (Game.width / 2), Game.height / 2);
-    Game.c1ctx.fillText('PRESS ENTER', (Game.width / 2), (Game.height / 2) + 32);
+    Game.c1ctx.font = 'normal 22px arial';
+    Game.c1ctx.fillText('PRESS ENTER', (Game.width / 2), (Game.height / 2) + 96);
 
   }
 }
