@@ -175,7 +175,7 @@ Game.state['play'] = {
 
     Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
 
-    if(Game.mouse.down && Game.weaponTick%Game.weapons[Game.player.currentWeapon].timeBetween == 0 && !Game.peacefulZone ){
+    if(Game.mouse.down && Game.weaponTick > Game.weapons[Game.player.currentWeapon].timeBetween && !Game.peacefulZone ){
 
       for (i = 0; i < Game.weapons[Game.player.currentWeapon].quantity; i++) {
 
@@ -187,7 +187,7 @@ Game.state['play'] = {
 
       Game.player.gunForce.x -= Math.cos((Math.PI * 2) + Game.mouse.angle) * Game.weapons[Game.player.currentWeapon].force;
       Game.player.gunForce.y -= Math.sin((Math.PI * 2) + Game.mouse.angle) * Game.weapons[Game.player.currentWeapon].force;
-
+      Game.weaponTick = 0;
     }
 
     Game.player.update();
