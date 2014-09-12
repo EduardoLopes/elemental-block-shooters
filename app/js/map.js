@@ -136,8 +136,8 @@ MapNode.prototype['enemy'] = function() {
 
   this.health-=Game.weapons[Game.player.currentWeapon].damage;
 
-  Game.currentMap.cameraShake.y += random(-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force);
-  Game.currentMap.cameraShake.x += random(-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force);
+  Game.currentMap.cameraShake.y += randomChoice([-Game.weapons[Game.player.currentWeapon].force / 2, Game.weapons[Game.player.currentWeapon].force /2 ]);
+  Game.currentMap.cameraShake.x += randomChoice([-Game.weapons[Game.player.currentWeapon].force / 2, Game.weapons[Game.player.currentWeapon].force /2 ]);
 
   if(this.health <= 0){
 
@@ -156,8 +156,8 @@ MapNode.prototype['enemy'] = function() {
     Game.minimapCtx.clearRect(this.x * 3, this.y  * 3, 3, 3);
     Game.minimapCtx.fillRect(this.x * 3, this.y  * 3, 3, 3);
 
-    Game.currentMap.cameraShake.y += random(-14, 14);
-    Game.currentMap.cameraShake.x += random(-14, 14);
+    Game.currentMap.cameraShake.y += randomChoice([-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force ]);
+    Game.currentMap.cameraShake.x += randomChoice([-Game.weapons[Game.player.currentWeapon].force, Game.weapons[Game.player.currentWeapon].force ]);
 
   }
 

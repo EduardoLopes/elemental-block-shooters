@@ -17,7 +17,7 @@ Game.Player = function(x,y) {
   this.nextY = this.y;
   this.colliding = [];
   this.health = 10;
-  this.currentWeapon = 'machineGun';
+  this.currentWeapon = 'rockedLauncher';
   this.gunForce = {
     x: 0,
     y: 0
