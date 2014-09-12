@@ -261,7 +261,7 @@ Game.state['menu'] = {
 Game.state['map'] = {
   dots: '.',
   update: function() {
-    if(Game.currentMap.generated === true && Game.mouse.down){
+    if(Game.currentMap.generated === true && Game.keydown){
       Game.currentState = 'play';
     }
 
@@ -284,7 +284,9 @@ Game.state['map'] = {
     }
 
     if(Game.currentMap.generated === false && Game.mode === 'survivor'){
+
       Game.currentMap.reset();
+
     }
 
     Game.tick++;
@@ -295,15 +297,13 @@ Game.state['map'] = {
     Game.c1ctx.font = 'normal 25px arial';
     Game.c1ctx.clearRect(0,0,Game.width, Game.height);
 
-
     if(Game.currentMap.generated === false){
-
       Game.c1ctx.fillText('LOADING MAP', (Game.width / 2), Game.height / 2);
       Game.c1ctx.fillText(this.dots, (Game.width / 2), (Game.height / 2) + 8);
     }
 
     if(Game.currentMap.generated === true){
-      Game.c1ctx.fillText('CLICK TO START!', (Game.width / 2), Game.height / 2);
+      Game.c1ctx.fillText('PRESS ANY KEY TO START!', (Game.width / 2), Game.height / 2);
     }
 
   }

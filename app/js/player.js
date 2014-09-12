@@ -1,10 +1,4 @@
-var keys = {
-  up: false,
-  right: false,
-  down: false,
-  left: false,
-  keydown: false
-}, x = y = minX = minY = maxX = maxY = 0, lastOverlapping, node;
+var x = y = minX = minY = maxX = maxY = 0, lastOverlapping, node;
 
  /**
  * @constructor
@@ -40,19 +34,19 @@ Game.Player.prototype.update = function() {
   this.previousy = this.y;
   this.previousx = this.x;
 
-  if(keys.up && this.vy > -this.maxSpeed){
+  if(Game.key.up && this.vy > -this.maxSpeed){
     this.vy -= this.speed;
   }
 
-  if(keys.down && this.vy < this.maxSpeed){
+  if(Game.key.down && this.vy < this.maxSpeed){
     this.vy += this.speed;
   }
 
-  if(keys.right && this.vx < this.maxSpeed){
+  if(Game.key.right && this.vx < this.maxSpeed){
     this.vx += this.speed;
   }
 
-  if(keys.left && this.vx > -this.maxSpeed){
+  if(Game.key.left && this.vx > -this.maxSpeed){
     this.vx -= this.speed;
   }
 
@@ -251,51 +245,3 @@ Game.Player.prototype.draw = function() {
   //   Game.c1ctx.fillRect((this.overlaping[i].x * 32) - Game.currentMap.camera.x, (this.overlaping[i].y * 32) - Game.currentMap.camera.y, 32, 32);
   // };
 };
-
-document.addEventListener('keydown', function(e) {
-
-  //38 up
-  if(e.keyCode === 38 || e.keyCode === 87){
-    keys.up = true;
-  }
-
-  //39 right
-  if(e.keyCode === 39 || e.keyCode === 68){
-    keys.right = true;
-  }
-
-  //40 bottom
-  if(e.keyCode === 40 || e.keyCode === 83){
-    keys.down = true;
-  }
-
-  //37 left
-  if(e.keyCode === 37 || e.keyCode === 65){
-    keys.left = true;
-  }
-
-});
-
-document.addEventListener('keyup', function(e) {
-
-   //38 up
-  if(e.keyCode === 38 || e.keyCode === 87){
-    keys.up = false;
-  }
-
-  //39 right
-  if(e.keyCode === 39 || e.keyCode === 68){
-    keys.right = false;
-  }
-
-  //40 bottom
-  if(e.keyCode === 40 || e.keyCode === 83){
-    keys.down = false;
-  }
-
-  //37 left
-  if(e.keyCode === 37 || e.keyCode === 65){
-    keys.left = false;
-  }
-
-});
