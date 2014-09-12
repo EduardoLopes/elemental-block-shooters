@@ -142,12 +142,22 @@ Game.Player.prototype.update = function() {
 
         }
 
+      } else if(node.type === 't' && Game.currentMap.enemies === 0){
+
+        if(distance(this.x + (this.size / 2), this.y + (this.size / 2), (node.x * Game.tileSize) + (Game.tileSize / 2 ), (node.y * Game.tileSize) + (Game.tileSize / 2))<=10){
+
+          Game.currentMap.nextMap();
+
+        }
+
       } else if(node.type !== 'pz' && Game.peacefulZone){
 
         if(distance(this.x + (this.size / 2), this.y + (this.size / 2), (node.x * Game.tileSize) + (Game.tileSize / 2 ), (node.y * Game.tileSize) + (Game.tileSize / 2))<=10){
 
           Game.peacefulZone = false;
 
+            Game.currentMap.room((Game.currentMap.playerPosition.x / Game.tileSize >> 0) - 2, (Game.currentMap.playerPosition.y / Game.tileSize >> 0) - 2, (Game.currentMap.playerPosition.x / Game.tileSize >> 0) + 2, (Game.currentMap.playerPosition.y / Game.tileSize >> 0) + 2, [34 + (60 * Game.currentMap.type),34 + (60 * Game.currentMap.type),34 + (60 * Game.currentMap.type),35 + (60 * Game.currentMap.type),36 + (60 * Game.currentMap.type)], 'f');
+            Game.currentMap.map[Game.currentMap.cols * (Game.currentMap.playerPosition.y / Game.tileSize >> 0) + (Game.currentMap.playerPosition.x / Game.tileSize >> 0)].setModelType(57 + (60 * Game.currentMap.type), 't');
         }
 
       }

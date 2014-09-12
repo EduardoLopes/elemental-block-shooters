@@ -88,6 +88,10 @@ function generateTerrainSprite(y, color1, color2, color3, color4, color5, color6
 
   rect(Game.tileSize * 6, (Game.tileSize * (5 + y)), (Game.tileSize),Game.tileSize, color6);
 
+  for (var i = 0; i < 8; i++) {
+    rect((Game.tileSize * 7) + (i * 2), (Game.tileSize * (5 + y)) + (i * 2), (Game.tileSize) - (i * 4),Game.tileSize - (i * 4), i%2==0 ? color1 : color2);
+  };
+
 };
 
 function generateSprite(){
@@ -104,7 +108,7 @@ function generateSprite(){
   generateTerrainSprite(18, 'hsl(0, 29%, 52%)', 'hsl(0, 37%, 68%)', 'hsl(0, 40%, 60%)', 'hsl(0, 63%, 79%)', 'hsl(0, 23%, 49%)', 'hsl(0, 53%, 60%)' );
 
   //debug
-  //console.log(Game.spriteCache.toDataURL('image/png'));
+  console.log(Game.spriteCache.toDataURL('image/png'));
 
 }
 
@@ -142,11 +146,11 @@ Game.state = [];
 Game.state['play'] = {
   update: function() {
 
-    if(Game.currentMap.enemies === 0 && Game.mode === 'survivor'){
-      Game.currentMap.generated = false;
-      Game.key.keydownPressed = true;
-      Game.currentState = 'map';
-    }
+    // if(Game.currentMap.enemies === 0 && Game.mode === 'survivor'){
+    //   Game.currentMap.generated = false;
+    //   Game.key.keydownPressed = true;
+    //   Game.currentState = 'map';
+    // }
 
     if(Game.key.esc){
       Game.currentMap.generated = false;
@@ -333,9 +337,13 @@ Game.state['death'] = {
 Game.state['map'] = {
   update: function() {
 
-    if(Game.currentMap.generated === true && Game.key.keydown && !Game.key.keydownPressed){
+    // if(Game.currentMap.generated === true && Game.key.keydown && !Game.key.keydownPressed){
+    //   Game.currentState = 'play';
+    //   Game.key.keydownPressed = true;
+    // }
+
+    if(Game.currentMap.generated === true){
       Game.currentState = 'play';
-      Game.key.keydownPressed = true;
     }
 
     if(Game.currentMap.generated === false){

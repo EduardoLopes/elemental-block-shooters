@@ -4,6 +4,7 @@ var types = [];
 types[11] = 'w'; //walls
 types[48] = 'e'; //enemies
 types[56] = 'pz'; //peace zone
+types[57] = 't'; //teleport
 types[34] = 'f'; //floor
 
 var type = [];
@@ -25,6 +26,11 @@ type['e'] = {
 type['pz'] = {
   typeString: 'pz',
   defaultIndex: 56,
+  rules: []
+};
+type['t'] = {
+  typeString: 't',
+  defaultIndex: 57,
   rules: []
 };
 
@@ -178,10 +184,10 @@ MapNode.prototype['enemyUpdate'] = function() {
 
 };
 
-MapNode.prototype.setModelType = function(type) {
+MapNode.prototype.setModelType = function(type, type2) {
 
   this.typeID = type;
-  this.type = types[type];
+  this.type = type2 || types[type];
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
 
@@ -210,14 +216,24 @@ Game.Map = function(type) {
 
   this.reachable = [];
   this.explored = [];
+  this.playerPosition = {
+    x: 0,
+    y: 0
+  };
 
 };
 
-Game.Map.prototype.room = function(x,y,width,height, type) {
+Game.Map.prototype.room = function(x,y,width,height, type, type2) {
 
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
-      this.map[this.cols * h + w].setModelType(type);
+
+      if(type instanceof Array){
+        this.map[this.cols * h + w].setModelType(randomChoice(type), type2);
+      } else {
+        this.map[this.cols * h + w].setModelType(type);
+      }
+
     }
   }
 
@@ -269,12 +285,11 @@ Game.Map.prototype.generate = function() {
   // this.room(2,2,15,15, 11);
   // this.room(14,14,25,25, 11);
 
-  Game.player.nextX = (this.cols * Game.tileSize) / 2;
-  Game.player.nextY = (this.rows * Game.tileSize) / 2;
-  Game.player.x = (this.cols * Game.tileSize) / 2;
-  Game.player.y = (this.rows * Game.tileSize) / 2;
+  Game.player.nextX = Game.player.x = this.playerPosition.x = ((this.cols * Game.tileSize) / 2);
+  Game.player.nextY = Game.player.y = this.playerPosition.y = ((this.rows * Game.tileSize) / 2);
 
-  this.room((Game.player.x / Game.tileSize >> 0) - 2, (Game.player.y / Game.tileSize >> 0) - 2, (Game.player.x / Game.tileSize >> 0) + 2, (Game.player.y / Game.tileSize >> 0) + 2, 56);
+
+  this.room((this.playerPosition.x / Game.tileSize >> 0) - 2, (this.playerPosition.y / Game.tileSize >> 0) - 2, (this.playerPosition.x / Game.tileSize >> 0) + 2, (this.playerPosition.y / Game.tileSize >> 0) + 2, 56);
 
   this.findAdjacents();
 
@@ -287,6 +302,20 @@ Game.Map.prototype.generate = function() {
   this.drawMinimap();
 
   this.generated = true;
+};
+
+Game.Map.prototype.nextMap = function() {
+
+  if(Game.mode === 'survivor'){
+    this.generated = false;
+    Game.currentState = 'map';
+  }
+
+  if(Game.mode === 'arcade'){
+    // this.generated = false;
+    // Game.currentState = 'map';
+  }
+
 };
 
 Game.Map.prototype.drawMinimap = function() {
