@@ -3,7 +3,9 @@ Game.key = {
   right: false,
   down: false,
   left: false,
-  keydown: false
+  keydown: false,
+  keydownPressed: false,
+  esc: false
 };
 
 document.addEventListener('keydown', function(e) {
@@ -26,6 +28,10 @@ document.addEventListener('keydown', function(e) {
   //37 left
   if(e.keyCode === 37 || e.keyCode === 65){
     Game.key.left = true;
+  }
+
+  if(e.keyCode === 27){
+    Game.key.esc = true;
   }
 
   Game.keydown = true;
@@ -54,6 +60,11 @@ document.addEventListener('keyup', function(e) {
     Game.key.left = false;
   }
 
+  if(e.keyCode === 27){
+    Game.key.esc = false;
+  }
+
   Game.keydown = false;
+  Game.keydownPressed = false;
 
 });

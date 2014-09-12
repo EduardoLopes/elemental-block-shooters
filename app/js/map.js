@@ -216,6 +216,7 @@ Game.Map.prototype.generate = function() {
   this.generated = false;
   this.rows = random(20, 20) >>0;
   this.cols = random(20, 20) >>0;
+  this.enemies = 0;
 
   for (i = 0; i < Game.particlePool.elements.length; i++) {
 

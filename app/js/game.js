@@ -134,7 +134,13 @@ Game.state['play'] = {
 
     if(Game.currentMap.enemies === 0 && Game.mode === 'survivor'){
       Game.currentMap.generated = false;
+      Game.keydownPressed = true;
       Game.currentState = 'map';
+    }
+
+    if(Game.key.esc){
+      Game.currentMap.generated = false;
+      Game.currentState = 'menu';
     }
 
     Game.currentMap.update();
@@ -261,8 +267,11 @@ Game.state['menu'] = {
 Game.state['map'] = {
   dots: '.',
   update: function() {
-    if(Game.currentMap.generated === true && Game.keydown){
+
+
+    if(Game.currentMap.generated === true && Game.keydown && !Game.keydownPressed){
       Game.currentState = 'play';
+      Game.keydownPressed = true;
     }
 
     if(Game.currentMap.generated === false){
