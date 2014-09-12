@@ -129,10 +129,14 @@ MapNode.prototype['enemy'] = function() {
 
   if(this.health <= 0){
 
-    Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.x, ((this.y * Game.tileSize) + (Game.tileSize / 2)) - Game.currentMap.camera.y, 4.2, 6, 8, 'orb', false);
     this.typeID = 3 + (60 * Game.currentMap.type);
     this.type = 'w';
     Game.currentMap.enemies--;
+    if(randomChoice([true, false])){
+
+      Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true);
+
+    }
 
     Game.minimapCtx.fillStyle = 'rgba(18,18,18, 0.6)';
     Game.minimapCtx.clearRect(this.x * 3, this.y  * 3, 3, 3);

@@ -128,12 +128,11 @@ Particles.prototype['enemyBullet'] = function() {
     Game.currentMap.cameraShake.y += random(-14, 14);
     Game.currentMap.cameraShake.x += random(-14, 14);
 
-    Game.player.health--;
+    Game.player.health -= Game.weapons[Game.currentMap.map[this.nodeID].weapon].damage / 2;
 
     this.dead = true;
 
     return false;
-
   }
 
   this.x = this.next.x;
@@ -145,10 +144,11 @@ Particles.prototype['orb'] = function() {
 
   if(this.dead) return false;
 
-    this.x += (16 - this.x) * 0.1;
-    this.y += (16 - this.y) * 0.1;
+    this.x += (Game.player.x - this.x) * 0.1;
+    this.y += (Game.player.y - this.y) * 0.1;
 
-    if(this.x < 18 && this.y < 18){
+    if(Game.player.intercectsBullet(this)){
+      Game.player.health += this.size / 2;
       this.dead = true;
     }
 
