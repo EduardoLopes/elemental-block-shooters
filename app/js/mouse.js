@@ -16,6 +16,7 @@ document.addEventListener('mousemove', function(e) {
 document.addEventListener('mousedown', function(e) {
 
   Game.mouse.down = true;
+  Game.weaponTick = Game.weapons[Game.player.currentWeapon].timeBetween;
 
 });
 

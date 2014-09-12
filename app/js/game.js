@@ -115,6 +115,7 @@ Game.init = function() {
   Game.particlesIndex = 0;
   Game.tick = 10;
 
+
   generateSprite();
 
   Game.currentState = 'menu';
@@ -122,6 +123,8 @@ Game.init = function() {
   Game.particlePool = new Game.Pool();
   Game.currentMap = new Game.Map('air');
   Game.mode = null;
+
+  Game.weaponTick = Game.weapons[Game.player.currentWeapon].timeBetween;
 
   Game.menuFontSize1 = 20;
   Game.menuColor1 = '#FFFAB9';
@@ -162,7 +165,7 @@ Game.state['play'] = {
 
     Game.mouse.angle = angleCalc( Game.player.x - (Game.currentMap.camera.x), Game.player.y - (Game.currentMap.camera.y), Game.mouse.x - 8, Game.mouse.y - 8);
 
-    if(Game.mouse.down && Game.tick%4 == 0 ){
+    if(Game.mouse.down && Game.weaponTick%Game.weapons[Game.player.currentWeapon].timeBetween == 0 ){
 
       Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true);
       Game.currentMap.cameraShake.y += random(-1, 1);
@@ -193,6 +196,7 @@ Game.state['play'] = {
 
     };
 
+    Game.weaponTick++;
     Game.tick++;
 
   },
