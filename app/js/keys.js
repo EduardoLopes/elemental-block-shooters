@@ -40,7 +40,7 @@ document.addEventListener('keydown', function(e) {
     Game.key.enter = true;
   }
 
-  Game.keydown = true;
+  Game.key.keydown = true;
 
 });
 
@@ -75,7 +75,7 @@ document.addEventListener('keyup', function(e) {
     Game.key.enterPressed = false;
   }
 
-  Game.keydown = false;
-  Game.keydownPressed = false;
+  Game.key.keydown = false;
+  Game.key.keydownPressed = false;
 
 });

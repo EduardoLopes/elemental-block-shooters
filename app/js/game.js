@@ -139,7 +139,7 @@ Game.state['play'] = {
 
     if(Game.currentMap.enemies === 0 && Game.mode === 'survivor'){
       Game.currentMap.generated = false;
-      Game.keydownPressed = true;
+      Game.key.keydownPressed = true;
       Game.currentState = 'map';
     }
 
@@ -151,6 +151,11 @@ Game.state['play'] = {
     if(Game.key.enter && !Game.key.enterPressed){
       Game.currentState = 'pause';
       Game.key.enterPressed = true;
+    }
+
+    if(Game.player.health <= 0){
+      Game.currentState = 'death';
+      Game.key.keydownPressed = true;
     }
 
     Game.currentMap.update();
@@ -210,6 +215,8 @@ Game.state['play'] = {
 
     Game.c1ctx.fillStyle = '#181818';
     Game.c1ctx.fillText(Game.currentMap.enemies, 18, 20);
+    Game.c1ctx.fillText(Game.player.health, 40, 20);
+
 
     //mouse debug
     // Game.c1ctx.fillStyle = '#181818';
@@ -231,6 +238,7 @@ Game.state['menu'] = {
       if(Game.mouse.down){
         Game.mode = 'arcade';
         Game.currentState = 'map';
+        Game.player.health = 10;
       }
 
     }
@@ -244,6 +252,7 @@ Game.state['menu'] = {
       if(Game.mouse.down){
         Game.mode = 'survivor';
         Game.currentState = 'map';
+        Game.player.health = 10;
       }
 
     }
@@ -286,6 +295,28 @@ Game.state['pause'] = {
     Game.c1ctx.clearRect(0,0,Game.width, Game.height);
     Game.c1ctx.fillText('PAUSE', (Game.width / 2), Game.height / 2);
 
+  }
+}
+
+Game.state['death'] = {
+  update: function() {
+
+    if(Game.key.enter && !Game.key.enterPressed){
+
+      Game.currentMap.generated = false;
+      Game.currentState = 'menu';
+      Game.key.enterPressed = true;
+
+    }
+
+  },
+  draw: function() {
+
+    Game.c1ctx.fillStyle = '#181818';
+    Game.c1ctx.font = 'normal 25px arial';
+    Game.c1ctx.clearRect(0,0,Game.width, Game.height);
+    Game.c1ctx.fillText('YOU DIED!', (Game.width / 2), Game.height / 2);
+    Game.c1ctx.fillText('PRESS ENTER', (Game.width / 2), (Game.height / 2) + 32);
 
   }
 }
@@ -293,9 +324,9 @@ Game.state['pause'] = {
 Game.state['map'] = {
   update: function() {
 
-    if(Game.currentMap.generated === true && Game.keydown && !Game.keydownPressed){
+    if(Game.currentMap.generated === true && Game.key.keydown && !Game.key.keydownPressed){
       Game.currentState = 'play';
-      Game.keydownPressed = true;
+      Game.key.keydownPressed = true;
     }
 
     if(Game.currentMap.generated === false){
@@ -339,6 +370,7 @@ Game.state['map'] = {
       Game.c1ctx.fillText('PRESS ANY KEY TO START!', (Game.width / 2), Game.height / 2);
     }
 
+    Game.c1ctx.font = 'normal 12px arial';
   }
 }
 

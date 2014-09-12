@@ -120,6 +120,8 @@ Particles.prototype['enemyBullet'] = function() {
     Game.currentMap.cameraShake.y += random(-14, 14);
     Game.currentMap.cameraShake.x += random(-14, 14);
 
+    Game.player.health--;
+
     this.dead = true;
 
     return false;
