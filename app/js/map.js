@@ -334,6 +334,7 @@ Game.Map.prototype.nextMap = function() {
 
     if(Game.mapsCountConfig > Game.mapsConfig[Game.mode].length - 1){
       Game.mapsCountConfig = 0;
+      Game.arcadeLoop++;
     }
 
   }

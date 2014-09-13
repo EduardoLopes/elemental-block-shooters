@@ -148,9 +148,11 @@ Game.init = function() {
   Game.dots = '.';
   Game.arcadeTotalMaps = Game.mapsConfig['arcade'].length;
 
+
   Game.enemiesKilled = 0;
   Game.mapsCount = 0;
   Game.mapsCountConfig = 0;
+  Game.arcadeLoop = 0;
 
   Game.loop();
 };
@@ -359,7 +361,7 @@ Game.state['death'] = {
       Game.mapsCount = 0;
       Game.mapsCountConfig = 0;
       Game.arcadeLoop = 0;
-      Game.player.currentWeapon = 'machineGun';
+      Game.player.currentWeapon = 'pistol';
       Game.key.enterPressed = true;
 
     }
@@ -376,6 +378,9 @@ Game.state['death'] = {
       Game.c1ctx.fillText('SURVIVED IN '+ Game.mapsCount +' MAPS', (Game.width / 2), Game.height / 2 - 96);
     }
     Game.c1ctx.fillText('MODE: '+ Game.mode.toUpperCase(), (Game.width / 2), Game.height / 2 - 64);
+    if(Game.mode === 'arcade'){
+      Game.c1ctx.fillText('Loop: '+ Game.arcadeLoop, (Game.width / 2), Game.height / 2 - 160);
+    }
     Game.c1ctx.font = 'normal 25px arial';
 
     Game.c1ctx.fillText('YOU DIED!', (Game.width / 2), Game.height / 2);
