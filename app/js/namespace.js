@@ -7,7 +7,7 @@ var Game = (function() {
 
 
   return {
-    width: 32 * 12,
+    width: 32 * 20,
     height: 32 * 12,
     tileSize: 32,
     now: 0,

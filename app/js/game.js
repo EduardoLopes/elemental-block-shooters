@@ -147,6 +147,7 @@ Game.init = function() {
   Game.menuFontSize2 = 20;
   Game.menuColor2 = '#FFFAB9';
   Game.dots = '.';
+  Game.arcadeTotalMaps = Game.mapsConfig['arcade'].length;
 
 
   Game.enemiesKilled = 0;
@@ -172,6 +173,7 @@ Game.state['play'] = {
       Game.enemiesKilled = 0;
       Game.mapsCount = 0;
       Game.mapsCountConfig = 0;
+      Game.arcadeLoop = 0;
       Game.player.currentWeapon = 'pistol';
       Game.currentState = 'menu';
     }
@@ -243,11 +245,21 @@ Game.state['play'] = {
       }
 
     };
-
+    Game.c1ctx.textAlign = 'left';
+    Game.c1ctx.font = 'normal 14px arial';
+    Game.c1ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    Game.c1ctx.fillRect(0,0,Game.width, 32);
     Game.c1ctx.fillStyle = '#181818';
-    //Game.c1ctx.fillText(Game.currentMap.enemies, 18, 20);
-    Game.c1ctx.fillText(Game.player.health, 40, 20);
+    Game.c1ctx.fillText('Health: ' + Game.player.health, 16, 20);
+    Game.c1ctx.fillText('Enemies: ' + Game.currentMap.enemies, 112, 20);
 
+    if(Game.mode === 'arcade'){
+      Game.c1ctx.fillText('Maps: ' + (Game.mapsCount + 1) +'/'+ Game.arcadeTotalMaps, 208, 20);
+    }
+
+    if(Game.mode === 'survivor'){
+      Game.c1ctx.fillText('Maps: ' + (Game.mapsCount), 208, 20);
+    }
 
     //mouse debug
     // Game.c1ctx.fillStyle = '#181818';
@@ -339,6 +351,7 @@ Game.state['death'] = {
       Game.enemiesKilled = 0;
       Game.mapsCount = 0;
       Game.mapsCountConfig = 0;
+      Game.arcadeLoop = 0;
       Game.player.currentWeapon = 'pistol';
       Game.key.enterPressed = true;
 
@@ -405,8 +418,9 @@ Game.state['map'] = {
   },
   draw: function() {
 
+    Game.c1ctx.textAlign = 'center';
     Game.c1ctx.fillStyle = '#181818';
-    Game.c1ctx.font = 'normal 25px arial';
+    Game.c1ctx.font = 'normal 22px arial';
     Game.c1ctx.clearRect(0,0,Game.width, Game.height);
 
     if(Game.currentMap.generated === false){
