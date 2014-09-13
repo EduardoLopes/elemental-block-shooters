@@ -5,7 +5,7 @@ Game.mouse = {
   down: false
 };
 
-document.addEventListener('mousemove', function(e) {
+Game.c1.addEventListener('mousemove', function(e) {
   var rect = Game.c1.getBoundingClientRect();
 
   Game.mouse.x = e.clientX - rect.left;
@@ -13,14 +13,13 @@ document.addEventListener('mousemove', function(e) {
 
 });
 
-document.addEventListener('mousedown', function(e) {
+Game.c1.addEventListener('mousedown', function(e) {
 
   Game.mouse.down = true;
-  //Game.weaponTick = Game.weapons[Game.player.currentWeapon].timeBetween;
 
 });
 
-document.addEventListener('mouseup', function(e) {
+Game.c1.addEventListener('mouseup', function(e) {
 
   Game.mouse.down = false;
 
