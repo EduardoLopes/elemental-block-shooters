@@ -313,11 +313,13 @@ Game.state['menu'] = {
     Game.c1ctx.fillStyle = Game.menuColor2;
     Game.c1ctx.fillRect(Game.width / 2, 0, Game.width / 2, Game.height);
     Game.c1ctx.font = 'normal '+Game.menuFontSize2+'px arial';
-    Game.c1ctx.textAlign = 'center';
+
     Game.c1ctx.fillStyle = '#181818';
     Game.c1ctx.fillText('SURVIVOR', (Game.width / 2) + Game.width / 4, Game.height / 2);
-
     Game.c1ctx.fillRect((Game.width / 2) - 1, 0, 2, Game.height);
+
+    Game.c1ctx.font = 'normal 40px arial';
+    Game.c1ctx.fillText('A.W.E.F.', Game.width / 2, 64);
 
     Game.c1ctx.font = 'normal 12px arial';
     Game.c1ctx.textAlign = 'right';
