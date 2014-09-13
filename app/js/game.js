@@ -125,7 +125,6 @@ function generateSprite(){
 Game.init = function() {
   Game.c1.width = Game.width;
   Game.c1.height = Game.height;
-  Game.sprites = document.getElementById('s');
   Game.particles = [];
   Game.particlesMax = 50;
   Game.particlesIndex = 0;
@@ -148,7 +147,6 @@ Game.init = function() {
   Game.menuColor2 = '#FFFAB9';
   Game.dots = '.';
   Game.arcadeTotalMaps = Game.mapsConfig['arcade'].length;
-
 
   Game.enemiesKilled = 0;
   Game.mapsCount = 0;
