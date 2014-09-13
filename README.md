@@ -41,3 +41,13 @@ This game works best in Chrome. if you have frame rate issues, try change the si
   - 5: 640 x 640;
 
 I forget to add some features because i was running to delivery in time and sleep before 06:00 AM, it's in the engine anyway.
+
+The spritesheet was drawn using code:
+![SpriteSheet](http://i.imgur.com/4t6oLw0.png)
+
+Screenshots
+============
+![Air](http://i.imgur.com/FMZ2YQo.png)
+![Water](http://i.imgur.com/PREctjV.png)
+![Earth](http://i.imgur.com/2GbOvql.png)
+![Fire](http://i.imgur.com/VB3obtU.png)
