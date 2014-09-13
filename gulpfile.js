@@ -11,6 +11,7 @@ var imagemin = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
 var closureCompiler = require('gulp-closure-compiler');
 var exec = require('child_process').exec;
+var zip = require('gulp-zip');
 
 var gulpSrc = function (opts) {
   var paths = es.through();
@@ -119,6 +120,12 @@ gulp.task('dropbox', function(cb) {
     cb();
   });
 
+});
+
+gulp.task('zip', function () {
+    return gulp.src('dist/index.html')
+        .pipe(zip('Elemental-Block-Shooters.zip'))
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', function (cb) {
