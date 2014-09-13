@@ -3,7 +3,7 @@ var minX = minY = maxX = maxY = 0, lastOverlapping, node;
 /**
 * @constructor
 */
-function Particles(x,y,angle, size, i, type, camera) {
+function Particles(x,y,angle, size, i, type, camera, color) {
   this.x = this.y = this.size = this.angle = 0;
 
   this.next = {
@@ -18,10 +18,11 @@ function Particles(x,y,angle, size, i, type, camera) {
   this.ID = i;
   this.type = type;
   this.camera = camera || true;
+  this.color = color;
 
 };
 
-Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID) {
+Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID, color) {
 
   this.x = x;
   this.y = y;
@@ -34,6 +35,7 @@ Particles.prototype.init = function(x,y,angle, size, speed, type, camera, nodeID
   this.camera = camera;
   this.nodeID = nodeID;
   this.speed = speed;
+  this.color = color;
 
   if(Game.weapons[Game.player.currentWeapon].speedVariation && type === 'bullet'){
     this.speed = randomChoice(Game.weapons[Game.player.currentWeapon].speedVariation);
@@ -170,6 +172,7 @@ Particles.prototype.draw = function() {
 
   if(this.dead) return false;
 
+  Game.c1ctx.fillStyle = this.color;
   if(this.camera){
     Game.c1ctx.fillRect(this.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x), this.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y), this.size, this.size);
   } else {

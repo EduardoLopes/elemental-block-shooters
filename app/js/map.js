@@ -152,7 +152,7 @@ MapNode.prototype['enemy'] = function() {
 
     if(randomChoice([true, false])){
 
-      Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true);
+      Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true, null, 'hsl(120, 10%, 30%)');
 
     }
 
@@ -179,7 +179,7 @@ MapNode.prototype['enemyUpdate'] = function() {
         random((Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x)) + Game.weapons[this.weapon].angleVariationMin, (Game.player.x - (Game.currentMap.camera.x + Game.currentMap.cameraShake.x)) + Game.weapons[this.weapon].angleVariationMax ),
         random((Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMin, (Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMax )
       );
-      Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, Game.weapons[this.weapon].size, randomChoice(Game.weapons[this.weapon].speedVariation), 'enemyBullet', true,  this.i);
+      Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, Game.weapons[this.weapon].size, randomChoice(Game.weapons[this.weapon].speedVariation), 'enemyBullet', true,  this.i, Game.currentMap.colors[Game.currentMap.type]);
     };
 
     Game.currentMap.cameraShake.y += random(-1, 1);
@@ -218,7 +218,7 @@ Game.Map = function(type) {
   this.types = ['air', 'water', 'earth', 'fire'];
   this.type = this.types.indexOf( type );
   this.generated = false;
-
+  this.colors = ['hsl(91, 40%, 25%)', 'hsl(205, 40%, 25%)', 'hsl(40, 40%, 25%)', 'hsl(0, 40%, 25%)'];
   this.reachable = [];
   this.explored = [];
   this.playerPosition = {

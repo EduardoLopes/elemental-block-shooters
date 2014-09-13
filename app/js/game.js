@@ -118,7 +118,7 @@ function generateSprite(){
   generateTerrainSprite(18, 'hsl(0, 29%, 52%)', 'hsl(0, 37%, 68%)', 'hsl(0, 40%, 60%)', 'hsl(0, 63%, 79%)', 'hsl(0, 23%, 49%)', 'hsl(0, 53%, 60%)' );
 
   //debug
-  console.log(Game.spriteCache.toDataURL('image/png'));
+  //console.log(Game.spriteCache.toDataURL('image/png'));
 
 }
 
@@ -189,9 +189,8 @@ Game.state['play'] = {
 
       for (i = 0; i < Game.weapons[Game.player.currentWeapon].quantity; i++) {
 
-        Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true);
+        Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true, null, '#181818');
       };
-
       Game.currentMap.cameraShake.y += random(-1, 1);
       Game.currentMap.cameraShake.x += random(-1, 1);
 
