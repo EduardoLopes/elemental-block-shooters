@@ -87,10 +87,20 @@ function generateTerrainSprite(y, color1, color2, color3, color4, color5, color6
   rect((Game.tileSize * 7)-2, (Game.tileSize * (4 + y)), 4, 2, color1);
 
   rect(Game.tileSize * 6, (Game.tileSize * (5 + y)), (Game.tileSize),Game.tileSize, color6);
+  var i = 0;
 
-  for (var i = 0; i < 8; i++) {
+  for (i = 0; i < 8; i++) {
     rect((Game.tileSize * 7) + (i * 2), (Game.tileSize * (5 + y)) + (i * 2), (Game.tileSize) - (i * 4),Game.tileSize - (i * 4), i%2==0 ? color1 : color2);
   };
+
+  for (i = 0; i < 2; i++) {
+    rect((Game.tileSize * 8) + (i * 2), (Game.tileSize * (5 + y)) + (i * 2), (Game.tileSize) - (i * 4),Game.tileSize - (i * 4), i%2==0 ? color3 : color2);
+  };
+  rect((Game.tileSize * 8) + (2 * 2), (Game.tileSize * (5 + y)) + (2 * 2), (Game.tileSize) - (2 * 4),Game.tileSize - (2 * 4), color5);
+  for (i = 2; i < 4; i++) {
+    rect((Game.tileSize * 8) + (i * 4), (Game.tileSize * (5 + y)) + (i * 4), (Game.tileSize) - (i * 8),Game.tileSize - (i * 8), i%2==0 ? color2 : '#ccc');
+  };
+
 
 };
 
@@ -331,6 +341,7 @@ Game.state['death'] = {
   },
   draw: function() {
 
+    Game.c1ctx.textAlign = 'center';
     Game.c1ctx.fillStyle = '#181818';
     Game.c1ctx.font = 'normal 20px arial';
     Game.c1ctx.clearRect(0,0,Game.width, Game.height);

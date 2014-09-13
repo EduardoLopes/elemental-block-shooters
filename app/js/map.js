@@ -146,6 +146,10 @@ MapNode.prototype['enemy'] = function() {
     Game.currentMap.enemies--;
     Game.enemiesKilled++;
 
+    if(randomChoice([true, false, false, false])){
+      this.setModelType(58 + (60 * Game.currentMap.type), 'p')
+    }
+
     if(randomChoice([true, false])){
 
       Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true);

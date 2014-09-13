@@ -10,7 +10,7 @@ Game.weapons['machineGun'] = {
   angleVariationMax: 2,
   quantity: 1,
   speedVariation: [10],
-  damage: 0.6
+  damage: 1
 }
 
 Game.weapons['pistol'] = {
@@ -28,7 +28,7 @@ Game.weapons['pistol'] = {
 
 Game.weapons['revolver'] = {
   size: 10,
-  speed: 8,
+  speed: 26,
   force: 8,
   smoothForce: true,
   timeBetween: 26,
@@ -36,7 +36,7 @@ Game.weapons['revolver'] = {
   angleVariationMax: 0,
   quantity: 1,
   speedVariation: [8],
-  damage: 2
+  damage: 5
 }
 
 Game.weapons['rockedLauncher'] = {
@@ -62,5 +62,5 @@ Game.weapons['shotGun'] = {
   angleVariationMax: 20,
   quantity: 3,
   speedVariation: [8, 10],
-  damage: 0.8
+  damage: 1
 };

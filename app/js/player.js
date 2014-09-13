@@ -17,13 +17,34 @@ Game.Player = function(x,y) {
   this.nextY = this.y;
   this.colliding = [];
   this.health = 10;
-  this.currentWeapon = 'rockedLauncher';
+  this.currentWeapon = 'revolver';
   this.gunForce = {
     x: 0,
     y: 0
   }
 
 };
+
+Game.Player.prototype.setNewWeapon = function (weapons) {
+
+  var weapon = randomChoice(weapons),
+  index = weapons.indexOf(weapon) + 1;
+
+  if(index > weapons.length - 1){
+    index = 0;
+  }
+
+  if(this.currentWeapon === weapon){
+
+    weapon = weapons[index];
+
+  }
+
+  this.currentWeapon = weapon;
+
+}
+
+
 
 Game.Player.prototype.update = function() {
 
@@ -141,6 +162,11 @@ Game.Player.prototype.update = function() {
           this.vx = 0;
 
         }
+
+      } else if(node.type === 'p'){
+
+        this.setNewWeapon(['machineGun', 'rockedLauncher']);
+        node.setModelType(34 + (60 * Game.currentMap.type), 'w');
 
       } else if(node.type === 't' && Game.currentMap.enemies === 0){
 
