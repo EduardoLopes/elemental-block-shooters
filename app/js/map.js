@@ -246,8 +246,6 @@ Game.Map.prototype.room = function(x,y,width,height, type, type2) {
 
 Game.Map.prototype.reset = function() {
 
-  this.type = this.types.indexOf( randomChoice(this.types) );
-
   this.generate();
 
 }
@@ -313,18 +311,26 @@ Game.Map.prototype.generate = function() {
 
 Game.Map.prototype.nextMap = function() {
 
+  Game.mapsCount++;
+
   if(Game.mode === 'survivor'){
     this.generated = false;
+    this.type = this.types.indexOf( randomChoice(this.types) );
     Game.currentState = 'map';
+    Game.mapsCountConfig = Math.max(Game.mapsCount, Game.mapsConfig[Game.mode].length - 1);
   }
 
-  //if(Game.mode === 'arcade'){
-    // this.generated = false;
-    // Game.currentState = 'map';
-  //}
+  if(Game.mode === 'arcade'){
+    this.generated = false;
+    this.type = this.types.indexOf( Game.mapsConfig[Game.mode][Game.mapsCountConfig].mapType );
+    Game.currentState = 'map';
+    Game.mapsCountConfig++;
 
-  Game.mapsCount++;
-  Game.mapsCountConfig = Math.max(Game.mapsCount, Game.mapsConfig[Game.mode].length - 1);
+    if(Game.mapsCountConfig > Game.mapsConfig[Game.mode].length - 1){
+      Game.mapsCountConfig = 0;
+    }
+
+  }
 
 };
 
