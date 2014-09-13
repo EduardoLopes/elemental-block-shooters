@@ -167,12 +167,14 @@ Game.Player.prototype.update = function() {
 
         this.setNewWeapon(Game.mapsConfig[Game.mode][Game.mapsCountConfig].dropWeapons);
         node.setModelType(34 + (60 * Game.currentMap.type), 'w');
+        Game.audio.play('powerup');
 
       } else if(node.type === 't' && Game.currentMap.enemies === 0){
 
         if(distance(this.x + (this.size / 2), this.y + (this.size / 2), (node.x * Game.tileSize) + (Game.tileSize / 2 ), (node.y * Game.tileSize) + (Game.tileSize / 2))<=10){
 
           Game.currentMap.nextMap();
+          Game.audio.play('teleport');
 
         }
 

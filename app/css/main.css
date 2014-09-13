@@ -8,7 +8,7 @@ img{
 
 /*container*/
 #c{
-  border: #3a714a solid 1px;
+  border: #181818 solid 1px;
   position: absolute;
   left: 0;
   top: 0;
@@ -17,7 +17,7 @@ img{
   margin: auto;
   width: 640px;
   height: 384px;
-  background: #CEF3B6;
+  background: #e3e3e3;
   cursor: crosshair;
 
 }

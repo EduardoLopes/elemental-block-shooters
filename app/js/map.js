@@ -6,6 +6,7 @@ types[48] = 'e'; //enemies
 types[56] = 'pz'; //peace zone
 types[57] = 't'; //teleport
 types[34] = 'f'; //floor
+types[58] = 'p'; //powerup
 
 var type = [];
 type['w'] = {
@@ -31,6 +32,11 @@ type['pz'] = {
 type['t'] = {
   typeString: 't',
   defaultIndex: 57,
+  rules: []
+};
+type['p'] = {
+  typeString: 'p',
+  defaultIndex: 58,
   rules: []
 };
 
@@ -94,7 +100,6 @@ pushRules(53, {n: 'w', e: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 pushRules(54, {n: 'w', ne: '!w', e: 'w', se: '!w', s: 'w', sw: 'w', w: 'w', nw: '!w' });
 pushRules(55, {n: 'w', ne: '!w', e: 'w', se: 'w', s: 'w', sw: '!w', w: 'w', nw: '!w' });
 
-
 /**
  * @constructor
  */
@@ -135,7 +140,7 @@ MapNode.prototype.setType = function(type) {
 MapNode.prototype['enemy'] = function() {
 
   this.health-=Game.weapons[Game.player.currentWeapon].damage;
-
+  Game.audio.play('damage');
   Game.currentMap.cameraShake.y += randomChoice([-Game.weapons[Game.player.currentWeapon].force / 2, Game.weapons[Game.player.currentWeapon].force /2 ]);
   Game.currentMap.cameraShake.x += randomChoice([-Game.weapons[Game.player.currentWeapon].force / 2, Game.weapons[Game.player.currentWeapon].force /2 ]);
 
@@ -180,6 +185,7 @@ MapNode.prototype['enemyUpdate'] = function() {
         random((Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMin, (Game.player.y - (Game.currentMap.camera.y + Game.currentMap.cameraShake.y)) + Game.weapons[this.weapon].angleVariationMax )
       );
       Game.particlePool.get((this.x * Game.tileSize) + (Game.tileSize / 4) , (this.y * Game.tileSize) + (Game.tileSize / 4) , angle, Game.weapons[this.weapon].size, randomChoice(Game.weapons[this.weapon].speedVariation), 'enemyBullet', true,  this.i, Game.currentMap.colors[Game.currentMap.type]);
+
     };
 
     Game.currentMap.cameraShake.y += random(-1, 1);
@@ -233,10 +239,14 @@ Game.Map.prototype.room = function(x,y,width,height, type, type2) {
   for (h = x; h < width; h++) {
     for (w = y; w < height; w++) {
 
-      if(type instanceof Array){
-        this.map[this.cols * h + w].setModelType(randomChoice(type), type2);
-      } else {
-        this.map[this.cols * h + w].setModelType(type);
+      if(typeof this.map[this.cols * h + w] !== 'undefined'){
+
+        if(type instanceof Array){
+          this.map[this.cols * h + w].setModelType(randomChoice(type), type2);
+        } else {
+          this.map[this.cols * h + w].setModelType(type);
+        }
+
       }
 
     }
@@ -287,12 +297,8 @@ Game.Map.prototype.generate = function() {
     }
   }
 
-  // this.room(2,2,15,15, 11);
-  // this.room(14,14,25,25, 11);
-
   Game.player.nextX = Game.player.x = this.playerPosition.x = ((this.cols * Game.tileSize) / 2);
   Game.player.nextY = Game.player.y = this.playerPosition.y = ((this.rows * Game.tileSize) / 2);
-
 
   this.room((this.playerPosition.x / Game.tileSize >> 0) - 2, (this.playerPosition.y / Game.tileSize >> 0) - 2, (this.playerPosition.x / Game.tileSize >> 0) + 2, (this.playerPosition.y / Game.tileSize >> 0) + 2, 56);
 

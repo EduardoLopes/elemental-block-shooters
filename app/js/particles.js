@@ -70,6 +70,8 @@ Particles.prototype.checkCollision = function() {
 
             }
 
+            Game.audio.play('damageWall');
+
             this.dead = true;
           }
 
@@ -114,6 +116,7 @@ Particles.prototype['enemyBullet'] = function() {
 
       if(this.intercects(node) && node.solid && node.i !== this.nodeID){
 
+        Game.audio.play('damageWall');
         this.dead = true;
 
         return false;
@@ -131,7 +134,7 @@ Particles.prototype['enemyBullet'] = function() {
     Game.currentMap.cameraShake.x += random(-14, 14);
 
     Game.player.health -= Game.weapons[Game.currentMap.map[this.nodeID].weapon].damage / 2;
-
+    Game.audio.play('damage');
     this.dead = true;
 
     return false;
@@ -151,6 +154,7 @@ Particles.prototype['orb'] = function() {
 
     if(Game.player.intercectsBullet(this)){
       Game.player.health += this.size / 2;
+      Game.audio.play('orb');
       this.dead = true;
     }
 

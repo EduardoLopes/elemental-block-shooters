@@ -195,7 +195,10 @@ Game.state['play'] = {
       for (i = 0; i < Game.weapons[Game.player.currentWeapon].quantity; i++) {
 
         Game.particlePool.get(Game.player.x + ((Game.player.size / 2) - 4), Game.player.y + ((Game.player.size / 2) - 4), Game.mouse.angle, Game.weapons[Game.player.currentWeapon].size, Game.weapons[Game.player.currentWeapon].speed, 'bullet', true, null, '#181818');
+        Game.audio.play(Game.player.currentWeapon);
+
       };
+
       Game.currentMap.cameraShake.y += random(-1, 1);
       Game.currentMap.cameraShake.x += random(-1, 1);
 
@@ -316,8 +319,8 @@ Game.state['menu'] = {
     Game.c1ctx.fillText('SURVIVOR', (Game.width / 2) + Game.width / 4, Game.height / 2);
     Game.c1ctx.fillRect((Game.width / 2) - 1, 0, 2, Game.height);
 
-    Game.c1ctx.font = 'normal 40px arial';
-    Game.c1ctx.fillText('A.W.E.F.', Game.width / 2, 64);
+    Game.c1ctx.font = 'normal 22px arial';
+    Game.c1ctx.fillText('ELEMENTAL BLOCK SHOOTERS', Game.width / 2, 64);
 
     Game.c1ctx.font = 'normal 12px arial';
     Game.c1ctx.textAlign = 'right';
@@ -356,7 +359,7 @@ Game.state['death'] = {
       Game.mapsCount = 0;
       Game.mapsCountConfig = 0;
       Game.arcadeLoop = 0;
-      Game.player.currentWeapon = 'pistol';
+      Game.player.currentWeapon = 'machineGun';
       Game.key.enterPressed = true;
 
     }
@@ -432,9 +435,9 @@ Game.state['map'] = {
       Game.c1ctx.fillText(Game.dots, (Game.width / 2), (Game.height / 2) + 8);
     }
 
-    if(Game.currentMap.generated === true){
-      Game.c1ctx.fillText('PRESS ANY KEY TO START!', (Game.width / 2), Game.height / 2);
-    }
+    // if(Game.currentMap.generated === true){
+    //   Game.c1ctx.fillText('PRESS ANY KEY TO START!', (Game.width / 2), Game.height / 2);
+    // }
 
     Game.c1ctx.font = 'normal 12px arial';
   }
