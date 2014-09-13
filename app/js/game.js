@@ -319,6 +319,10 @@ Game.state['menu'] = {
 
     Game.c1ctx.fillRect((Game.width / 2) - 1, 0, 2, Game.height);
 
+    Game.c1ctx.font = 'normal 12px arial';
+    Game.c1ctx.textAlign = 'right';
+    Game.c1ctx.fillText('Made by @EdoardoLopes', Game.width - 16, Game.height - 16);
+
   }
 };
 
