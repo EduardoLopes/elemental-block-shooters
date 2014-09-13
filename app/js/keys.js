@@ -41,6 +41,36 @@ document.addEventListener('keydown', function(e) {
   }
 
   Game.key.keydown = true;
+  //1
+  if(e.keyCode === 49){
+
+    changeScreenSize(32 * 12, 32 * 12);
+
+  }
+  //2
+  if(e.keyCode === 50){
+
+    changeScreenSize(32 * 16, 32 * 12);
+
+  }
+  //3
+  if(e.keyCode === 51){
+
+    changeScreenSize(32 * 20, 32 * 12);
+
+  }
+  //4
+  if(e.keyCode === 52){
+
+    changeScreenSize(32 * 20, 32 * 16);
+
+  }
+  //5
+  if(e.keyCode === 53){
+
+    changeScreenSize(32 * 20, 32 * 20);
+
+  }
 
 });
 

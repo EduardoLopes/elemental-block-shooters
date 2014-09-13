@@ -623,8 +623,8 @@ Game.Map.prototype.drawTile = function(w, h, type) {
 
 Game.Map.prototype.draw = function() {
 
-  var lastRightCol = ((this.viewport.width + (this.camera.x)) / Game.tileSize) >> 0,
-      lastRightRow = ((this.viewport.height + this.camera.y) / Game.tileSize) >> 0;
+  var lastRightCol = ((Game.width + (this.camera.x)) / Game.tileSize) >> 0,
+      lastRightRow = ((Game.height + this.camera.y) / Game.tileSize) >> 0;
 
   h = (this.camera.y / Game.tileSize) >> 0;
 
