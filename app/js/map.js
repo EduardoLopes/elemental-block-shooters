@@ -125,8 +125,8 @@ MapNode.prototype.setType = function(type) {
   this.typeID = type;
   if(type === 48 || type === 108 || type === 168 || type === 228){
     this.type = 'enemy';
-    this.health = 8;
-    this.weapon = randomChoice(['machineGun', 'shotGun']);
+    this.health = Game.mapsConfig[Game.mode][Game.mapsCountConfig].enemyHealth;
+    this.weapon = randomChoice(Game.mapsConfig[Game.mode][Game.mapsCountConfig].enemyWeapons);
   }
 
   this.solid = Game.solidTiles.indexOf(type) > -1;
@@ -150,7 +150,7 @@ MapNode.prototype['enemy'] = function() {
       this.setModelType(58 + (60 * Game.currentMap.type), 'p')
     }
 
-    if(randomChoice([true, false])){
+    if(randomChoice(Game.mapsConfig[Game.mode][Game.mapsCountConfig].dropProbability)){
 
       Game.particlePool.get(((this.x * Game.tileSize) + (Game.tileSize / 2)), ((this.y * Game.tileSize) + (Game.tileSize / 2)), 4.2, randomChoice([4,4,6,6,10]), 8, 'orb', true, null, 'hsl(120, 10%, 30%)');
 
@@ -255,8 +255,10 @@ Game.Map.prototype.reset = function() {
 Game.Map.prototype.generate = function() {
   this.generated = false;
   Game.peacefulZone = true;
-  this.rows = random(20, 20) >>0;
-  this.cols = random(20, 20) >>0;
+
+  this.rows = random(Game.mapsConfig[Game.mode][Game.mapsCountConfig].rowsMin, Game.mapsConfig[Game.mode][Game.mapsCountConfig].rowsMax) >>0;
+  this.cols = random(Game.mapsConfig[Game.mode][Game.mapsCountConfig].colsMin, Game.mapsConfig[Game.mode][Game.mapsCountConfig].colsMax) >>0;
+
   this.enemies = 0;
 
   for (i = 0; i < Game.particlePool.elements.length; i++) {
@@ -316,12 +318,13 @@ Game.Map.prototype.nextMap = function() {
     Game.currentState = 'map';
   }
 
-  if(Game.mode === 'arcade'){
+  //if(Game.mode === 'arcade'){
     // this.generated = false;
     // Game.currentState = 'map';
-  }
+  //}
 
   Game.mapsCount++;
+  Game.mapsCountConfig = Math.max(Game.mapsCount, Game.mapsConfig[Game.mode].length - 1);
 
 };
 

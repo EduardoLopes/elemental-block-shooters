@@ -151,6 +151,7 @@ Game.init = function() {
 
   Game.enemiesKilled = 0;
   Game.mapsCount = 0;
+  Game.mapsCountConfig = 0;
 
   Game.loop();
 };
@@ -168,6 +169,10 @@ Game.state['play'] = {
 
     if(Game.key.esc){
       Game.currentMap.generated = false;
+      Game.enemiesKilled = 0;
+      Game.mapsCount = 0;
+      Game.mapsCountConfig = 0;
+      Game.player.currentWeapon = 'pistol';
       Game.currentState = 'menu';
     }
 
@@ -333,6 +338,8 @@ Game.state['death'] = {
       Game.currentState = 'menu';
       Game.enemiesKilled = 0;
       Game.mapsCount = 0;
+      Game.mapsCountConfig = 0;
+      Game.player.currentWeapon = 'pistol';
       Game.key.enterPressed = true;
 
     }

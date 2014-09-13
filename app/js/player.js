@@ -165,7 +165,7 @@ Game.Player.prototype.update = function() {
 
       } else if(node.type === 'p'){
 
-        this.setNewWeapon(['machineGun', 'rockedLauncher']);
+        this.setNewWeapon(Game.mapsConfig[Game.mode][Game.mapsCountConfig].dropWeapons);
         node.setModelType(34 + (60 * Game.currentMap.type), 'w');
 
       } else if(node.type === 't' && Game.currentMap.enemies === 0){
