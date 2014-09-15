@@ -323,7 +323,7 @@ Game.Map.prototype.nextMap = function() {
     this.generated = false;
     this.type = this.types.indexOf( randomChoice(this.types) );
     Game.currentState = 'map';
-    Game.mapsCountConfig = Math.max(Game.mapsCount, Game.mapsConfig[Game.mode].length - 1);
+    Game.mapsCountConfig = Math.max(0, Math.min(Game.mapsCount, Game.mapsConfig[Game.mode].length - 1));
   }
 
   if(Game.mode === 'arcade'){
